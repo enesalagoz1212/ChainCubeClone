@@ -22,6 +22,6 @@ namespace ChainCube.Controllers
 				rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, velocityZ);
 			}
 		}
-
+		
 	}
 }

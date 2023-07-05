@@ -1,31 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ChainCube.Managers;
 
 
 namespace ChainCube.Controllers
 {
-    public class PlayerController : MonoBehaviour
-    {
-        public GameObject cubePrefab;
-        public GameObject cubes;
-	
+	public class PlayerController : MonoBehaviour
+	{
+		public GameObject cubePrefab;
+		public GameObject cubes;
+
 		private float _firstTouchX;
 		public float speed;
 		public float _maxX;
 		public float _minX;
+		private void Awake()
+		{
+			
+		}
 
+		private void OnEnable()
+		{
+			GameManager.OnGameStarted += OnGameStarted;
+		}
+		private void OnDisable()
+		{
+			GameManager.OnGameStarted -= OnGameStarted;
+		}
 		void Start()
 		{
 
+
 			
-			CubeInstantiate();
 		}
 
 
 		void Update()
 		{
-			HorizontalMovement();
+			
 		}
 		public void CubeInstantiate()
 		{
@@ -35,14 +48,14 @@ namespace ChainCube.Controllers
 		}
 
 
-		private void HorizontalMovement()
+		public void HorizontalMovement()
 		{
 			if (Input.GetMouseButtonDown(0))
 			{
-				
+
 				_firstTouchX = Input.mousePosition.x;
 			}
-			else if (Input.GetMouseButton(0))
+			if (Input.GetMouseButton(0))
 			{
 				float lastTouch = Input.mousePosition.x;
 
@@ -58,11 +71,15 @@ namespace ChainCube.Controllers
 
 				_firstTouchX = lastTouch;
 			}
-			
+
 
 		}
 
-
+		private void OnGameStarted()
+		{
+			CubeInstantiate();
+		
+		}
 
 
 	}
