@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ChainCube.Controllers;
 
 namespace ChainCube.Managers
 {
@@ -14,10 +15,12 @@ namespace ChainCube.Managers
 
 	public class GameManager : MonoBehaviour
 	{
+		public PlayerController playerController;
 		public static GameManager Instance { get; private set; }
 		public GameState GameState { get; set; }
 
 		public static Action OnGameStarted;
+		public static Action OnGamePlaying;
 		private void Awake()
 		{
 			if (Instance != null && Instance != this)
@@ -45,6 +48,7 @@ namespace ChainCube.Managers
 					OnGameStart();
 					break;
 				case GameState.Playing:
+					OnGamePlaying?.Invoke();
 					break;
 				case GameState.Reset:
 					break;
@@ -52,12 +56,12 @@ namespace ChainCube.Managers
 					break;
 			}
 		}
-
+	
 		private void OnGameStart()
 		{
 			GameState = GameState.Playing;
 			OnGameStarted?.Invoke();
-
+			
 		}
 	}
 
