@@ -1,27 +1,24 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using ChainCube.Controllers;
-using ChainCube.ScriptableObjects;
 
 namespace ChainCube.Managers
 {
 	public enum GameState
 	{
 		Start = 0,
-		Playing = 1,
-		Reset = 2,
+		ThrowAvailable = 1,
+		ThrowWaiting = 2,
+		Reset = 3,
 	}
 
 	public class GameManager : MonoBehaviour
 	{
-		public PlayerController playerController;
 		public static GameManager Instance { get; private set; }
 		public GameState GameState { get; set; }
 
 		public static Action OnGameStarted;
-		public static Action OnGamePlaying;
+		public static Action OnCubeThrown;
+		
 		private void Awake()
 		{
 			if (Instance != null && Instance != this)
@@ -34,36 +31,38 @@ namespace ChainCube.Managers
 			}
 		}
 
-		void Start()
+		private void Start()
 		{
-			GameState = GameState.Start;
+			OnGameStart();
 		}
 
-
-		void Update()
+		private void Update()
 		{
 			switch (GameState)
 			{
-
 				case GameState.Start:
-					OnGameStart();
 					break;
-				case GameState.Playing:
-					OnGamePlaying?.Invoke();
+				case GameState.ThrowAvailable:
+					break;
+				case GameState.ThrowWaiting:
 					break;
 				case GameState.Reset:
 					break;
 				default:
-					break;
+					throw new ArgumentOutOfRangeException();
 			}
 		}
 	
 		private void OnGameStart()
 		{
-			GameState = GameState.Playing;
+			GameState = GameState.Start;
 			OnGameStarted?.Invoke();
-			
+			GameState = GameState.ThrowAvailable;
+		}
+
+		public void ChangeState(GameState gameState)
+		{
+			GameState = gameState;
 		}
 	}
-
 }

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - StartCollider
+  - Cube
   layers:
   - Default
   - TransparentFX

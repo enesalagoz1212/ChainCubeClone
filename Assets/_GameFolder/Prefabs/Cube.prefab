@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5016754885184035055}
   - component: {fileID: 4403321775285664373}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 6725775549570261818}
   - component: {fileID: 6929466402629768080}
   m_Layer: 0
-  m_Name: GameObject (3)
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -357,9 +357,10 @@ GameObject:
   - component: {fileID: 1990589066712628224}
   - component: {fileID: 6041059601262374420}
   - component: {fileID: 275583904}
+  - component: {fileID: -360351156190746697}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Cube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -464,6 +465,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 16
   m_CollisionDetection: 0
+--- !u!114 &-360351156190746697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753355325554688457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeb3af448f31944aab142839b4a251d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cubeTexts:
+  - {fileID: 4403321775285664373}
+  - {fileID: 1262004899906793665}
+  - {fileID: 5360738600987136154}
+  - {fileID: 6929466402629768080}
+  - {fileID: 8178762862489810964}
+  - {fileID: 5509297313693939033}
+  cubeData: {fileID: 0}
 --- !u!1 &1967576621032893176
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,7 +497,7 @@ GameObject:
   - component: {fileID: 4758516112851687202}
   - component: {fileID: 8178762862489810964}
   m_Layer: 0
-  m_Name: GameObject (4)
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -648,7 +669,7 @@ GameObject:
   - component: {fileID: 8490231475910918392}
   - component: {fileID: 5509297313693939033}
   m_Layer: 0
-  m_Name: GameObject (5)
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -820,7 +841,7 @@ GameObject:
   - component: {fileID: 6269148119265994922}
   - component: {fileID: 1262004899906793665}
   m_Layer: 0
-  m_Name: GameObject (1)
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -992,7 +1013,7 @@ GameObject:
   - component: {fileID: 2724294448422221635}
   - component: {fileID: 5360738600987136154}
   m_Layer: 0
-  m_Name: GameObject (2)
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

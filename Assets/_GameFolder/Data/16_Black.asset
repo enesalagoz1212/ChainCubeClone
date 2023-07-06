@@ -10,12 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba38069a193e964428ef624622449469, type: 3}
-  m_Name: Cube2
+  m_Name: 16_Black
   m_EditorClassIdentifier: 
-  numbers: 0200000004000000080000001000000020000000
-  colors:
-  - {r: 0.9150943, g: 0.08126374, b: 0, a: 0}
-  - {r: 0.18730335, g: 0.8962264, b: 0.097232126, a: 0}
-  - {r: 0.06808474, g: 0.09582008, b: 0.8490566, a: 0}
-  - {r: 0.9056604, g: 0.86231476, b: 0.07262372, a: 0}
-  - {r: 0.5849056, g: 0.013794942, b: 0.46377385, a: 0}
+  number: 16
+  color: {r: 0, g: 0, b: 0, a: 1}
