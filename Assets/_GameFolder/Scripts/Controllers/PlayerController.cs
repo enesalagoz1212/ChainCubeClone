@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ChainCube.Managers;
-
+using ChainCube.ScriptableObjects;
+using TMPro;
 
 namespace ChainCube.Controllers
 {
@@ -11,6 +12,9 @@ namespace ChainCube.Controllers
 		public GameObject cubePrefab;
 		public GameObject cubes;
 		private GameObject currentCube;
+		private GameObject lastThrownCube;
+
+	
 
 		private bool isCubeThrown;
 		private float _firstTouchX;
@@ -32,7 +36,7 @@ namespace ChainCube.Controllers
 		}
 		private void Start()
 		{
-			
+
 		}
 
 
@@ -41,7 +45,7 @@ namespace ChainCube.Controllers
 
 			if (isCubeThrown && currentCube == null)
 			{
-				SpawnCube();
+				Invoke("SpawnCube", 1f);
 			}
 
 			HorizontalMovement();
@@ -50,13 +54,31 @@ namespace ChainCube.Controllers
 		}
 		public void SpawnCube()
 		{
+			if (isCubeThrown)
+			{
+				StartCoroutine(DelayedSpawnCube());
+			}
+			else
+			{
+				Vector3 position = new Vector3(0f, 0.35f, -3f);
+				currentCube = Instantiate(cubePrefab, position, Quaternion.identity, cubes.transform);
+				lastThrownCube = currentCube;
+				isCubeThrown = false;
 
-
+				UpdateCubeText();
+			}
+		
+		}
+		private IEnumerator DelayedSpawnCube()
+		{
+			yield return new WaitForSeconds(0.5f);
 			Vector3 position = new Vector3(0f, 0.35f, -3f);
 			currentCube = Instantiate(cubePrefab, position, Quaternion.identity, cubes.transform);
+			lastThrownCube = currentCube;
 			isCubeThrown = false;
-		}
 
+			UpdateCubeText();
+		}
 
 		public void HorizontalMovement()
 		{
@@ -87,25 +109,40 @@ namespace ChainCube.Controllers
 		}
 		public void ThrowCube(float velocityZ)
 		{
-			if (currentCube != null && !isCubeThrown)
+			if (lastThrownCube != null && !isCubeThrown)
 			{
 				Rigidbody rb = currentCube.GetComponent<Rigidbody>();
 				rb.velocity = new Vector3(0, 0, velocityZ);
 				isCubeThrown = true;
-
+				SpawnCube();
 
 			}
 		}
 		private void OnGameStarted()
 		{
 			SpawnCube();
-
+			UpdateCubeText();
 		}
 		private void OnGamePlaying()
 		{
-			//SpawnCube();
+			
 		}
+		private void UpdateCubeText()
+		{
+			TextMeshPro[] textMesh = currentCube.GetComponentsInChildren<TextMeshPro>();
+			if (textMesh != null&& textMesh.Length>0)
+			{
+				int cubeIndex = Random.Range(0, CubeDataManager.Instance.cubeData.numbers.Length);
+				int number = CubeDataManager.Instance.GetNumberIndex(cubeIndex);
+				Color color = CubeDataManager.Instance.GetColorIndex(cubeIndex);
+				foreach (TextMeshPro item in textMesh)
+				{
 
+				    item.text = number.ToString();
+					item.color = Color.white;
+				}
+			}
+		}
 	}
 }
 

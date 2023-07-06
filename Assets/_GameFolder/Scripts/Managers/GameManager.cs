@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ChainCube.Controllers;
+using ChainCube.ScriptableObjects;
 
 namespace ChainCube.Managers
 {
