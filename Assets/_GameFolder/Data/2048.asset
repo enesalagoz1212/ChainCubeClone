@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: CubeColor
-  m_EditorClassIdentifier: Assembly-CSharp::CubeScripttableObject
-  cubeColor: {r: 1, g: 0, b: 0, a: 0}
-  text: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: ba38069a193e964428ef624622449469, type: 3}
+  m_Name: 2048
+  m_EditorClassIdentifier: 
+  number: 2048
+  color: {r: 0.17254902, g: 0.75294125, b: 0.63529414, a: 1}
