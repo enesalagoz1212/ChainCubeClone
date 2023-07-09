@@ -8,4 +8,6 @@ namespace ChainCube.ScriptableObjects
         public int number;
         public Color color;
     }
+
+
 }

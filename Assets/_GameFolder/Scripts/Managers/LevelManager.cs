@@ -11,6 +11,7 @@ namespace ChainCube.Managers
 		public static LevelManager Instance { get; private set; }
 
 		public GameObject cubePrefab;
+	
 		public GameObject cubes;
 
 		public Transform CurrentCubeTransform { get; private set; }
@@ -66,18 +67,14 @@ namespace ChainCube.Managers
 				GameManager.Instance.ChangeState(GameState.ThrowAvailable);
 			});
 		}
-		public void MergeCubes(CubeController cube1,CubeController cube2, Vector3 mergePosition)
+		public void MergeCubes( Vector3 mergePosition)
 		{
-			int newNumber = cube1.cubeData.number + cube2.cubeData.number;
-			CubeData newCubeData = CubeDataManager.Instance.ReturnCubeDataList(newNumber);
 
 			GameObject newCube = Instantiate(cubePrefab, mergePosition + new Vector3(0f, 1f, 0f), Quaternion.identity, cubes.transform);
-
-
 			CubeController newCubeController = newCube.GetComponent<CubeController>();
-			newCubeController.cubeData = newCubeData;
-			newCubeController.CubeCreated();
-
+		
+		
+			newCubeController.MergeCubeCreated();
 		}
 	}
 }
