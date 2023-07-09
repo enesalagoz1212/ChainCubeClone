@@ -29,47 +29,19 @@ namespace ChainCube.Managers
 			return cubeDataArray[randomIndex];
 		}
 
-
-		public int CalculateCubeDataSum()
+		public CubeData ReturnTargetNumberCubeData(int number)
 		{
-			int sum = 0;
-
-			
-			foreach (var cubeData in cubeDataList)
+			for (var i = 0; i < cubeDataList.Count; i++)
 			{
-				sum += cubeData.number;
+				var cubeData = cubeDataList[i];
+				if (cubeData.number == number)
+				{
+					return cubeData;
+				}
 			}
 
-			return sum;
+			return null;
 		}
-		public CubeData ReturnCubeDataList(int sum)
-        {
-            
-
-            switch (sum)
-            {
-                case 4:
-                    Debug.Log("Toplamlarý 4");
-                   
-                    return cubeDataList[0];
-                case 8:
-					Debug.Log("Toplamlarý 8");
-					return cubeDataList[1]; 
-                case 16:
-					Debug.Log("Toplamlarý 16");
-					return cubeDataList[2]; 
-                case 32:
-					Debug.Log("Toplamlarý 32");
-					return cubeDataList[3];
-                case 64:
-					Debug.Log("Toplamlarý 64");
-					return cubeDataList[4]; 
-                default:
-           
-                    return cubeDataList[5];
-            }
-        }
-        
     }
 }
 

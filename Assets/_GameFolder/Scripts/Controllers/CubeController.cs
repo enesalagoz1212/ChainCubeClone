@@ -1,8 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using ChainCube.Managers;
 using ChainCube.ScriptableObjects;
+using ChainCube.Managers;
 using UnityEngine;
 using TMPro;
 
@@ -16,27 +13,21 @@ namespace ChainCube.Controllers
 		private Rigidbody _rigidbody;
 		private MeshRenderer _meshRenderer;
 
-		public bool condition = true;
+		private bool _isCollisionAvailable;
+
 		private void Awake()
 		{
 			_rigidbody = GetComponent<Rigidbody>();
 			_meshRenderer = GetComponent<MeshRenderer>();
-
-
 		}
 
-		public void CubeCreated()
-		{						
-		    cubeData = CubeDataManager.Instance.ReturnRandomCubeData();
-			UpdateCubeText();
-		}
-
-		public void MergeCubeCreated()
+		public void CubeCreated(CubeData createdCubeData)
 		{
-			Debug.Log("condition false");
-			int sum = CubeDataManager.Instance.CalculateCubeDataSum();
-			cubeData = CubeDataManager.Instance.ReturnCubeDataList(sum);
+			cubeData = createdCubeData;
+			UpdateCubeText();
+			_isCollisionAvailable = true;
 		}
+		
 		public void UpdateCubeText()
 		{
 			_meshRenderer.material.color = cubeData.color;
@@ -53,31 +44,36 @@ namespace ChainCube.Controllers
 
 		private void OnCollisionEnter(Collision collision)
 		{
+			if (!_isCollisionAvailable)
+			{
+				return;
+			}
+			
 			if (collision.gameObject.CompareTag("Cube"))
 			{
-				Debug.Log("Cubes collided");
+				// Debug.Log("Cubes collided");
 				var otherCubeController = collision.gameObject.GetComponent<CubeController>();
 				if (otherCubeController != null)
 				{
 					if (cubeData.number == otherCubeController.cubeData.number)
 					{
-
-						var vector = collision.contacts[0].point;
-
-						Debug.Log("Same Cubes collided");
-
-						Destroy(gameObject);
-						Destroy(otherCubeController.gameObject);
-						Debug.Log("Same Cubes collided");
-
+						_isCollisionAvailable = false;
 						
+						var hitPoint = collision.contacts[0].point;
 
+						LevelManager.Instance.OnCubesCollided(this, hitPoint);
+						
 						// LEVEL MANAGER ICINDE MERGE METHODU OLACAK
 						// BIRLESEN KUPLER DESTROY OLCAK, YENISI OLUSACAK
 						// OLUSACAK KUP BIR KADEME USTTEN OLCAK
 					}
 				}
 			}
+		}
+
+		public void DestroyObject()
+		{
+			Destroy(gameObject);
 		}
 	}
 }
