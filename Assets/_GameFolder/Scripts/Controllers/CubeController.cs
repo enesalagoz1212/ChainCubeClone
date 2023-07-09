@@ -70,7 +70,7 @@ namespace ChainCube.Controllers
 						Destroy(otherCubeController.gameObject);
 						Debug.Log("Same Cubes collided");
 
-						LevelManager.Instance.MergeCubes(this, otherCubeController, vector);
+						
 
 						// LEVEL MANAGER ICINDE MERGE METHODU OLACAK
 						// BIRLESEN KUPLER DESTROY OLCAK, YENISI OLUSACAK
