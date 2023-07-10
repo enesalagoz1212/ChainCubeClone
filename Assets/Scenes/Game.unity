@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17652433, g: 0.22094725, b: 0.30325815, a: 1}
+  m_IndirectSpecularColor: {r: 0.17652467, g: 0.22094798, b: 0.30325925, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1406,13 +1406,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 697e31a9ef308f04b95f31fb78a63568, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubeDataArray:
-  - {fileID: 11400000, guid: 177c5eaafb9c16043837ac944e3edf85, type: 2}
-  - {fileID: 11400000, guid: 28a1db3506fc04d6aa8b1fcde1756609, type: 2}
-  - {fileID: 11400000, guid: a9570f7c8507a4b8ca09e62b77f3cafa, type: 2}
+  spawnedCubeDataArrayRandom:
   - {fileID: 11400000, guid: 8872abdff95394404b0112ea8c2d8981, type: 2}
+  - {fileID: 11400000, guid: a9570f7c8507a4b8ca09e62b77f3cafa, type: 2}
+  - {fileID: 11400000, guid: 28a1db3506fc04d6aa8b1fcde1756609, type: 2}
+  - {fileID: 11400000, guid: 177c5eaafb9c16043837ac944e3edf85, type: 2}
   - {fileID: 11400000, guid: a24457db4d3b2284184623474265884f, type: 2}
-  cubeDataList:
+  regeneratedCubeDataList:
+  - {fileID: 11400000, guid: 177c5eaafb9c16043837ac944e3edf85, type: 2}
   - {fileID: 11400000, guid: 28a1db3506fc04d6aa8b1fcde1756609, type: 2}
   - {fileID: 11400000, guid: a9570f7c8507a4b8ca09e62b77f3cafa, type: 2}
   - {fileID: 11400000, guid: 8872abdff95394404b0112ea8c2d8981, type: 2}

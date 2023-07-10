@@ -16,11 +16,11 @@ namespace ChainCube.Managers
 		public GameObject cubePrefab;
 		public GameObject cubes;
 		public Transform CurrentCubeTransform { get; private set; }
-		
+
 		private CubeController _currentCubeController;
 
 		private int _collisionCounter;
-		
+		private List<CubeController> _activeCubes = new List<CubeController>();
 		private void Awake()
 		{
 			if (Instance != null && Instance != this)
@@ -75,16 +75,16 @@ namespace ChainCube.Managers
 		{
 			var cubeData = cubeController.cubeData;
 			var mergeCubeNumber = cubeData.number * 2;
-			
+
 			cubeController.DestroyObject();
 			_collisionCounter++;
-			
+
 			if (_collisionCounter % 2 == 0)
 			{
 				MergeCubes(hitPoint, mergeCubeNumber);
 			}
 		}
-		
+
 		private void MergeCubes(Vector3 hitPos, int cubeNumber)
 		{
 			var cubeObject = Instantiate(cubePrefab, hitPos, Quaternion.identity, cubes.transform);
@@ -92,6 +92,15 @@ namespace ChainCube.Managers
 
 			var cubeData = CubeDataManager.Instance.ReturnTargetNumberCubeData(cubeNumber);
 			cubeController.CubeCreated(cubeData);
+
+			_activeCubes.Add(cubeController);
+			var newCube = cubeController.gameObject;
+			newCube.GetComponent<Rigidbody>().AddForce(Vector3.up * 5, ForceMode.Impulse);
+
+			var torque = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), Random.Range(-1, 1)).normalized;
+			float torqueStrength = Random.Range(0f, 3f);
+			newCube.GetComponent<Rigidbody>().AddTorque(torque *1, ForceMode.Impulse);
+
 		}
 	}
 }

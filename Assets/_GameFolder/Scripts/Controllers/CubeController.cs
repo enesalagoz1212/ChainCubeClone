@@ -27,7 +27,7 @@ namespace ChainCube.Controllers
 			UpdateCubeText();
 			_isCollisionAvailable = true;
 		}
-		
+
 		public void UpdateCubeText()
 		{
 			_meshRenderer.material.color = cubeData.color;
@@ -37,6 +37,14 @@ namespace ChainCube.Controllers
 			}
 		}
 
+		public void SetVelocity(Vector3 velocity)
+		{
+			if (_rigidbody != null)
+			{
+				_rigidbody.velocity = velocity;
+
+			}
+		}
 		public void ThrowCube()
 		{
 			_rigidbody.velocity = new Vector3(0, 0, 13f);
@@ -48,7 +56,7 @@ namespace ChainCube.Controllers
 			{
 				return;
 			}
-			
+
 			if (collision.gameObject.CompareTag("Cube"))
 			{
 				// Debug.Log("Cubes collided");
@@ -58,11 +66,11 @@ namespace ChainCube.Controllers
 					if (cubeData.number == otherCubeController.cubeData.number)
 					{
 						_isCollisionAvailable = false;
-						
+
 						var hitPoint = collision.contacts[0].point;
 
 						LevelManager.Instance.OnCubesCollided(this, hitPoint);
-						
+
 						// LEVEL MANAGER ICINDE MERGE METHODU OLACAK
 						// BIRLESEN KUPLER DESTROY OLCAK, YENISI OLUSACAK
 						// OLUSACAK KUP BIR KADEME USTTEN OLCAK

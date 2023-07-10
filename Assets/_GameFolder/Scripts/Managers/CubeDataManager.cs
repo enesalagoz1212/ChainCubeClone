@@ -2,13 +2,15 @@ using ChainCube.ScriptableObjects;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace ChainCube.Managers
 {
 	public class CubeDataManager : MonoBehaviour
 	{
-		public CubeData[] spawnedCubeDataArrayRandom;//isim deðiþ
+		public CubeData[] spawnedCubeDataArrayRandom;
 
 		public List<CubeData> regeneratedCubeDataList;
+		
 		public static CubeDataManager Instance { get; private set; }
 
 		private void Awake()
