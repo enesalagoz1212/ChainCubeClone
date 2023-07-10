@@ -6,8 +6,9 @@ namespace ChainCube.Managers
 {
 	public class CubeDataManager : MonoBehaviour
 	{
-		public CubeData[] cubeDataArray;
-		public List<CubeData> cubeDataList;
+		public CubeData[] spawnedCubeDataArrayRandom;//isim değiş
+
+		public List<CubeData> regeneratedCubeDataList;
 		public static CubeDataManager Instance { get; private set; }
 
 		private void Awake()
@@ -25,15 +26,15 @@ namespace ChainCube.Managers
 
 		public CubeData ReturnRandomCubeData()
 		{
-			var randomIndex = Random.Range(0, cubeDataArray.Length);
-			return cubeDataArray[randomIndex];
+			var randomIndex = Random.Range(0, spawnedCubeDataArrayRandom.Length);
+			return spawnedCubeDataArrayRandom[randomIndex];
 		}
 
 		public CubeData ReturnTargetNumberCubeData(int number)
 		{
-			for (var i = 0; i < cubeDataList.Count; i++)
+			for (var i = 0; i < regeneratedCubeDataList.Count; i++)
 			{
-				var cubeData = cubeDataList[i];
+				var cubeData = regeneratedCubeDataList[i];
 				if (cubeData.number == number)
 				{
 					return cubeData;
