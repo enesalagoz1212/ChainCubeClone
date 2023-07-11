@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
-public class Cube : MonoBehaviour
+public class CUBE : MonoBehaviour
 {
     public GameObject cubePrefab; 
     public GameObject cubes;
     public Material[] materials;    
-    public int[] numbers;           
+    public int[] numbers;
 
-    void Start()
+	public object Value { get; internal set; }
+
+	void Start()
     {
         StartCoroutine(CubePrefabInstantiate());
     }

@@ -2,6 +2,7 @@ using ChainCube.ScriptableObjects;
 using ChainCube.Managers;
 using UnityEngine;
 using TMPro;
+using ChainCube.Controllers;
 
 namespace ChainCube.Controllers
 {
@@ -14,6 +15,8 @@ namespace ChainCube.Controllers
 		private MeshRenderer _meshRenderer;
 
 		private bool _isCollisionAvailable;
+
+
 
 		private void Awake()
 		{
@@ -61,20 +64,23 @@ namespace ChainCube.Controllers
 			{
 				// Debug.Log("Cubes collided");
 				var otherCubeController = collision.gameObject.GetComponent<CubeController>();
-				if (otherCubeController != null)
+				if (otherCubeController != null && cubeData.number == otherCubeController.cubeData.number)
 				{
-					if (cubeData.number == otherCubeController.cubeData.number)
-					{
-						_isCollisionAvailable = false;
 
-						var hitPoint = collision.contacts[0].point;
+					_isCollisionAvailable = false;
 
-						LevelManager.Instance.OnCubesCollided(this, hitPoint);
+					var hitPoint = collision.contacts[0].point;
 
-						// LEVEL MANAGER ICINDE MERGE METHODU OLACAK
-						// BIRLESEN KUPLER DESTROY OLCAK, YENISI OLUSACAK
-						// OLUSACAK KUP BIR KADEME USTTEN OLCAK
-					}
+					LevelManager.Instance.OnCubesCollided(this, hitPoint);
+
+					int scoreIncrease = cubeData.number;
+					GameManager.Instance.IncreaseGameScore(scoreIncrease);
+					GameManager.Instance.IncreaseRecordScore(scoreIncrease);
+
+					// LEVEL MANAGER ICINDE MERGE METHODU OLACAK
+					// BIRLESEN KUPLER DESTROY OLCAK, YENISI OLUSACAK
+					// OLUSACAK KUP BIR KADEME USTTEN OLCAK
+
 				}
 			}
 		}

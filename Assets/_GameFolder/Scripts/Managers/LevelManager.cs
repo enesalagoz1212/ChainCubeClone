@@ -16,7 +16,7 @@ namespace ChainCube.Managers
 		public GameObject cubePrefab;
 		public GameObject cubes;
 		public Transform CurrentCubeTransform { get; private set; }
-
+		public CubeDataManager cubeDataManager;
 		private CubeController _currentCubeController;
 
 		private int _collisionCounter;
@@ -36,6 +36,7 @@ namespace ChainCube.Managers
 		private void OnEnable()
 		{
 			GameManager.OnGameStarted += OnGameStarted;
+		
 		}
 
 		private void OnDisable()
@@ -97,9 +98,10 @@ namespace ChainCube.Managers
 			var newCube = cubeController.gameObject;
 			newCube.GetComponent<Rigidbody>().AddForce(Vector3.up * 5, ForceMode.Impulse);
 
-			var torque = new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), Random.Range(-1, 1)).normalized;
-			float torqueStrength = Random.Range(0f, 3f);
-			newCube.GetComponent<Rigidbody>().AddTorque(torque *1, ForceMode.Impulse);
+
+			var torque = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+			float torqueStrength = Random.Range(0f, 2f);
+			newCube.GetComponent<Rigidbody>().AddTorque(torque * torqueStrength, ForceMode.Impulse);
 
 		}
 	}
