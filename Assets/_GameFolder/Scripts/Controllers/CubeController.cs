@@ -77,10 +77,19 @@ namespace ChainCube.Controllers
 					GameManager.Instance.IncreaseGameScore(scoreIncrease);
 					GameManager.Instance.IncreaseRecordScore(scoreIncrease);
 
-					// LEVEL MANAGER ICINDE MERGE METHODU OLACAK
-					// BIRLESEN KUPLER DESTROY OLCAK, YENISI OLUSACAK
-					// OLUSACAK KUP BIR KADEME USTTEN OLCAK
 
+					// En yakýn küpü bul ve doðru yönde velocity uygula
+					var nearestCubeController = LevelManager.Instance.ReturnClosestCubeControllerWithSameNumber(this);
+					if (nearestCubeController != null)
+					{
+						Vector3 direction = nearestCubeController.transform.position - transform.position;
+						direction.Normalize();
+
+						float velocityMagnitude = 10f;
+						Vector3 velocity = direction * velocityMagnitude;
+
+						SetVelocity(velocity);
+					}
 				}
 			}
 		}

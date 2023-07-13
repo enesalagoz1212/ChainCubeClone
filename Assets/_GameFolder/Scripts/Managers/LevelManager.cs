@@ -36,7 +36,7 @@ namespace ChainCube.Managers
 		private void OnEnable()
 		{
 			GameManager.OnGameStarted += OnGameStarted;
-		
+
 		}
 
 		private void OnDisable()
@@ -55,7 +55,7 @@ namespace ChainCube.Managers
 			var cubeObject = Instantiate(cubePrefab, CubeSpawnPos, Quaternion.identity, cubes.transform);
 			CurrentCubeTransform = cubeObject.transform;
 			_currentCubeController = cubeObject.GetComponent<CubeController>();
-			
+
 			var cubeData = CubeDataManager.Instance.ReturnRandomCubeData();
 			_currentCubeController.CubeCreated(cubeData);
 		}
@@ -94,7 +94,7 @@ namespace ChainCube.Managers
 		private void MergeCubes(Vector3 hitPos, int cubeNumber)
 		{
 			// REFACTOR THIS CODE
-			
+
 			var cubeObject = Instantiate(cubePrefab, hitPos, Quaternion.identity, cubes.transform);
 			var cubeController = cubeObject.GetComponent<CubeController>();
 
@@ -102,35 +102,31 @@ namespace ChainCube.Managers
 			cubeController.CubeCreated(cubeData);
 
 			_activeCubes.Add(cubeController);
-			
-			// // // // // // // // 
-			
-			var nearestCubeController = ReturnClosestCubeControllerWithSameNumber(cubeController);
-			if (nearestCubeController != null)
-			{
-				// Nearest Cube Found
-			}
-			else
-			{
-				// No Cube Found
-			}
-			
-			// // // // // // // // 
-			
+
 			cubeObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 5, ForceMode.Impulse);
 
-
-			var torque = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-			var torqueStrength = Random.Range(0f, 2f);
-			cubeObject.GetComponent<Rigidbody>().AddTorque(torque * torqueStrength, ForceMode.Impulse);
-			
-			// REFACTOR THIS CODE
+		// REFACTOR THIS CODE
 		}
 
 		public CubeController ReturnClosestCubeControllerWithSameNumber(CubeController cubeController)
 		{
-			
-			return null;
+			CubeController closestCubeController = null;
+			float closestDistance = float.MaxValue;
+			foreach (var activeCube in _activeCubes)
+			{
+				if (activeCube.cubeData.number == cubeController.cubeData.number)
+				{
+					float distance = Vector3.Distance(cubeController.transform.position, activeCube.transform.position);
+					if (distance < closestDistance)
+					{
+						closestDistance = distance;
+						closestCubeController = activeCube;
+					}
+				}
+			}
+
+			return closestCubeController;
+
 		}
 
 		private void DestroyCube(CubeController cubeController)
@@ -144,19 +140,19 @@ namespace ChainCube.Managers
 	}
 }
 
-// private Transform GetClosestEnemy(Transform[] enemies)
-// {
-// 	Transform tMin = null;
-// 	float minDist = Mathf.Infinity;
-// 	Vector3 currentPos = transform.position;
-// 	foreach (Transform t in enemies)
-// 	{
-// 		float dist = Vector3.Distance(t.position, currentPos);
-// 		if (dist < minDist)
-// 		{
-// 			tMin = t;
-// 			minDist = dist;
-// 		}
-// 	}
-// 	return tMin;
-// }
+//private Transform GetClosestEnemy(Transform[] enemies)
+//{
+//	Transform tMin = null;
+//	float minDist = Mathf.Infinity;
+//	Vector3 currentPos = transform.position;
+//	foreach (Transform t in enemies)
+//	{
+//		float dist = Vector3.Distance(t.position, currentPos);
+//		if (dist < minDist)
+//		{
+//			tMin = t;
+//			minDist = dist;
+//		}
+//	}
+//	return tMin;
+//}
