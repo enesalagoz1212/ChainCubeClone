@@ -7,6 +7,7 @@ namespace ChainCube.Managers
 {
     public class InputManager : MonoBehaviour
     {
+        public GameObject cubeReset;
         public float speed;
         public float maxX;
         public float minX;
@@ -60,20 +61,20 @@ namespace ChainCube.Managers
                 var cubePos = cubeTransform.position;
                 cubePos.x = targetPosX;
                 cubeTransform.position = cubePos;
-                
-                ////// 
+               ///// 
 
                 _firstTouchX = lastTouch;
             }
             else if (Input.GetMouseButtonUp(0))
             {
                 LevelManager.Instance.ThrowCube();
+                cubeReset.GetComponent<Renderer>().enabled = true;
             }
-            //
+            
             
             else if(Input.GetMouseButton(0))
             {
-
+                cubeReset.GetComponent<Renderer>().enabled = false;
 
             }
         }

@@ -13,6 +13,7 @@ namespace ChainCube.Managers
 
 	public class GameManager : MonoBehaviour
 	{
+		
 		public static GameManager Instance { get; private set; }
 
 		public const string RecordScorePrefsString = "RecordScore";
@@ -67,6 +68,7 @@ namespace ChainCube.Managers
 
 		private void Start()
 		{
+			
 			OnGameStart();
 		}
 

@@ -25,7 +25,7 @@ namespace ChainCube.Platforms
             if (other.gameObject.CompareTag("Cube"))
             {
                 
-                    GameManager.OnGameReseted?.Invoke();
+                   GameManager.OnGameReseted?.Invoke();
                 
             }
         }

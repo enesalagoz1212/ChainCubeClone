@@ -9,6 +9,7 @@ namespace ChainCube.Managers
 {
 	public class LevelManager : MonoBehaviour
 	{
+	
 		public static LevelManager Instance { get; private set; }
 
 		private static readonly Vector3 CubeSpawnPos = new Vector3(0f, 0.35f, -3f);

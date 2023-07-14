@@ -795,6 +795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34198fbddeebea24ba658e5aead3783b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cube: {fileID: 0}
   gameScore: 0
   recordScore: 0
 --- !u!4 &565835105
@@ -2935,20 +2936,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1042322506785882429, guid: 0454fe0bf1387a740ad2928426b6af0b,
-        type: 3}
-      propertyPath: m_TagString
-      value: StartCollider
-      objectReference: {fileID: 0}
     - target: {fileID: 1636445925807561184, guid: 0454fe0bf1387a740ad2928426b6af0b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.28
-      objectReference: {fileID: 0}
-    - target: {fileID: 1643031919813893174, guid: 0454fe0bf1387a740ad2928426b6af0b,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
+      value: 1.87
       objectReference: {fileID: 0}
     - target: {fileID: 2590717946833940710, guid: 0454fe0bf1387a740ad2928426b6af0b,
         type: 3}
@@ -3010,19 +3001,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Body
       objectReference: {fileID: 0}
-    - target: {fileID: 4291177835442807703, guid: 0454fe0bf1387a740ad2928426b6af0b,
+    - target: {fileID: 8980558107359962537, guid: 0454fe0bf1387a740ad2928426b6af0b,
         type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5162823639456054076, guid: 0454fe0bf1387a740ad2928426b6af0b,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.396
-      objectReference: {fileID: 0}
-    - target: {fileID: 8478770637439863220, guid: 0454fe0bf1387a740ad2928426b6af0b,
-        type: 3}
-      propertyPath: m_Enabled
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
