@@ -36,12 +36,13 @@ namespace ChainCube.Managers
 		private void OnEnable()
 		{
 			GameManager.OnGameStarted += OnGameStarted;
-
+			GameManager.OnGameReseted += OnGameReseted;
 		}
 
 		private void OnDisable()
 		{
 			GameManager.OnGameStarted -= OnGameStarted;
+			GameManager.OnGameReseted -= OnGameReseted;
 		}
 
 		private void OnGameStarted()
@@ -50,7 +51,11 @@ namespace ChainCube.Managers
 			SpawnCube();
 		}
 
-		private void SpawnCube()
+		private void OnGameReseted()
+		{
+			_activeCubes.Clear();
+		}
+		public void SpawnCube()
 		{
 			var cubeObject = Instantiate(cubePrefab, CubeSpawnPos, Quaternion.identity, cubes.transform);
 			CurrentCubeTransform = cubeObject.transform;
@@ -105,7 +110,7 @@ namespace ChainCube.Managers
 
 			cubeObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 5, ForceMode.Impulse);
 
-		// REFACTOR THIS CODE
+			// REFACTOR THIS CODE
 		}
 
 		public CubeController ReturnClosestCubeControllerWithSameNumber(CubeController cubeController)
@@ -137,6 +142,10 @@ namespace ChainCube.Managers
 			}
 			cubeController.DestroyObject();
 		}
+
+		
+
+
 	}
 }
 

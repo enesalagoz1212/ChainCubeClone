@@ -3,6 +3,7 @@ using ChainCube.Managers;
 using UnityEngine;
 using TMPro;
 using ChainCube.Controllers;
+using System;
 
 namespace ChainCube.Controllers
 {
@@ -17,7 +18,7 @@ namespace ChainCube.Controllers
 		private bool _isCollisionAvailable;
 
 
-
+		
 		private void Awake()
 		{
 			_rigidbody = GetComponent<Rigidbody>();
@@ -30,6 +31,8 @@ namespace ChainCube.Controllers
 			UpdateCubeText();
 			_isCollisionAvailable = true;
 		}
+
+		
 
 		public void UpdateCubeText()
 		{
@@ -93,7 +96,7 @@ namespace ChainCube.Controllers
 				}
 			}
 		}
-
+		
 		public void DestroyObject()
 		{
 			Destroy(gameObject);

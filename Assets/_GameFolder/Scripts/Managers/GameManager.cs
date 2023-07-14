@@ -21,6 +21,7 @@ namespace ChainCube.Managers
 
 		public static Action OnGameStarted;
 		public static Action OnCubeThrown;
+		public static Action OnGameReseted;
 		public static Action<int> OnGameScoreIncreased;
 		public static Action<int> OnRecordScoreIncreased;
 
@@ -85,7 +86,6 @@ namespace ChainCube.Managers
 					throw new ArgumentOutOfRangeException();
 			}
 		}
-	
 		private void OnGameStart()
 		{
 			GameState = GameState.Start;
@@ -96,6 +96,15 @@ namespace ChainCube.Managers
 			recordScore = 0;
 		}
 
+		public void OnGameReset()
+		{
+			
+			ChangeState(GameState.Start);
+			OnGameStarted?.Invoke();  
+		
+		}
+
+		
 		public void ChangeState(GameState gameState)
 		{
 			GameState = gameState;
@@ -112,5 +121,6 @@ namespace ChainCube.Managers
 			recordScore += score;
 			OnRecordScoreIncreased?.Invoke(recordScore);
 		}
+
 	}
 }
