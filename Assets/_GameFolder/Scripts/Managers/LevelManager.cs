@@ -22,6 +22,7 @@ namespace ChainCube.Managers
 
 		private int _collisionCounter;
 		private List<CubeController> _activeCubes = new List<CubeController>();
+		
 		private void Awake()
 		{
 			if (Instance != null && Instance != this)
@@ -37,13 +38,13 @@ namespace ChainCube.Managers
 		private void OnEnable()
 		{
 			GameManager.OnGameStarted += OnGameStarted;
-			GameManager.OnGameReseted += OnGameReseted;
+			GameManager.OnGameReset += OnGameReseted;
 		}
 
 		private void OnDisable()
 		{
 			GameManager.OnGameStarted -= OnGameStarted;
-			GameManager.OnGameReseted -= OnGameReseted;
+			GameManager.OnGameReset -= OnGameReseted;
 		}
 
 		private void OnGameStarted()
@@ -56,6 +57,7 @@ namespace ChainCube.Managers
 		{
 			_activeCubes.Clear();
 		}
+		
 		public void SpawnCube()
 		{
 			var cubeObject = Instantiate(cubePrefab, CubeSpawnPos, Quaternion.identity, cubes.transform);
@@ -106,11 +108,10 @@ namespace ChainCube.Managers
 
 			var cubeData = CubeDataManager.Instance.ReturnTargetNumberCubeData(cubeNumber);
 			cubeController.CubeCreated(cubeData);
+			cubeController.OnMergeCubeCreatedCheckSameCube();
 
 			_activeCubes.Add(cubeController);
-
-			cubeObject.GetComponent<Rigidbody>().AddForce(Vector3.up * 5, ForceMode.Impulse);
-
+			
 			// REFACTOR THIS CODE
 		}
 
@@ -120,7 +121,7 @@ namespace ChainCube.Managers
 			float closestDistance = float.MaxValue;
 			foreach (var activeCube in _activeCubes)
 			{
-				if (activeCube.cubeData.number == cubeController.cubeData.number)
+				if (activeCube != cubeController && activeCube.cubeData.number == cubeController.cubeData.number)
 				{
 					float distance = Vector3.Distance(cubeController.transform.position, activeCube.transform.position);
 					if (distance < closestDistance)
@@ -132,7 +133,6 @@ namespace ChainCube.Managers
 			}
 
 			return closestCubeController;
-
 		}
 
 		private void DestroyCube(CubeController cubeController)
@@ -143,10 +143,6 @@ namespace ChainCube.Managers
 			}
 			cubeController.DestroyObject();
 		}
-
-		
-
-
 	}
 }
 

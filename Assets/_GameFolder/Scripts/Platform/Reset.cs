@@ -8,26 +8,12 @@ namespace ChainCube.Platforms
 {
     public class Reset : MonoBehaviour
     {
-       
-        void Start()
-        {
-
-        }
-
-        
-        void Update()
-        {
-
-        }
-
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag("Cube"))
-            {
-                
-                   GameManager.OnGameReseted?.Invoke();
-                
-            }
+            // if (other.gameObject.CompareTag("Cube"))
+            // {
+            //     GameManager.OnGameReset?.Invoke();
+            // }
         }
     }
 }

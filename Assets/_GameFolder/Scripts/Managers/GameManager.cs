@@ -8,7 +8,8 @@ namespace ChainCube.Managers
 		Start = 0,
 		ThrowAvailable = 1,
 		ThrowWaiting = 2,
-		Reset = 3,
+		GameEnd = 3,
+		Reset = 4,
 	}
 
 	public class GameManager : MonoBehaviour
@@ -22,7 +23,7 @@ namespace ChainCube.Managers
 
 		public static Action OnGameStarted;
 		public static Action OnCubeThrown;
-		public static Action OnGameReseted;
+		public static Action OnGameReset;
 		public static Action<int> OnGameScoreIncreased;
 		public static Action<int> OnRecordScoreIncreased;
 
@@ -98,15 +99,12 @@ namespace ChainCube.Managers
 			recordScore = 0;
 		}
 
-		public void OnGameReset()
+		public void OnGameResetAction()
 		{
-			
 			ChangeState(GameState.Start);
-			OnGameStarted?.Invoke();  
-		
+			OnGameStarted?.Invoke();
 		}
 
-		
 		public void ChangeState(GameState gameState)
 		{
 			GameState = gameState;

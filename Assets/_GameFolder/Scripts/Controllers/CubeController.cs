@@ -32,8 +32,27 @@ namespace ChainCube.Controllers
 			_isCollisionAvailable = true;
 		}
 
-		
+		public void OnMergeCubeCreatedCheckSameCube()
+		{
+			// En yakin kupu bul ve dogru yonde velocity uygula
+			var nearestCubeController = LevelManager.Instance.ReturnClosestCubeControllerWithSameNumber(this);
+			if (nearestCubeController != null)
+			{
+				Vector3 direction = nearestCubeController.transform.position - transform.position;
+				direction.Normalize();
 
+				float velocityMagnitude = 2f;
+				var velocity = direction * velocityMagnitude;
+				velocity.y = 2.5f;
+
+				SetVelocity(velocity);
+			}
+			else
+			{
+				_rigidbody.AddForce(Vector3.up * 5, ForceMode.Impulse);
+			}
+		}
+		
 		public void UpdateCubeText()
 		{
 			_meshRenderer.material.color = cubeData.color;
@@ -48,9 +67,9 @@ namespace ChainCube.Controllers
 			if (_rigidbody != null)
 			{
 				_rigidbody.velocity = velocity;
-
 			}
 		}
+		
 		public void ThrowCube()
 		{
 			_rigidbody.velocity = new Vector3(0, 0, 13f);
@@ -69,7 +88,6 @@ namespace ChainCube.Controllers
 				var otherCubeController = collision.gameObject.GetComponent<CubeController>();
 				if (otherCubeController != null && cubeData.number == otherCubeController.cubeData.number)
 				{
-
 					_isCollisionAvailable = false;
 
 					var hitPoint = collision.contacts[0].point;
@@ -79,20 +97,6 @@ namespace ChainCube.Controllers
 					int scoreIncrease = cubeData.number;
 					GameManager.Instance.IncreaseGameScore(scoreIncrease);
 					GameManager.Instance.IncreaseRecordScore(scoreIncrease);
-
-
-					// En yakýn küpü bul ve doðru yönde velocity uygula
-					var nearestCubeController = LevelManager.Instance.ReturnClosestCubeControllerWithSameNumber(this);
-					if (nearestCubeController != null)
-					{
-						Vector3 direction = nearestCubeController.transform.position - transform.position;
-						direction.Normalize();
-
-						float velocityMagnitude = 10f;
-						Vector3 velocity = direction * velocityMagnitude;
-
-						SetVelocity(velocity);
-					}
 				}
 			}
 		}
