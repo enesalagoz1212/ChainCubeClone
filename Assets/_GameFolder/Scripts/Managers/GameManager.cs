@@ -80,8 +80,14 @@ namespace ChainCube.Managers
 				case GameState.Start:
 					break;
 				case GameState.ThrowAvailable:
+					if (Input.GetKeyDown(KeyCode.F))
+					{
+						// Game Failed!
+					}
 					break;
 				case GameState.ThrowWaiting:
+					break;
+				case GameState.GameEnd:
 					break;
 				case GameState.Reset:
 					break;
@@ -89,6 +95,7 @@ namespace ChainCube.Managers
 					throw new ArgumentOutOfRangeException();
 			}
 		}
+		
 		private void OnGameStart()
 		{
 			GameState = GameState.Start;
