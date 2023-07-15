@@ -766,6 +766,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &553791917 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8980558107359962537, guid: 0454fe0bf1387a740ad2928426b6af0b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2590717948402143149}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &565835103
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,7 +801,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34198fbddeebea24ba658e5aead3783b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cube: {fileID: 0}
   gameScore: 0
   recordScore: 0
 --- !u!4 &565835105
@@ -1113,6 +1118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284f563c2bb2743acbefcee558c51285, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cubeReset: {fileID: 553791917}
   speed: 0.5
   maxX: 1.2
   minX: -1.2
@@ -1294,7 +1300,7 @@ RectTransform:
   - {fileID: 1713279160}
   - {fileID: 252587798}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2944,7 +2950,7 @@ PrefabInstance:
     - target: {fileID: 2590717946833940710, guid: 0454fe0bf1387a740ad2928426b6af0b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2590717946833940710, guid: 0454fe0bf1387a740ad2928426b6af0b,
         type: 3}
@@ -3000,6 +3006,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Body
+      objectReference: {fileID: 0}
+    - target: {fileID: 2590717946833940714, guid: 0454fe0bf1387a740ad2928426b6af0b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4291177835442807703, guid: 0454fe0bf1387a740ad2928426b6af0b,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8980558107359962537, guid: 0454fe0bf1387a740ad2928426b6af0b,
         type: 3}
