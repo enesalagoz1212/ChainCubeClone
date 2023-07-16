@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.UI;
 
 namespace ChainCube.Managers
 {
@@ -10,10 +11,16 @@ namespace ChainCube.Managers
     {
         public static UIManager Instance { get; private set; }
 
+        public GameObject endPanel;
         public TextMeshProUGUI scoreText;
         public TextMeshProUGUI recordText;
-        private void Awake()
-        {
+        public Image colorImage;
+        public Image bombImage;
+		
+
+		private void Awake()
+		{
+
             if (Instance == null)
             {
                 Instance = this;
@@ -24,15 +31,22 @@ namespace ChainCube.Managers
             }
         }
 
+
 		private void OnEnable()
 		{
+            GameManager.OnGameStarted += OnGameStart;
             GameManager.OnGameScoreIncreased += OnGameScoreIncreased;
             GameManager.OnRecordScoreIncreased += OnRecordScoreIncreased;
+            GameManager.OnGameEnd += OnGameEnd;
+           
         }
 		private void OnDisable()
 		{
+            GameManager.OnGameStarted -= OnGameStart;
             GameManager.OnGameScoreIncreased -= OnGameScoreIncreased;
             GameManager.OnRecordScoreIncreased -= OnRecordScoreIncreased;
+            GameManager.OnGameEnd -= OnGameEnd;
+           
         }
 
 		
@@ -48,12 +62,12 @@ namespace ChainCube.Managers
         }
         private void UpdateScoreText()
         {
-            scoreText.text = " " + GameManager.Instance.gameScore.ToString();
+            scoreText.text = "Score: " + GameManager.Instance.gameScore.ToString();
         }
 
         private void UptadeRecordText()
 		{
-            recordText.text = "Rekor:  " + GameManager.Instance.recordScore.ToString();
+            recordText.text = "Best Score:  " + GameManager.Instance.recordScore.ToString();
 		}
         private void OnGameScoreIncreased(int score)
         {
@@ -64,6 +78,24 @@ namespace ChainCube.Managers
         {
             UptadeRecordText();
         }
+        private void OnGameStart()
+		{
+            colorImage.gameObject.SetActive(true);
+            bombImage.gameObject.SetActive(true);
+        }
+        public void OnCubeCollidedWithReset()
+        {
+            endPanel.SetActive(true);
+            Destroy(LevelManager.Instance.gameObject);
+        }
+        private void OnGameEnd()
+		{
+            OnCubeCollidedWithReset();
+            colorImage.gameObject.SetActive(false);
+            bombImage.gameObject.SetActive(false);
+		}
+        
+       
 
     }
 }

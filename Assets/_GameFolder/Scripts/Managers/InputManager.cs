@@ -30,7 +30,9 @@ namespace ChainCube.Managers
                 
                 case GameState.ThrowWaiting:
                     break;
-                
+                case GameState.GameEnd:
+                    break;
+
                 case GameState.Reset:
                     break;
                 

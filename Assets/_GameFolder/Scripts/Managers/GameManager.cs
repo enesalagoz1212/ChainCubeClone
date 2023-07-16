@@ -23,6 +23,7 @@ namespace ChainCube.Managers
 
 		public static Action OnGameStarted;
 		public static Action OnCubeThrown;
+		public static Action OnGameEnd;
 		public static Action OnGameReset;
 		public static Action<int> OnGameScoreIncreased;
 		public static Action<int> OnRecordScoreIncreased;
@@ -78,6 +79,7 @@ namespace ChainCube.Managers
 			switch (GameState)
 			{
 				case GameState.Start:
+					
 					break;
 				case GameState.ThrowAvailable:
 					if (Input.GetKeyDown(KeyCode.F))
@@ -88,8 +90,10 @@ namespace ChainCube.Managers
 				case GameState.ThrowWaiting:
 					break;
 				case GameState.GameEnd:
+					OnGameResetAction();
 					break;
 				case GameState.Reset:
+
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -108,10 +112,10 @@ namespace ChainCube.Managers
 
 		public void OnGameResetAction()
 		{
-			ChangeState(GameState.Start);
-			OnGameStarted?.Invoke();
+			ChangeState(GameState.Reset);
+			OnGameReset?.Invoke();
 		}
-
+		 
 		public void ChangeState(GameState gameState)
 		{
 			GameState = gameState;
@@ -128,6 +132,16 @@ namespace ChainCube.Managers
 			recordScore += score;
 			OnRecordScoreIncreased?.Invoke(recordScore);
 		}
+		public void RestartGame()
+		{
+			OnGameStart();
 
+			UIManager.Instance.endPanel.gameObject.SetActive(false);
+
+		}
+		public void QuitGame()
+		{
+			Application.Quit();
+		}
 	}
 }
