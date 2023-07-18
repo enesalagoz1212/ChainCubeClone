@@ -34,7 +34,7 @@ namespace ChainCube.Controllers
 
 		public void OnMergeCubeCreatedCheckSameCube()
 		{
-			// En yakin kupu bul ve dogru yonde velocity uygula
+			
 			var nearestCubeController = LevelManager.Instance.ReturnClosestCubeControllerWithSameNumber(this);
 			if (nearestCubeController != null)
 			{

@@ -14,7 +14,7 @@ namespace ChainCube.Managers
 
 	public class GameManager : MonoBehaviour
 	{
-		
+
 		public static GameManager Instance { get; private set; }
 
 		public const string RecordScorePrefsString = "RecordScore";
@@ -70,7 +70,7 @@ namespace ChainCube.Managers
 
 		private void Start()
 		{
-			
+
 			OnGameStart();
 		}
 
@@ -79,7 +79,7 @@ namespace ChainCube.Managers
 			switch (GameState)
 			{
 				case GameState.Start:
-					
+
 					break;
 				case GameState.ThrowAvailable:
 					if (Input.GetKeyDown(KeyCode.F))
@@ -94,12 +94,19 @@ namespace ChainCube.Managers
 					break;
 				case GameState.Reset:
 
+					InputManager inputManager = FindObjectOfType<InputManager>();
+					if (inputManager != null)
+					{
+						inputManager.isInputEnabled = false;
+						Debug.Log("Eneabled");
+					}
+
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
 		}
-		
+
 		private void OnGameStart()
 		{
 			GameState = GameState.Start;
@@ -114,11 +121,14 @@ namespace ChainCube.Managers
 		{
 			ChangeState(GameState.Reset);
 			OnGameReset?.Invoke();
+
+
 		}
-		 
+
 		public void ChangeState(GameState gameState)
 		{
 			GameState = gameState;
+
 		}
 
 		public void IncreaseGameScore(int score)

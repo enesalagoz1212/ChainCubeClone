@@ -86,7 +86,7 @@ namespace ChainCube.Managers
         public void OnCubeCollidedWithReset()
         {
             endPanel.SetActive(true);
-            Destroy(LevelManager.Instance.gameObject);
+           
         }
         private void OnGameEnd()
 		{

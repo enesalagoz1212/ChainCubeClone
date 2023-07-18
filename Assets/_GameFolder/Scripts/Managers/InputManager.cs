@@ -5,76 +5,84 @@ using UnityEngine;
 
 namespace ChainCube.Managers
 {
-    public class InputManager : MonoBehaviour
-    {
-        public GameObject cubeReset;
-        public float speed;
-        public float maxX;
-        public float minX;
-        
-        private float _firstTouchX;
+	public class InputManager : MonoBehaviour
+	{
+		public GameObject cubeReset;
+		public float speed;
+		public float maxX;
+		public float minX;
 
-        private void Update()
-        {
-            switch (GameManager.Instance.GameState)
-            {
-                case GameState.Start:
-                    break;
-                
-                case GameState.ThrowAvailable:
-                    if (LevelManager.Instance.CurrentCubeTransform != null)
-                    {
-                        HorizontalMovement();
-                    }
-                    break;
-                
-                case GameState.ThrowWaiting:
-                    break;
-                case GameState.GameEnd:
-                    break;
+		private float _firstTouchX;
+		public bool isInputEnabled { get; set; } = true;
+		private void Update()
+		{
+			switch (GameManager.Instance.GameState)
+			{
+				case GameState.Start:
+					break;
 
-                case GameState.Reset:
-                    break;
-                
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
+				case GameState.ThrowAvailable:
+					if (LevelManager.Instance.CurrentCubeTransform != null && isInputEnabled)
+					{
+						HorizontalMovement();
+					}
+					break;
 
-        private void HorizontalMovement()
-        {
-            var cubeTransform = LevelManager.Instance.CurrentCubeTransform;
-            if (Input.GetMouseButtonDown(0))
-            {
-                _firstTouchX = Input.mousePosition.x;
-            }
-            else if (Input.GetMouseButton(0))
-            {
-                float lastTouch = Input.mousePosition.x;
-                float diff = lastTouch - _firstTouchX;
-                
-                ///// 
+				case GameState.ThrowWaiting:
+					break;
+				case GameState.GameEnd:
+					Debug.Log("isInputEnabled=false");
+					isInputEnabled = false;
+					break;
 
-                var targetPosX = cubeTransform.position.x + diff * speed * Time.deltaTime;
-                targetPosX = Mathf.Clamp(targetPosX, minX, maxX);
+				case GameState.Reset:
+					EnabledInput();
+					break;
 
-                // cubeTransform.position = new Vector3(targetPosX, cubeTransform.position.y, cubeTransform.position.z);
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
 
-                var cubePos = cubeTransform.position;
-                cubePos.x = targetPosX;
-                cubeTransform.position = cubePos;
-               ///// 
+		private void HorizontalMovement()
+		{
+			var cubeTransform = LevelManager.Instance.CurrentCubeTransform;
+			if (Input.GetMouseButtonDown(0))
+			{
+				_firstTouchX = Input.mousePosition.x;
+			}
+			else if (Input.GetMouseButton(0))
+			{
+				float lastTouch = Input.mousePosition.x;
+				float diff = lastTouch - _firstTouchX;
 
-                _firstTouchX = lastTouch;
-            }
-            else if (Input.GetMouseButtonUp(0))
-            {
-                LevelManager.Instance.ThrowCube();
-                
-            }
-            
-          
-        }
-    }
+				///// 
+
+				var targetPosX = cubeTransform.position.x + diff * speed * Time.deltaTime;
+				targetPosX = Mathf.Clamp(targetPosX, minX, maxX);
+
+				// cubeTransform.position = new Vector3(targetPosX, cubeTransform.position.y, cubeTransform.position.z);
+
+				var cubePos = cubeTransform.position;
+				cubePos.x = targetPosX;
+				cubeTransform.position = cubePos;
+				///// 
+
+				_firstTouchX = lastTouch;
+			}
+			else if (Input.GetMouseButtonUp(0))
+			{
+				LevelManager.Instance.ThrowCube();
+
+			}
+
+
+		
+		}
+		public void EnabledInput()
+		{
+			isInputEnabled = true;
+		}
+	}
 }
 

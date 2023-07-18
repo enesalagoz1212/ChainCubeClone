@@ -9,7 +9,7 @@ namespace ChainCube.Managers
 {
 	public class LevelManager : MonoBehaviour
 	{
-	   
+
 		public static LevelManager Instance { get; private set; }
 
 		private static readonly Vector3 CubeSpawnPos = new Vector3(0f, 0.35f, -3f);
@@ -21,9 +21,10 @@ namespace ChainCube.Managers
 		public CubeDataManager cubeDataManager;
 		private CubeController _currentCubeController;
 
+		
 		private int _collisionCounter;
 		private List<CubeController> _activeCubes = new List<CubeController>();
-		
+
 		private void Awake()
 		{
 			if (Instance != null && Instance != this)
@@ -58,7 +59,7 @@ namespace ChainCube.Managers
 		}
 		private void OnGameEnd()
 		{
-			
+
 		}
 		private void OnGameReseted()
 		{
@@ -66,10 +67,19 @@ namespace ChainCube.Managers
 			{
 				Destroy(cube.gameObject);
 			}
-			
+
 			_activeCubes.Clear();
-		}
+
+			if (CurrentCubeTransform != null)
+			{
+				Destroy(CurrentCubeTransform.gameObject);
+				CurrentCubeTransform = null;
+			}
+
 		
+
+		}
+
 		public void SpawnCube()
 		{
 			var cubeObject = Instantiate(cubePrefab, CubeSpawnPos, Quaternion.identity, cubes.transform);
@@ -113,11 +123,11 @@ namespace ChainCube.Managers
 
 		public void OnCubeCollidedWithReset(CubeController cubeController)
 		{
-			if (_activeCubes.Contains(cubeController) && cubeController.transform.position.z > endCube.transform.position.z)
+			if (_activeCubes.Contains(cubeController))
 			{
 				GameManager.Instance.ChangeState(GameState.GameEnd);
-				
-				
+
+
 			}
 		}
 		private void MergeCubes(Vector3 hitPos, int cubeNumber)
@@ -132,7 +142,7 @@ namespace ChainCube.Managers
 			cubeController.OnMergeCubeCreatedCheckSameCube();
 
 			_activeCubes.Add(cubeController);
-			
+
 			// REFACTOR THIS CODE
 		}
 
