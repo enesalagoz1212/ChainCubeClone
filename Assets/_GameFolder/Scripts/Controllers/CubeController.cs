@@ -17,12 +17,14 @@ namespace ChainCube.Controllers
 
 		private bool _isCollisionAvailable;
 
+		public Light cubeLight;
 
-		
 		private void Awake()
 		{
 			_rigidbody = GetComponent<Rigidbody>();
 			_meshRenderer = GetComponent<MeshRenderer>();
+			cubeLight = GetComponentInChildren<Light>();
+			cubeLight.enabled = true;
 		}
 
 		public void CubeCreated(CubeData createdCubeData)
@@ -34,7 +36,7 @@ namespace ChainCube.Controllers
 
 		public void OnMergeCubeCreatedCheckSameCube()
 		{
-			
+
 			var nearestCubeController = LevelManager.Instance.ReturnClosestCubeControllerWithSameNumber(this);
 			if (nearestCubeController != null)
 			{
@@ -52,7 +54,7 @@ namespace ChainCube.Controllers
 				_rigidbody.AddForce(Vector3.up * 5, ForceMode.Impulse);
 			}
 		}
-		
+
 		public void UpdateCubeText()
 		{
 			_meshRenderer.material.color = cubeData.color;
@@ -69,10 +71,11 @@ namespace ChainCube.Controllers
 				_rigidbody.velocity = velocity;
 			}
 		}
-		
+
 		public void ThrowCube()
 		{
 			_rigidbody.velocity = new Vector3(0, 0, 13f);
+
 		}
 
 		private void OnCollisionEnter(Collision collision)
@@ -82,9 +85,11 @@ namespace ChainCube.Controllers
 				return;
 			}
 
-			if (collision.gameObject.CompareTag("Cube"))
+			if (collision.gameObject.CompareTag("Cube") || collision.gameObject.CompareTag("Platform"))
 			{
-				// Debug.Log("Cubes collided");
+				cubeLight.enabled = false;
+
+
 				var otherCubeController = collision.gameObject.GetComponent<CubeController>();
 				if (otherCubeController != null && cubeData.number == otherCubeController.cubeData.number)
 				{
@@ -100,9 +105,10 @@ namespace ChainCube.Controllers
 				}
 			}
 		}
-		
+
 		public void DestroyObject()
 		{
+			cubeLight.enabled = false;
 			Destroy(gameObject);
 		}
 	}
