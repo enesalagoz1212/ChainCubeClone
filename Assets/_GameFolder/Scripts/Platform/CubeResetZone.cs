@@ -19,8 +19,8 @@ namespace ChainCube.Platforms
                 {
                     Debug.Log("trigger1");
                     LevelManager.Instance.OnCubeCollidedWithReset(cubeController);
-                    UIManager.Instance.OnCubeCollidedWithReset();
-                   
+
+                    GameManager.OnGameEnd?.Invoke();
                 }
             }
         }

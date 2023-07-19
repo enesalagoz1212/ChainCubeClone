@@ -1201,7 +1201,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9006674633248149129}
   m_LocalRotation: {x: 0.066996634, y: -0, z: -0, w: 0.99775326}
-  m_LocalPosition: {x: 0, y: -0.26, z: -1.46}
+  m_LocalPosition: {x: 0, y: -0.26, z: -0.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1220,10 +1220,10 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 246.2
-  m_Range: 1109.7
-  m_SpotAngle: 14.4
-  m_InnerSpotAngle: 13.2
+  m_Intensity: 6182.4
+  m_Range: 11
+  m_SpotAngle: 14.400002
+  m_InnerSpotAngle: 14.400002
   m_CookieSize: 0
   m_Shadows:
     m_Type: 0
@@ -1259,12 +1259,12 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
+  m_BounceIntensity: 111111110
+  m_ColorTemperature: 2471
+  m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1

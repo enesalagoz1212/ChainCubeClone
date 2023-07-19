@@ -67,7 +67,7 @@ namespace ChainCube.Managers
 
         private void UptadeRecordText()
 		{
-            recordText.text = "Best Score:  " + GameManager.Instance.recordScore.ToString();
+            recordText.text = "Record Score:  " + GameManager.Instance.recordScore.ToString();
 		}
         private void OnGameScoreIncreased(int score)
         {
@@ -80,6 +80,7 @@ namespace ChainCube.Managers
         }
         private void OnGameStart()
 		{
+            Debug.Log("OnGameStart cagirild");
             colorImage.gameObject.SetActive(true);
             bombImage.gameObject.SetActive(true);
         }
@@ -90,6 +91,7 @@ namespace ChainCube.Managers
         }
         private void OnGameEnd()
 		{
+            Debug.Log("OnGameEnd cagirild");
             OnCubeCollidedWithReset();
             colorImage.gameObject.SetActive(false);
             bombImage.gameObject.SetActive(false);

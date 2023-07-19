@@ -11,12 +11,14 @@ namespace ChainCube.Managers
 	{
 
 		public static LevelManager Instance { get; private set; }
-
+		
 		private static readonly Vector3 CubeSpawnPos = new Vector3(0f, 0.35f, -3f);
 
 		public GameObject cubePrefab;
 		public GameObject cubes;
 		public GameObject endCube;
+
+		
 		public Transform CurrentCubeTransform { get; private set; }
 		public CubeDataManager cubeDataManager;
 		private CubeController _currentCubeController;
@@ -35,13 +37,15 @@ namespace ChainCube.Managers
 			{
 				Instance = this;
 			}
+
+			
 		}
 
 		private void OnEnable()
 		{
 			GameManager.OnGameStarted += OnGameStarted;
 			GameManager.OnGameReset += OnGameReseted;
-			GameManager.OnGameEnd += OnGameEnd;
+			
 
 		}
 
@@ -49,7 +53,7 @@ namespace ChainCube.Managers
 		{
 			GameManager.OnGameStarted -= OnGameStarted;
 			GameManager.OnGameReset -= OnGameReseted;
-			GameManager.OnGameEnd -= OnGameEnd;
+			
 		}
 
 		private void OnGameStarted()
@@ -57,10 +61,7 @@ namespace ChainCube.Managers
 			_collisionCounter = 0;
 			SpawnCube();
 		}
-		private void OnGameEnd()
-		{
-
-		}
+	
 		private void OnGameReseted()
 		{
 			foreach (var cube in _activeCubes)
@@ -118,6 +119,7 @@ namespace ChainCube.Managers
 			if (_collisionCounter % 2 == 0)
 			{
 				MergeCubes(hitPoint, mergeCubeNumber);
+				
 			}
 		}
 
@@ -126,8 +128,8 @@ namespace ChainCube.Managers
 			if (_activeCubes.Contains(cubeController))
 			{
 				GameManager.Instance.ChangeState(GameState.GameEnd);
-
-
+				
+			
 			}
 		}
 		private void MergeCubes(Vector3 hitPos, int cubeNumber)
@@ -176,22 +178,7 @@ namespace ChainCube.Managers
 			}
 			cubeController.DestroyObject();
 		}
+
+		
 	}
 }
-
-//private Transform GetClosestEnemy(Transform[] enemies)
-//{
-//	Transform tMin = null;
-//	float minDist = Mathf.Infinity;
-//	Vector3 currentPos = transform.position;
-//	foreach (Transform t in enemies)
-//	{
-//		float dist = Vector3.Distance(t.position, currentPos);
-//		if (dist < minDist)
-//		{
-//			tMin = t;
-//			minDist = dist;
-//		}
-//	}
-//	return tMin;
-//}

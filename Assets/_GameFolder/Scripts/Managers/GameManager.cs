@@ -120,7 +120,9 @@ namespace ChainCube.Managers
 				EnableInputManager();
 			});
 		}
-
+		
+		
+	
 		public void OnGameResetAction()
 		{
 			ChangeState(GameState.Reset);
