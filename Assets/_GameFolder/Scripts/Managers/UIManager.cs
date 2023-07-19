@@ -53,6 +53,7 @@ namespace ChainCube.Managers
 		void Start()
         {
             UpdateScoreText();
+            UptadeRecordText();
         }
 
   
@@ -60,12 +61,12 @@ namespace ChainCube.Managers
         {
 
         }
-        private void UpdateScoreText()
+        public void UpdateScoreText()
         {
             scoreText.text = "Score: " + GameManager.Instance.gameScore.ToString();
         }
 
-        private void UptadeRecordText()
+        public void UptadeRecordText()
 		{
             recordText.text = "Record Score:  " + GameManager.Instance.recordScore.ToString();
 		}
@@ -80,7 +81,7 @@ namespace ChainCube.Managers
         }
         private void OnGameStart()
 		{
-            Debug.Log("OnGameStart cagirild");
+            Debug.Log("OnGameStart cagirildi");
             colorImage.gameObject.SetActive(true);
             bombImage.gameObject.SetActive(true);
         }
@@ -91,7 +92,7 @@ namespace ChainCube.Managers
         }
         private void OnGameEnd()
 		{
-            Debug.Log("OnGameEnd cagirild");
+            Debug.Log("OnGameEnd cagirildi");
             OnCubeCollidedWithReset();
             colorImage.gameObject.SetActive(false);
             bombImage.gameObject.SetActive(false);

@@ -75,6 +75,7 @@ namespace ChainCube.Managers
 		{
 
 			OnGameStart();
+			recordScore = PlayerPrefs.GetInt(RecordScorePrefsString);
 		}
 
 		private void Update()
@@ -110,9 +111,13 @@ namespace ChainCube.Managers
 			OnGameStarted?.Invoke();
 			GameState = GameState.ThrowAvailable;
 
-
+			
+			
 			gameScore = 0;
-			recordScore = 0;
+			//if (gameScore>recordScore)
+			//{
+			//	recordScore = gameScore;
+			//}
 
 			DOVirtual.DelayedCall(1f, () =>
 			{
@@ -143,11 +148,19 @@ namespace ChainCube.Managers
 		{
 			gameScore += score;
 
+			if (gameScore > recordScore)
+			{
+				recordScore = gameScore;
+				UIManager.Instance.UpdateScoreText();
+			}
+
 			OnGameScoreIncreased?.Invoke(gameScore);
 		}
 		public void IncreaseRecordScore(int score)
 		{
+			score = 0;
 			recordScore += score;
+			PlayerPrefs.SetInt(RecordScorePrefsString, recordScore);
 			OnRecordScoreIncreased?.Invoke(recordScore);
 		}
 		public void RestartGame()
