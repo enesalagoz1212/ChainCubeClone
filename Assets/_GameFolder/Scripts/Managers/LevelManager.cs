@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using ChainCube.ScriptableObjects;
 using ChainCube.Managers;
+using System.Collections;
 
 namespace ChainCube.Managers
 {
@@ -18,12 +19,14 @@ namespace ChainCube.Managers
 		public GameObject cubes;
 		public GameObject endCube;
 
-		
+		//public ParticleSystem mergeParticlePrefab;
 		public Transform CurrentCubeTransform { get; private set; }
 		public CubeDataManager cubeDataManager;
 		private CubeController _currentCubeController;
 
-		
+		public ParticleSystem mergeParticlePrefab;
+	
+
 		private int _collisionCounter;
 		private List<CubeController> _activeCubes = new List<CubeController>();
 
@@ -40,7 +43,9 @@ namespace ChainCube.Managers
 
 			
 		}
-
+		private void Start()
+		{
+		}
 		private void OnEnable()
 		{
 			GameManager.OnGameStarted += OnGameStarted;
@@ -77,7 +82,7 @@ namespace ChainCube.Managers
 				CurrentCubeTransform = null;
 			}
 
-		
+			
 
 		}
 
@@ -138,18 +143,31 @@ namespace ChainCube.Managers
 
 			var cubeObject = Instantiate(cubePrefab, hitPos, Quaternion.identity, cubes.transform);
 			var cubeController = cubeObject.GetComponent<CubeController>();
-
+		
 			cubeController.cubeLight.enabled = false;
 			var cubeData = CubeDataManager.Instance.ReturnTargetNumberCubeData(cubeNumber);
 			cubeController.CubeCreated(cubeData);
 			cubeController.OnMergeCubeCreatedCheckSameCube();
 
+			GameObject mergeParticleObject = Instantiate(mergeParticlePrefab.gameObject, hitPos+Vector3.up, Quaternion.identity, cubes.transform);
+			ParticleSystem mergeParticle = mergeParticleObject.GetComponent<ParticleSystem>();
+			mergeParticle.Play();
+
+			StartCoroutine(MergeParticleEffect(mergeParticleObject, 1f));
 
 			_activeCubes.Add(cubeController);
 
 			// REFACTOR THIS CODE
 		}
 
+		private IEnumerator MergeParticleEffect(GameObject particleObject, float delay)
+		{
+			yield return new WaitForSeconds(delay);
+			
+			ParticleSystem mergeParticle = particleObject.GetComponent<ParticleSystem>();
+			mergeParticle.Stop();
+			Destroy(particleObject);
+		}
 		public CubeController ReturnClosestCubeControllerWithSameNumber(CubeController cubeController)
 		{
 			CubeController closestCubeController = null;
@@ -169,7 +187,7 @@ namespace ChainCube.Managers
 
 			return closestCubeController;
 		}
-
+		
 		private void DestroyCube(CubeController cubeController)
 		{
 			if (_activeCubes.Contains(cubeController))
