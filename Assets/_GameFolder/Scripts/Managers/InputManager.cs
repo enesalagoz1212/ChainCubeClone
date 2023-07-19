@@ -13,12 +13,13 @@ namespace ChainCube.Managers
 		public float minX;
 
 		private float _firstTouchX;
-		public bool isInputEnabled { get; set; } = true;
+		public bool isInputEnabled { get; private set; } = true;
 		private void Update()
 		{
 			switch (GameManager.Instance.GameState)
 			{
 				case GameState.Start:
+					EnabledInput();
 					break;
 
 				case GameState.ThrowAvailable:
@@ -29,14 +30,16 @@ namespace ChainCube.Managers
 					break;
 
 				case GameState.ThrowWaiting:
+					
+					
 					break;
 				case GameState.GameEnd:
 					Debug.Log("isInputEnabled=false");
-					isInputEnabled = false;
+					DisableInput();
 					break;
 
 				case GameState.Reset:
-					EnabledInput();
+					DisableInput();
 					break;
 
 				default:
@@ -67,7 +70,7 @@ namespace ChainCube.Managers
 				cubePos.x = targetPosX;
 				cubeTransform.position = cubePos;
 				///// 
-
+				
 				_firstTouchX = lastTouch;
 			}
 			else if (Input.GetMouseButtonUp(0))
@@ -75,13 +78,16 @@ namespace ChainCube.Managers
 				LevelManager.Instance.ThrowCube();
 
 			}
-
-
-		
+	
 		}
+	
 		public void EnabledInput()
 		{
 			isInputEnabled = true;
+		}
+		public void DisableInput()
+		{
+			isInputEnabled = false;
 		}
 	}
 }

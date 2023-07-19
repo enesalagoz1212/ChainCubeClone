@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using DG.Tweening;
 
 namespace ChainCube.Managers
 {
@@ -27,6 +28,8 @@ namespace ChainCube.Managers
 		public static Action OnGameReset;
 		public static Action<int> OnGameScoreIncreased;
 		public static Action<int> OnRecordScoreIncreased;
+
+
 
 		public int gameScore;
 		public int recordScore;
@@ -94,13 +97,7 @@ namespace ChainCube.Managers
 					break;
 				case GameState.Reset:
 
-					InputManager inputManager = FindObjectOfType<InputManager>();
-					if (inputManager != null)
-					{
-						inputManager.isInputEnabled = false;
-						Debug.Log("Eneabled");
-					}
-
+					
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -113,8 +110,15 @@ namespace ChainCube.Managers
 			OnGameStarted?.Invoke();
 			GameState = GameState.ThrowAvailable;
 
+
 			gameScore = 0;
 			recordScore = 0;
+
+			DOVirtual.DelayedCall(1f, () =>
+			{
+
+				EnableInputManager();
+			});
 		}
 
 		public void OnGameResetAction()
@@ -123,6 +127,8 @@ namespace ChainCube.Managers
 			OnGameReset?.Invoke();
 
 
+			
+			
 		}
 
 		public void ChangeState(GameState gameState)
@@ -144,14 +150,24 @@ namespace ChainCube.Managers
 		}
 		public void RestartGame()
 		{
+			
 			OnGameStart();
 
 			UIManager.Instance.endPanel.gameObject.SetActive(false);
+
 
 		}
 		public void QuitGame()
 		{
 			Application.Quit();
+		}
+		public void EnableInputManager()
+		{
+			InputManager inputManager = FindObjectOfType<InputManager>();
+			if (inputManager != null)
+			{
+				inputManager.EnabledInput();
+			}
 		}
 	}
 }

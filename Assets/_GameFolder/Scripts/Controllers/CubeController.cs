@@ -9,6 +9,8 @@ namespace ChainCube.Controllers
 {
 	public class CubeController : MonoBehaviour
 	{
+		
+
 		public TextMeshPro[] cubeTexts;
 		public CubeData cubeData;
 
@@ -18,13 +20,14 @@ namespace ChainCube.Controllers
 		private bool _isCollisionAvailable;
 
 		public Light cubeLight;
-
+		
 		private void Awake()
 		{
 			_rigidbody = GetComponent<Rigidbody>();
 			_meshRenderer = GetComponent<MeshRenderer>();
 			cubeLight = GetComponentInChildren<Light>();
 			cubeLight.enabled = true;
+			
 		}
 
 		public void CubeCreated(CubeData createdCubeData)
@@ -45,13 +48,13 @@ namespace ChainCube.Controllers
 
 				float velocityMagnitude = 2f;
 				var velocity = direction * velocityMagnitude;
-				velocity.y = 2.5f;
+				velocity.y = 5f;
 
 				SetVelocity(velocity);
 			}
 			else
 			{
-				_rigidbody.AddForce(Vector3.up * 5, ForceMode.Impulse);
+				_rigidbody.AddForce(Vector3.up * 7, ForceMode.VelocityChange);
 			}
 		}
 
@@ -102,10 +105,12 @@ namespace ChainCube.Controllers
 					int scoreIncrease = cubeData.number;
 					GameManager.Instance.IncreaseGameScore(scoreIncrease);
 					GameManager.Instance.IncreaseRecordScore(scoreIncrease);
+					
 				}
 			}
 		}
-
+	
+	
 		public void DestroyObject()
 		{
 			cubeLight.enabled = false;
