@@ -29,8 +29,6 @@ namespace ChainCube.Managers
 		public static Action<int> OnGameScoreIncreased;
 		public static Action<int> OnRecordScoreIncreased;
 
-
-
 		public int gameScore;
 		public int recordScore;
 

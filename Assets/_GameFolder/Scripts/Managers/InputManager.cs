@@ -1,14 +1,11 @@
 using DG.Tweening;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace ChainCube.Managers
 {
 	public class InputManager : MonoBehaviour
 	{
-		public GameObject cubeReset;
 		public float speed;
 		public float maxX;
 		public float minX;
@@ -22,6 +19,7 @@ namespace ChainCube.Managers
 			GameManager.OnGameEnd += OnGameEnd;
 			GameManager.OnGameReset += OnGameReset;
 		}
+		
 		private void OnDisable()
 		{
 			GameManager.OnGameStarted -= OnGameStart;
@@ -29,14 +27,12 @@ namespace ChainCube.Managers
 			GameManager.OnGameReset -= OnGameReset;
 			
 		}
-
-
+		
 		private void Update()
 		{
 			switch (GameManager.Instance.GameState)
 			{
 				case GameState.Start:
-					
 					break;
 
 				case GameState.ThrowAvailable:
@@ -47,21 +43,19 @@ namespace ChainCube.Managers
 					break;
 
 				case GameState.ThrowWaiting:
-					
-					
 					break;
+				
 				case GameState.GameEnd:
-					
 					break;
 
 				case GameState.Reset:
-					
 					break;
 
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
 		}
+		
 		private void OnGameStart()
 		{
 			DOVirtual.DelayedCall(1f, () =>
@@ -70,6 +64,7 @@ namespace ChainCube.Managers
 				EnabledInput();
 			});
 		}
+		
 		private void OnGameEnd()
 		{
 			Debug.Log("isInputEnabled=false");
@@ -80,6 +75,7 @@ namespace ChainCube.Managers
 		{
 			DisableInput();
 		}
+		
 		private void HorizontalMovement()
 		{
 			var cubeTransform = LevelManager.Instance.CurrentCubeTransform;
@@ -109,19 +105,17 @@ namespace ChainCube.Managers
 			else if (Input.GetMouseButtonUp(0))
 			{
 				LevelManager.Instance.ThrowCube();
-
 			}
-	
 		}
 	
 		public void EnabledInput()
 		{
 			isInputEnabled = true;
 		}
+		
 		public void DisableInput()
 		{
 			isInputEnabled = false;
 		}
 	}
 }
-

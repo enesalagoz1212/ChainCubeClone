@@ -31,8 +31,7 @@ namespace ChainCube.Managers
             }
         }
 
-
-		private void OnEnable()
+        private void OnEnable()
 		{
             GameManager.OnGameStarted += OnGameStart;
             GameManager.OnGameScoreIncreased += OnGameScoreIncreased;
@@ -56,11 +55,6 @@ namespace ChainCube.Managers
             UptadeRecordText();
         }
 
-  
-        void Update()
-        {
-
-        }
         public void UpdateScoreText()
         {
             scoreText.text = "Score: " + GameManager.Instance.gameScore.ToString();
