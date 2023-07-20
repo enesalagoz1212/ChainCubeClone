@@ -4,19 +4,19 @@ using UnityEngine;
 using TMPro;
 using ChainCube.Controllers;
 using System;
+using DG.Tweening;
 
 namespace ChainCube.Controllers
 {
 	public class CubeController : MonoBehaviour
 	{
-		
-
 		public TextMeshPro[] cubeTexts;
 		public CubeData cubeData;
 
 		private Rigidbody _rigidbody;
 		private MeshRenderer _meshRenderer;
 
+		public bool IsEndTriggerAvailable { get; set; }
 		private bool _isCollisionAvailable;
 
 		public Light cubeLight;
@@ -27,7 +27,6 @@ namespace ChainCube.Controllers
 			_meshRenderer = GetComponent<MeshRenderer>();
 			cubeLight = GetComponentInChildren<Light>();
 			cubeLight.enabled = true;
-			
 		}
 
 		public void CubeCreated(CubeData createdCubeData)
@@ -35,11 +34,11 @@ namespace ChainCube.Controllers
 			cubeData = createdCubeData;
 			UpdateCubeText();
 			_isCollisionAvailable = true;
+			IsEndTriggerAvailable = false;
 		}
 
 		public void OnMergeCubeCreatedCheckSameCube()
 		{
-
 			var nearestCubeController = LevelManager.Instance.ReturnClosestCubeControllerWithSameNumber(this);
 			if (nearestCubeController != null)
 			{
@@ -56,6 +55,8 @@ namespace ChainCube.Controllers
 			{
 				_rigidbody.AddForce(Vector3.up * 7, ForceMode.VelocityChange);
 			}
+
+			IsEndTriggerAvailable = true;
 		}
 
 		public void UpdateCubeText()
@@ -78,7 +79,11 @@ namespace ChainCube.Controllers
 		public void ThrowCube()
 		{
 			_rigidbody.velocity = new Vector3(0, 0, 13f);
-
+			
+			DOVirtual.DelayedCall(1f, () =>
+			{
+				IsEndTriggerAvailable = true;
+			});
 		}
 
 		private void OnCollisionEnter(Collision collision)

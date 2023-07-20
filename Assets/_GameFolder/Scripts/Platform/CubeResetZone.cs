@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,23 +9,62 @@ namespace ChainCube.Platforms
 {
     public class CubeResetZone : MonoBehaviour
     {
-		
-		private void OnTriggerEnter(Collider other)
+        public BoxCollider boxCollider;
+        
+        private void OnEnable()
+        {
+            GameManager.OnGameStarted += OnGameStart;
+            GameManager.OnGameEnd += OnGameEnd;
+            GameManager.OnGameReset += OnGameReset;
+        }
+        private void OnDisable()
+        {
+            GameManager.OnGameStarted -= OnGameStart;
+            GameManager.OnGameEnd -= OnGameEnd;
+            GameManager.OnGameReset -= OnGameReset;
+        }
+
+        private void OnGameStart()
+        {
+            boxCollider.enabled = true;
+        }
+        
+        private void OnGameEnd()
+        {
+            boxCollider.enabled = false;
+        }
+        
+        private void OnGameReset()
+        {
+            boxCollider.enabled = true;
+        }
+
+        private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("Cube"))
             {
-                Debug.Log("trigger");
                 CubeController cubeController = other.GetComponent<CubeController>();
-                if (cubeController != null && cubeController.transform.position.z > transform.position.z)
-                {
-                    Debug.Log("trigger1");
-                    LevelManager.Instance.OnCubeCollidedWithReset(cubeController);
+                OnCubeTriggered(cubeController);
+            }
+        }
 
-                    GameManager.OnGameEnd?.Invoke();
-                    
-                }
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.gameObject.CompareTag("Cube"))
+            {
+                CubeController cubeController = other.GetComponent<CubeController>();
+                OnCubeTriggered(cubeController);
+            }
+        }
+
+        private void OnCubeTriggered(CubeController cubeController)
+        {
+            if (cubeController != null && cubeController.IsEndTriggerAvailable)
+            {
+                Debug.Log("trigger1");
+                cubeController.IsEndTriggerAvailable = false;
+                LevelManager.Instance.OnCubeCollidedWithReset(cubeController);
             }
         }
     }
 }
-

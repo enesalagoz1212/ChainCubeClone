@@ -89,15 +89,14 @@ namespace ChainCube.Managers
 					if (Input.GetKeyDown(KeyCode.F))
 					{
 						// Game Failed!
+						EndGame();
 					}
 					break;
 				case GameState.ThrowWaiting:
 					break;
 				case GameState.GameEnd:
-					OnGameResetAction();
 					break;
 				case GameState.Reset:
-
 					
 					break;
 				default:
@@ -110,29 +109,30 @@ namespace ChainCube.Managers
 			GameState = GameState.Start;
 			OnGameStarted?.Invoke();
 			GameState = GameState.ThrowAvailable;
-
-			
-			
-			gameScore = 0;
-					
+			gameScore = 0; 
 		}
-		
-	
-	
+
+		public void EndGame()
+		{
+			ChangeState(GameState.GameEnd);
+			OnGameEnd?.Invoke();
+		}
+
 		public void OnGameResetAction()
 		{
 			ChangeState(GameState.Reset);
 			OnGameReset?.Invoke();
 
-
-			
-			
+			DOVirtual.DelayedCall(0.2f, () =>
+			{
+				OnGameStart();
+				UIManager.Instance.endPanel.gameObject.SetActive(false);
+			});
 		}
 
 		public void ChangeState(GameState gameState)
 		{
 			GameState = gameState;
-
 		}
 
 		public void IncreaseGameScore(int score)
@@ -147,6 +147,7 @@ namespace ChainCube.Managers
 
 			OnGameScoreIncreased?.Invoke(gameScore);
 		}
+		
 		public void IncreaseRecordScore(int score)
 		{
 			score = 0;
@@ -154,15 +155,12 @@ namespace ChainCube.Managers
 			PlayerPrefs.SetInt(RecordScorePrefsString, recordScore);
 			OnRecordScoreIncreased?.Invoke(recordScore);
 		}
+		
 		public void RestartGame()
 		{
-			
-			OnGameStart();
-
-			UIManager.Instance.endPanel.gameObject.SetActive(false);
-
-
+			OnGameResetAction();
 		}
+		
 		public void QuitGame()
 		{
 			Application.Quit();
