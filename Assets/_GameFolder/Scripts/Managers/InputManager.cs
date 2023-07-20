@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,12 +15,28 @@ namespace ChainCube.Managers
 
 		private float _firstTouchX;
 		public bool isInputEnabled { get; private set; } = true;
+
+		private void OnEnable()
+		{
+			GameManager.OnGameStarted += OnGameStart;
+			GameManager.OnGameEnd += OnGameEnd;
+			GameManager.OnGameReset += OnGameReset;
+		}
+		private void OnDisable()
+		{
+			GameManager.OnGameStarted -= OnGameStart;
+			GameManager.OnGameEnd -= OnGameEnd;
+			GameManager.OnGameReset -= OnGameReset;
+			
+		}
+
+
 		private void Update()
 		{
 			switch (GameManager.Instance.GameState)
 			{
 				case GameState.Start:
-					EnabledInput();
+					
 					break;
 
 				case GameState.ThrowAvailable:
@@ -34,19 +51,35 @@ namespace ChainCube.Managers
 					
 					break;
 				case GameState.GameEnd:
-					Debug.Log("isInputEnabled=false");
-					DisableInput();
+					
 					break;
 
 				case GameState.Reset:
-					DisableInput();
+					
 					break;
 
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
 		}
+		private void OnGameStart()
+		{
+			DOVirtual.DelayedCall(1f, () =>
+			{
 
+				EnabledInput();
+			});
+		}
+		private void OnGameEnd()
+		{
+			Debug.Log("isInputEnabled=false");
+			DisableInput();
+		}
+
+		private void OnGameReset()
+		{
+			DisableInput();
+		}
 		private void HorizontalMovement()
 		{
 			var cubeTransform = LevelManager.Instance.CurrentCubeTransform;

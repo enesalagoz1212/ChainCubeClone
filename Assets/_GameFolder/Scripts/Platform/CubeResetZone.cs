@@ -21,6 +21,7 @@ namespace ChainCube.Platforms
                     LevelManager.Instance.OnCubeCollidedWithReset(cubeController);
 
                     GameManager.OnGameEnd?.Invoke();
+                    
                 }
             }
         }

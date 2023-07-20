@@ -114,19 +114,10 @@ namespace ChainCube.Managers
 			
 			
 			gameScore = 0;
-			//if (gameScore>recordScore)
-			//{
-			//	recordScore = gameScore;
-			//}
-
-			DOVirtual.DelayedCall(1f, () =>
-			{
-
-				EnableInputManager();
-			});
+					
 		}
 		
-		
+	
 	
 		public void OnGameResetAction()
 		{
@@ -176,13 +167,6 @@ namespace ChainCube.Managers
 		{
 			Application.Quit();
 		}
-		public void EnableInputManager()
-		{
-			InputManager inputManager = FindObjectOfType<InputManager>();
-			if (inputManager != null)
-			{
-				inputManager.EnabledInput();
-			}
-		}
+		
 	}
 }

@@ -133,8 +133,7 @@ namespace ChainCube.Managers
 			if (_activeCubes.Contains(cubeController))
 			{
 				GameManager.Instance.ChangeState(GameState.GameEnd);
-				
-			
+
 			}
 		}
 		private void MergeCubes(Vector3 hitPos, int cubeNumber)
