@@ -153,7 +153,7 @@ namespace ChainCube.Managers
 			ParticleSystem mergeParticle = mergeParticleObject.GetComponent<ParticleSystem>();
 			mergeParticle.Play();
 
-			StartCoroutine(MergeParticleEffect(mergeParticleObject, 1f));
+			StartCoroutine(MergeParticleEffect(mergeParticleObject, 2f));
 
 			_activeCubes.Add(cubeController);
 
