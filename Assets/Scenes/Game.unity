@@ -995,8 +995,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endPanel: {fileID: 1408861251}
-  scoreText: {fileID: 1440405858}
-  recordText: {fileID: 1743827696}
+  scoreText: {fileID: 1525704371}
+  recordText: {fileID: 590805091}
   colorImage: {fileID: 1713279161}
   bombImage: {fileID: 252587799}
 --- !u!4 &528901955
