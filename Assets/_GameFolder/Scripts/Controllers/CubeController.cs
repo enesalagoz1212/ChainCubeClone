@@ -14,7 +14,6 @@ namespace ChainCube.Controllers
 		public CubeData cubeData;
 		public GameSettings gameSettings;
 		public bool IsEndTriggerAvailable { get; set; }
-		public Light cubeLight;
 
 		private Rigidbody _rigidbody;
 		private MeshRenderer _meshRenderer;
@@ -24,8 +23,6 @@ namespace ChainCube.Controllers
 		{
 			_rigidbody = GetComponent<Rigidbody>();
 			_meshRenderer = GetComponent<MeshRenderer>();
-			cubeLight = GetComponentInChildren<Light>();
-			cubeLight.enabled = true;
 		}
 
 		public void CubeCreated(CubeData createdCubeData)
@@ -91,8 +88,6 @@ namespace ChainCube.Controllers
 			}
 			if (collision.gameObject.CompareTag("Cube") || collision.gameObject.CompareTag("Platform"))
 			{
-				cubeLight.enabled = false;
-
 				var otherCubeController = collision.gameObject.GetComponent<CubeController>();
 				if (otherCubeController != null && cubeData.number == otherCubeController.cubeData.number)
 				{
@@ -110,7 +105,6 @@ namespace ChainCube.Controllers
 		
 		public void DestroyObject()
 		{
-			cubeLight.enabled = false;
 			Destroy(gameObject);
 		}
 	}

@@ -122,7 +122,6 @@ namespace ChainCube.Managers
 			var cubeObject = Instantiate(cubePrefab, hitPos, Quaternion.identity, cubes.transform);
 			var cubeController = cubeObject.GetComponent<CubeController>();
 		
-			cubeController.cubeLight.enabled = false;
 			var cubeData = CubeDataManager.Instance.ReturnTargetNumberCubeData(cubeNumber);
 			cubeController.CubeCreated(cubeData);
 			cubeController.OnMergeCubeCreatedCheckSameCube();
