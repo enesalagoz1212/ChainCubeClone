@@ -7,7 +7,7 @@ namespace ChainCube.Managers
     public class GameSettingManager : MonoBehaviour
     {
         public static GameSettingManager Instance { get; private set; }
-        public List<GameSettings> VariablesGameSettingsList;
+        public GameSettings gameSettings;
 
         private void Awake()
         {

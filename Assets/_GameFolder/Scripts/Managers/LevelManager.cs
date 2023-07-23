@@ -70,7 +70,7 @@ namespace ChainCube.Managers
 
 		public void SpawnCube()
 		{
-			var cubeObject = Instantiate(cubePrefab, GameSettingManager.Instance.VariablesGameSettingsList[0].CubeSpawnPos, Quaternion.identity, cubes.transform);
+			var cubeObject = Instantiate(cubePrefab, GameSettingManager.Instance.gameSettings.CubeSpawnPos, Quaternion.identity, cubes.transform);
 			CurrentCubeTransform = cubeObject.transform;
 			_currentCubeController = cubeObject.GetComponent<CubeController>();
 
@@ -131,7 +131,7 @@ namespace ChainCube.Managers
 			ParticleSystem mergeParticle = mergeParticleObject.GetComponent<ParticleSystem>();
 			mergeParticle.Play();
 
-			StartCoroutine(MergeParticleEffect(mergeParticleObject, GameSettingManager.Instance.VariablesGameSettingsList[0].delay));
+			StartCoroutine(MergeParticleEffect(mergeParticleObject, GameSettingManager.Instance.gameSettings.delay));
 			_activeCubes.Add(cubeController);
 		}
 

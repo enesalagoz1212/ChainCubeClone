@@ -82,8 +82,8 @@ namespace ChainCube.Managers
 				float lastTouch = Input.mousePosition.x;
 				float diff = lastTouch - _firstTouchX;
 
-				var targetPosX = cubeTransform.position.x + diff * GameSettingManager.Instance.VariablesGameSettingsList[0].speed * Time.deltaTime;
-				targetPosX = Mathf.Clamp(targetPosX, GameSettingManager.Instance.VariablesGameSettingsList[0].minX, GameSettingManager.Instance.VariablesGameSettingsList[0].maxX);
+				var targetPosX = cubeTransform.position.x + diff * GameSettingManager.Instance.gameSettings.speed * Time.deltaTime;
+				targetPosX = Mathf.Clamp(targetPosX, GameSettingManager.Instance.gameSettings.minX, GameSettingManager.Instance.gameSettings.maxX);
 			
 				var cubePos = cubeTransform.position;
 				cubePos.x = targetPosX;

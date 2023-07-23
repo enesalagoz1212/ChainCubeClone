@@ -44,14 +44,14 @@ namespace ChainCube.Controllers
 				Vector3 direction = nearestCubeController.transform.position - transform.position;
 				direction.Normalize();
 				
-				var velocity = direction * GameSettingManager.Instance.VariablesGameSettingsList[0].velocityMagnitude;
-				velocity.y = GameSettingManager.Instance.VariablesGameSettingsList[0].upwardVelocity;
+				var velocity = direction * GameSettingManager.Instance.gameSettings.velocityMagnitude;
+				velocity.y = GameSettingManager.Instance.gameSettings.upwardVelocity;
 
 				SetVelocity(velocity);
 			}
 			else
 			{
-				_rigidbody.AddForce(Vector3.up * GameSettingManager.Instance.VariablesGameSettingsList[0].mergeUpwardForce, ForceMode.VelocityChange);
+				_rigidbody.AddForce(Vector3.up * GameSettingManager.Instance.gameSettings.mergeUpwardForce, ForceMode.VelocityChange);
 			}
 			IsEndTriggerAvailable = true;
 		}
@@ -75,7 +75,7 @@ namespace ChainCube.Controllers
 
 		public void ThrowCube()
 		{
-			_rigidbody.velocity = GameSettingManager.Instance.VariablesGameSettingsList[0].throwDirection;
+			_rigidbody.velocity = GameSettingManager.Instance.gameSettings.throwDirection;
 			
 			DOVirtual.DelayedCall(1f, () =>
 			{
