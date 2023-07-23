@@ -6,12 +6,9 @@ namespace ChainCube.Managers
 {
 	public class InputManager : MonoBehaviour
 	{
-		public float speed;
-		public float maxX;
-		public float minX;
+		public bool isInputEnabled { get; private set; } = true;
 
 		private float _firstTouchX;
-		public bool isInputEnabled { get; private set; } = true;
 
 		private void OnEnable()
 		{
@@ -24,8 +21,7 @@ namespace ChainCube.Managers
 		{
 			GameManager.OnGameStarted -= OnGameStart;
 			GameManager.OnGameEnd -= OnGameEnd;
-			GameManager.OnGameReset -= OnGameReset;
-			
+			GameManager.OnGameReset -= OnGameReset;			
 		}
 		
 		private void Update()
@@ -34,7 +30,6 @@ namespace ChainCube.Managers
 			{
 				case GameState.Start:
 					break;
-
 				case GameState.ThrowAvailable:
 					if (LevelManager.Instance.CurrentCubeTransform != null && isInputEnabled)
 					{
@@ -60,7 +55,6 @@ namespace ChainCube.Managers
 		{
 			DOVirtual.DelayedCall(1f, () =>
 			{
-
 				EnabledInput();
 			});
 		}
@@ -88,18 +82,13 @@ namespace ChainCube.Managers
 				float lastTouch = Input.mousePosition.x;
 				float diff = lastTouch - _firstTouchX;
 
-				///// 
-
-				var targetPosX = cubeTransform.position.x + diff * speed * Time.deltaTime;
-				targetPosX = Mathf.Clamp(targetPosX, minX, maxX);
-
-				// cubeTransform.position = new Vector3(targetPosX, cubeTransform.position.y, cubeTransform.position.z);
-
+				var targetPosX = cubeTransform.position.x + diff * GameSettingManager.Instance.VariablesGameSettingsList[0].speed * Time.deltaTime;
+				targetPosX = Mathf.Clamp(targetPosX, GameSettingManager.Instance.VariablesGameSettingsList[0].minX, GameSettingManager.Instance.VariablesGameSettingsList[0].maxX);
+			
 				var cubePos = cubeTransform.position;
 				cubePos.x = targetPosX;
 				cubeTransform.position = cubePos;
-				///// 
-				
+			 				
 				_firstTouchX = lastTouch;
 			}
 			else if (Input.GetMouseButtonUp(0))

@@ -458,9 +458,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1753355325554688457}
   serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Mass: 10
+  m_Drag: 1.5
+  m_AngularDrag: 0.7
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -486,6 +486,7 @@ MonoBehaviour:
   - {fileID: 8178762862489810964}
   - {fileID: 5509297313693939033}
   cubeData: {fileID: 0}
+  gameSettings: {fileID: 0}
   cubeLight: {fileID: 0}
 --- !u!1 &1967576621032893176
 GameObject:

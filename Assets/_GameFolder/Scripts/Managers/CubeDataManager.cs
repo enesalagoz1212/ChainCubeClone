@@ -2,16 +2,14 @@ using ChainCube.ScriptableObjects;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace ChainCube.Managers
 {
 	public class CubeDataManager : MonoBehaviour
 	{
-		public CubeData[] spawnedCubeDataArrayRandom;
-
-		public List<CubeData> regeneratedCubeDataList;
-		
 		public static CubeDataManager Instance { get; private set; }
+
+		public CubeData[] spawnedCubeDataArrayRandom;
+		public List<CubeData> regeneratedCubeDataList;
 
 		private void Awake()
 		{
@@ -21,7 +19,6 @@ namespace ChainCube.Managers
 			}
 			else
 			{
-
 				Instance = this;
 			}
 		}
@@ -42,9 +39,7 @@ namespace ChainCube.Managers
 					return cubeData;
 				}
 			}
-
 			return null;
 		}
-    }
+	}
 }
-

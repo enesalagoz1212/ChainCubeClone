@@ -12,10 +12,8 @@ namespace ChainCube.Managers
 		GameEnd = 3,
 		Reset = 4,
 	}
-
 	public class GameManager : MonoBehaviour
 	{
-
 		public static GameManager Instance { get; private set; }
 
 		public const string RecordScorePrefsString = "RecordScore";
@@ -56,7 +54,6 @@ namespace ChainCube.Managers
 			}
 		}
 
-
 		private void Awake()
 		{
 			if (Instance != null && Instance != this)
@@ -71,7 +68,6 @@ namespace ChainCube.Managers
 
 		private void Start()
 		{
-
 			OnGameStart();
 			recordScore = PlayerPrefs.GetInt(RecordScorePrefsString);
 		}
@@ -81,12 +77,10 @@ namespace ChainCube.Managers
 			switch (GameState)
 			{
 				case GameState.Start:
-
 					break;
 				case GameState.ThrowAvailable:
 					if (Input.GetKeyDown(KeyCode.F))
 					{
-						// Game Failed!
 						EndGame();
 					}
 					break;
@@ -94,8 +88,7 @@ namespace ChainCube.Managers
 					break;
 				case GameState.GameEnd:
 					break;
-				case GameState.Reset:
-					
+				case GameState.Reset:					
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -124,7 +117,6 @@ namespace ChainCube.Managers
 			DOVirtual.DelayedCall(0.2f, () =>
 			{
 				OnGameStart();
-				UIManager.Instance.endPanel.gameObject.SetActive(false);
 			});
 		}
 
@@ -142,7 +134,6 @@ namespace ChainCube.Managers
 				recordScore = gameScore;
 				UIManager.Instance.UpdateScoreText();
 			}
-
 			OnGameScoreIncreased?.Invoke(gameScore);
 		}
 		
@@ -162,7 +153,6 @@ namespace ChainCube.Managers
 		public void QuitGame()
 		{
 			Application.Quit();
-		}
-		
+		}		
 	}
 }

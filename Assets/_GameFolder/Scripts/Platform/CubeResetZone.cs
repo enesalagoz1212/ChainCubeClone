@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using ChainCube.Managers;
 using ChainCube.Controllers;
@@ -9,8 +6,7 @@ namespace ChainCube.Platforms
 {
     public class CubeResetZone : MonoBehaviour
     {
-        public BoxCollider boxCollider;
-        
+        public BoxCollider boxCollider;      
         private void OnEnable()
         {
             GameManager.OnGameStarted += OnGameStart;

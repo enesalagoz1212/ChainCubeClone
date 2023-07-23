@@ -6,10 +6,6 @@ namespace ChainCube.ScriptableObjects
     public class CubeData : ScriptableObject
     {
         public int number;
-        public Color color;
-
-		
+        public Color color;		
 	}
-
-
 }

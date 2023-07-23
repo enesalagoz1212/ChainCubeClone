@@ -12,15 +12,14 @@ namespace ChainCube.Controllers
 	{
 		public TextMeshPro[] cubeTexts;
 		public CubeData cubeData;
+		public GameSettings gameSettings;
+		public bool IsEndTriggerAvailable { get; set; }
+		public Light cubeLight;
 
 		private Rigidbody _rigidbody;
 		private MeshRenderer _meshRenderer;
-
-		public bool IsEndTriggerAvailable { get; set; }
 		private bool _isCollisionAvailable;
-
-		public Light cubeLight;
-		
+	
 		private void Awake()
 		{
 			_rigidbody = GetComponent<Rigidbody>();
@@ -44,18 +43,16 @@ namespace ChainCube.Controllers
 			{
 				Vector3 direction = nearestCubeController.transform.position - transform.position;
 				direction.Normalize();
-
-				float velocityMagnitude = 2f;
-				var velocity = direction * velocityMagnitude;
-				velocity.y = 5f;
+				
+				var velocity = direction * GameSettingManager.Instance.VariablesGameSettingsList[0].velocityMagnitude;
+				velocity.y = GameSettingManager.Instance.VariablesGameSettingsList[0].upwardVelocity;
 
 				SetVelocity(velocity);
 			}
 			else
 			{
-				_rigidbody.AddForce(Vector3.up * 7, ForceMode.VelocityChange);
+				_rigidbody.AddForce(Vector3.up * GameSettingManager.Instance.VariablesGameSettingsList[0].mergeUpwardForce, ForceMode.VelocityChange);
 			}
-
 			IsEndTriggerAvailable = true;
 		}
 
@@ -78,7 +75,7 @@ namespace ChainCube.Controllers
 
 		public void ThrowCube()
 		{
-			_rigidbody.velocity = new Vector3(0, 0, 13f);
+			_rigidbody.velocity = GameSettingManager.Instance.VariablesGameSettingsList[0].throwDirection;
 			
 			DOVirtual.DelayedCall(1f, () =>
 			{
@@ -92,11 +89,9 @@ namespace ChainCube.Controllers
 			{
 				return;
 			}
-
 			if (collision.gameObject.CompareTag("Cube") || collision.gameObject.CompareTag("Platform"))
 			{
 				cubeLight.enabled = false;
-
 
 				var otherCubeController = collision.gameObject.GetComponent<CubeController>();
 				if (otherCubeController != null && cubeData.number == otherCubeController.cubeData.number)
@@ -104,18 +99,15 @@ namespace ChainCube.Controllers
 					_isCollisionAvailable = false;
 
 					var hitPoint = collision.contacts[0].point;
-
 					LevelManager.Instance.OnCubesCollided(this, hitPoint);
 
 					int scoreIncrease = cubeData.number;
 					GameManager.Instance.IncreaseGameScore(scoreIncrease);
-					GameManager.Instance.IncreaseRecordScore(scoreIncrease);
-					
+					GameManager.Instance.IncreaseRecordScore(scoreIncrease);					
 				}
 			}
 		}
-	
-	
+		
 		public void DestroyObject()
 		{
 			cubeLight.enabled = false;
