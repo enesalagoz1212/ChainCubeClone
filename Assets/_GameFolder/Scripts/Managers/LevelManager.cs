@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using ChainCube.Controllers;
 using UnityEngine;
 using DG.Tweening;
-using ChainCube.ScriptableObjects;
-using ChainCube.Managers;
 using System.Collections;
 
 namespace ChainCube.Managers
@@ -15,7 +13,6 @@ namespace ChainCube.Managers
 		public GameObject cubePrefab;
 		public GameObject cubes;
 		public GameObject endCube;		
-		public CubeDataManager cubeDataManager;
 		public ParticleSystem mergeParticlePrefab;
 	
 		private CubeController _currentCubeController;

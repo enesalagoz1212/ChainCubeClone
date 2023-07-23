@@ -32,21 +32,21 @@ namespace ChainCube.Managers
 		{
             GameManager.OnGameStarted += OnGameStart;
             GameManager.OnGameScoreIncreased += OnGameScoreIncreased;
-            GameManager.OnRecordScoreIncreased += OnRecordScoreIncreased;
+            GameManager.OnRecordScoreTexted += OnRecordScoreIncreased;
             GameManager.OnGameEnd += OnGameEnd;           
         }
 		private void OnDisable()
 		{
             GameManager.OnGameStarted -= OnGameStart;
             GameManager.OnGameScoreIncreased -= OnGameScoreIncreased;
-            GameManager.OnRecordScoreIncreased -= OnRecordScoreIncreased;
+            GameManager.OnRecordScoreTexted -= OnRecordScoreIncreased;
             GameManager.OnGameEnd -= OnGameEnd;          
         }
 		
 		void Start()
         {
             UpdateScoreText();
-            UptadeRecordText();
+            UpdateRecordText();
             
         }
 
@@ -55,16 +55,17 @@ namespace ChainCube.Managers
             scoreText.text = " " + GameManager.Instance.gameScore.ToString();
         }
 
-        public void UptadeRecordText()
-		{
-            recordText.text = "Record:  " + GameManager.Instance.recordScore.ToString();
-		}
+        public void UpdateRecordText()
+        {
+            recordText.text = "Record:  " + GameManager.RecordScore;
+        }
 
         private void UpdateEndPanelScore()
 		{
             endScoreText.text = "Score: " + GameManager.Instance.gameScore.ToString();
-            endRecordScore.text = "Record Score: " + GameManager.Instance.recordScore.ToString();
+            endRecordScore.text = "Record Score: " + GameManager.RecordScore.ToString();
 		}
+        
         private void OnGameScoreIncreased(int score)
         {
             UpdateScoreText();
@@ -72,7 +73,7 @@ namespace ChainCube.Managers
 
         private void OnRecordScoreIncreased(int score)
         {
-            UptadeRecordText();
+            UpdateRecordText();
         }
 
         private void OnGameStart()
@@ -81,6 +82,8 @@ namespace ChainCube.Managers
             colorImage.gameObject.SetActive(true);
             bombImage.gameObject.SetActive(true);
             endPanel.SetActive(false);
+            
+            UpdateRecordText();
         }
 
         public void OnCubeCollidedWithReset()

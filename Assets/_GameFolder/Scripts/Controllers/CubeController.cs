@@ -86,7 +86,7 @@ namespace ChainCube.Controllers
 			{
 				return;
 			}
-			if (collision.gameObject.CompareTag("Cube") || collision.gameObject.CompareTag("Platform"))
+			if (collision.gameObject.CompareTag("Cube"))
 			{
 				var otherCubeController = collision.gameObject.GetComponent<CubeController>();
 				if (otherCubeController != null && cubeData.number == otherCubeController.cubeData.number)
@@ -98,7 +98,6 @@ namespace ChainCube.Controllers
 
 					int scoreIncrease = cubeData.number;
 					GameManager.Instance.IncreaseGameScore(scoreIncrease);
-					GameManager.Instance.IncreaseRecordScore(scoreIncrease);					
 				}
 			}
 		}

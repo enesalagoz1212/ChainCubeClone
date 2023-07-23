@@ -14,33 +14,21 @@ namespace ChainCube.Managers
 	}
 	public class GameManager : MonoBehaviour
 	{
+
+		#region Variables
+
 		public static GameManager Instance { get; private set; }
 
 		public const string RecordScorePrefsString = "RecordScore";
-		public const string GameScorePrefsString = "GameScore";
 		public GameState GameState { get; set; }
 
 		public static Action OnGameStarted;
-		public static Action OnCubeThrown;
 		public static Action OnGameEnd;
 		public static Action OnGameReset;
 		public static Action<int> OnGameScoreIncreased;
-		public static Action<int> OnRecordScoreIncreased;
+		public static Action<int> OnRecordScoreTexted;
 
 		public int gameScore;
-		public int recordScore;
-
-		public static int GameScore
-		{
-			get
-			{
-				return PlayerPrefs.GetInt(GameScorePrefsString);
-			}
-			set
-			{
-				PlayerPrefs.SetInt(GameScorePrefsString, value);
-			}
-		}
 
 		public static int RecordScore
 		{
@@ -53,6 +41,9 @@ namespace ChainCube.Managers
 				PlayerPrefs.SetInt(RecordScorePrefsString, value);
 			}
 		}
+		
+		#endregion
+		
 
 		private void Awake()
 		{
@@ -69,7 +60,6 @@ namespace ChainCube.Managers
 		private void Start()
 		{
 			OnGameStart();
-			recordScore = PlayerPrefs.GetInt(RecordScorePrefsString);
 		}
 
 		private void Update()
@@ -129,20 +119,12 @@ namespace ChainCube.Managers
 		{
 			gameScore += score;
 
-			if (gameScore > recordScore)
+			if (gameScore > RecordScore)
 			{
-				recordScore = gameScore;
-				UIManager.Instance.UpdateScoreText();
+				RecordScore = gameScore;
+				OnRecordScoreTexted?.Invoke(RecordScore);
 			}
 			OnGameScoreIncreased?.Invoke(gameScore);
-		}
-		
-		public void IncreaseRecordScore(int score)
-		{
-			score = 0;
-			recordScore += score;
-			PlayerPrefs.SetInt(RecordScorePrefsString, recordScore);
-			OnRecordScoreIncreased?.Invoke(recordScore);
 		}
 		
 		public void RestartGame()

@@ -7,12 +7,14 @@ namespace ChainCube.Platforms
     public class CubeResetZone : MonoBehaviour
     {
         public BoxCollider boxCollider;      
+        
         private void OnEnable()
         {
             GameManager.OnGameStarted += OnGameStart;
             GameManager.OnGameEnd += OnGameEnd;
             GameManager.OnGameReset += OnGameReset;
         }
+        
         private void OnDisable()
         {
             GameManager.OnGameStarted -= OnGameStart;
