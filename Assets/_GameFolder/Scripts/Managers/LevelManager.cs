@@ -125,7 +125,7 @@ namespace ChainCube.Managers
 
 			DOVirtual.DelayedCall(0.15f, () =>
 			{
-				GameObject mergeParticleObject = Instantiate(mergeParticlePrefab.gameObject, cubeObject.transform.position, Quaternion.identity, cubes.transform);
+				GameObject mergeParticleObject = Instantiate(mergeParticlePrefab.gameObject, cubeObject.transform.position, Quaternion.identity, cubeController.transform);
 				ParticleSystem mergeParticle = mergeParticleObject.GetComponent<ParticleSystem>();
 				mergeParticle.Play();
 				StartCoroutine(MergeParticleEffect(mergeParticleObject, GameSettingManager.Instance.gameSettings.delay));
