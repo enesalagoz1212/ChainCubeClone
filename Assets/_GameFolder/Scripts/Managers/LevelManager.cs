@@ -72,7 +72,7 @@ namespace ChainCube.Managers
 			_currentCubeController = cubeObject.GetComponent<CubeController>();
 
 			var cubeData = CubeDataManager.Instance.ReturnRandomCubeData();
-			_currentCubeController.CubeCreated(cubeData);
+			_currentCubeController.CubeCreated(cubeData, true);
 		}
 
 		public void ThrowCube()
@@ -94,7 +94,7 @@ namespace ChainCube.Managers
 
 		public void OnCubesCollided(CubeController cubeController, Vector3 hitPoint)
 		{
-			var cubeData = cubeController.cubeData;
+			var cubeData = cubeController.CubeData;
 			var mergeCubeNumber = cubeData.number * 2;
 
 			DestroyCube(cubeController);
@@ -120,7 +120,7 @@ namespace ChainCube.Managers
 			var cubeController = cubeObject.GetComponent<CubeController>();
 
 			var cubeData = CubeDataManager.Instance.ReturnTargetNumberCubeData(cubeNumber);
-			cubeController.CubeCreated(cubeData);
+			cubeController.CubeCreated(cubeData, false);
 			cubeController.OnMergeCubeCreatedCheckSameCube();
 
 			DOVirtual.DelayedCall(0.15f, () =>
@@ -129,7 +129,6 @@ namespace ChainCube.Managers
 				ParticleSystem mergeParticle = mergeParticleObject.GetComponent<ParticleSystem>();
 				mergeParticle.Play();
 				StartCoroutine(MergeParticleEffect(mergeParticleObject, GameSettingManager.Instance.gameSettings.delay));
-
 			});
 
 			_activeCubes.Add(cubeController);
@@ -153,7 +152,7 @@ namespace ChainCube.Managers
 			float closestDistance = float.MaxValue;
 			foreach (var activeCube in _activeCubes)
 			{
-				if (activeCube != cubeController && activeCube.cubeData.number == cubeController.cubeData.number)
+				if (activeCube != cubeController && activeCube.CubeData.number == cubeController.CubeData.number)
 				{
 					float distance = Vector3.Distance(cubeController.transform.position, activeCube.transform.position);
 					if (distance < closestDistance)

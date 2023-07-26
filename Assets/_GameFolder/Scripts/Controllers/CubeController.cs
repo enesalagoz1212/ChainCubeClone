@@ -11,31 +11,34 @@ namespace ChainCube.Controllers
 	public class CubeController : MonoBehaviour
 	{
 		public TextMeshPro[] cubeTexts;
-		public CubeData cubeData;
+		public GameObject throwHighlighter;
+
+		
 		public GameSettings gameSettings;
 		public bool IsEndTriggerAvailable { get; set; }
+
+		public CubeData CubeData => _cubeData;
 
 		private Rigidbody _rigidbody;
 		private MeshRenderer _meshRenderer;
 		private bool _isCollisionAvailable;
-		private SpriteRenderer _spriteRenderer;
 
-
+		private CubeData _cubeData;
 
 		private void Awake()
 		{
 			_rigidbody = GetComponent<Rigidbody>();
 			_meshRenderer = GetComponent<MeshRenderer>();
-			_spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 		}
 
-		public void CubeCreated(CubeData createdCubeData)
+		public void CubeCreated(CubeData createdCubeData, bool isForThrow)
 		{
-			cubeData = createdCubeData;
+			_cubeData = createdCubeData;
 			UpdateCubeText();
 			_isCollisionAvailable = true;
 			IsEndTriggerAvailable = false;
-			_spriteRenderer.enabled = true;
+			
+			throwHighlighter.SetActive(isForThrow);
 		}
 
 		public void OnMergeCubeCreatedCheckSameCube()
@@ -50,8 +53,6 @@ namespace ChainCube.Controllers
 				velocity.y = GameSettingManager.Instance.gameSettings.upwardVelocity;
 
 				SetVelocity(velocity);
-				
-				
 			}
 			else
 			{
@@ -60,17 +61,16 @@ namespace ChainCube.Controllers
 			IsEndTriggerAvailable = true;
 		}
 
-		
-		public void UpdateCubeText()
+		private void UpdateCubeText()
 		{
-			_meshRenderer.material.color = cubeData.color;
+			_meshRenderer.material.color = _cubeData.color;
 			foreach (TextMeshPro item in cubeTexts)
 			{
-				item.text = cubeData.number.ToString();
+				item.text = _cubeData.number.ToString();
 			}
 		}
 
-		public void SetVelocity(Vector3 velocity)
+		private void SetVelocity(Vector3 velocity)
 		{
 			if (_rigidbody != null)
 			{
@@ -80,9 +80,8 @@ namespace ChainCube.Controllers
 
 		public void ThrowCube()
 		{
-
 			_rigidbody.velocity = GameSettingManager.Instance.gameSettings.throwDirection;
-			_spriteRenderer.enabled = true;
+			throwHighlighter.SetActive(false);
 			DOVirtual.DelayedCall(1f, () =>
 			{
 				IsEndTriggerAvailable = true;
@@ -98,14 +97,14 @@ namespace ChainCube.Controllers
 			if (collision.gameObject.CompareTag("Cube"))
 			{
 				var otherCubeController = collision.gameObject.GetComponent<CubeController>();
-				if (otherCubeController != null && cubeData.number == otherCubeController.cubeData.number)
+				if (otherCubeController != null && _cubeData.number == otherCubeController._cubeData.number)
 				{
 					_isCollisionAvailable = false;
 
 					var hitPoint = collision.contacts[0].point;
 					LevelManager.Instance.OnCubesCollided(this, hitPoint);
 
-					int scoreIncrease = cubeData.number;
+					int scoreIncrease = _cubeData.number;
 					GameManager.Instance.IncreaseGameScore(scoreIncrease);
 				}
 			}
@@ -117,4 +116,3 @@ namespace ChainCube.Controllers
 		}
 	}
 }
-

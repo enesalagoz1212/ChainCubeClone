@@ -485,8 +485,8 @@ MonoBehaviour:
   - {fileID: 6929466402629768080}
   - {fileID: 8178762862489810964}
   - {fileID: 5509297313693939033}
-  cubeData: {fileID: 0}
-  gameSettings: {fileID: 0}
+  throwHighlighter: {fileID: 8160089288887803621}
+  gameSettings: {fileID: 11400000, guid: 718a44b7d5aceec42825d9183164ce2c, type: 2}
 --- !u!1 &1967576621032893176
 GameObject:
   m_ObjectHideFlags: 0
