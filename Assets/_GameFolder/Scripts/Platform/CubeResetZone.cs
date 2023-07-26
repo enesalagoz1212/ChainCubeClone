@@ -43,6 +43,7 @@ namespace ChainCube.Platforms
             {
                 CubeController cubeController = other.GetComponent<CubeController>();
                 OnCubeTriggered(cubeController);
+                
             }
         }
 

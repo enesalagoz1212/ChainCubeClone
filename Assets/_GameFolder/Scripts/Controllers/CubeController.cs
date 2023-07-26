@@ -18,11 +18,15 @@ namespace ChainCube.Controllers
 		private Rigidbody _rigidbody;
 		private MeshRenderer _meshRenderer;
 		private bool _isCollisionAvailable;
-	
+		private SpriteRenderer _spriteRenderer;
+
+
+
 		private void Awake()
 		{
 			_rigidbody = GetComponent<Rigidbody>();
 			_meshRenderer = GetComponent<MeshRenderer>();
+			_spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 		}
 
 		public void CubeCreated(CubeData createdCubeData)
@@ -31,6 +35,7 @@ namespace ChainCube.Controllers
 			UpdateCubeText();
 			_isCollisionAvailable = true;
 			IsEndTriggerAvailable = false;
+			_spriteRenderer.enabled = true;
 		}
 
 		public void OnMergeCubeCreatedCheckSameCube()
@@ -45,6 +50,8 @@ namespace ChainCube.Controllers
 				velocity.y = GameSettingManager.Instance.gameSettings.upwardVelocity;
 
 				SetVelocity(velocity);
+				
+				
 			}
 			else
 			{
@@ -53,6 +60,7 @@ namespace ChainCube.Controllers
 			IsEndTriggerAvailable = true;
 		}
 
+		
 		public void UpdateCubeText()
 		{
 			_meshRenderer.material.color = cubeData.color;
@@ -72,8 +80,9 @@ namespace ChainCube.Controllers
 
 		public void ThrowCube()
 		{
+
 			_rigidbody.velocity = GameSettingManager.Instance.gameSettings.throwDirection;
-			
+			_spriteRenderer.enabled = true;
 			DOVirtual.DelayedCall(1f, () =>
 			{
 				IsEndTriggerAvailable = true;

@@ -14,6 +14,7 @@ namespace ChainCube.ScriptableObjects
 		public float maxX;
 		public float minX;
 		public float delay;
+
 	}
 }
 

@@ -8,13 +8,13 @@ namespace ChainCube.Managers
 {
 	public class LevelManager : MonoBehaviour
 	{
-		public static LevelManager Instance { get; private set; }		
+		public static LevelManager Instance { get; private set; }
 		public Transform CurrentCubeTransform { get; private set; }
 		public GameObject cubePrefab;
 		public GameObject cubes;
-		public GameObject endCube;		
+		public GameObject endCube;
 		public ParticleSystem mergeParticlePrefab;
-	
+
 		private CubeController _currentCubeController;
 		private int _collisionCounter;
 		private List<CubeController> _activeCubes = new List<CubeController>();
@@ -28,7 +28,7 @@ namespace ChainCube.Managers
 			else
 			{
 				Instance = this;
-			}			
+			}
 		}
 
 		private void OnEnable()
@@ -40,7 +40,7 @@ namespace ChainCube.Managers
 		private void OnDisable()
 		{
 			GameManager.OnGameStarted -= OnGameStarted;
-			GameManager.OnGameReset -= OnGameReseted;			
+			GameManager.OnGameReset -= OnGameReseted;
 		}
 
 		private void OnGameStarted()
@@ -48,7 +48,7 @@ namespace ChainCube.Managers
 			_collisionCounter = 0;
 			SpawnCube();
 		}
-	
+
 		private void OnGameReseted()
 		{
 			foreach (var cube in _activeCubes)
@@ -102,7 +102,7 @@ namespace ChainCube.Managers
 
 			if (_collisionCounter % 2 == 0)
 			{
-				MergeCubes(hitPoint, mergeCubeNumber);				
+				MergeCubes(hitPoint, mergeCubeNumber);
 			}
 		}
 
@@ -113,27 +113,35 @@ namespace ChainCube.Managers
 				GameManager.Instance.EndGame();
 			}
 		}
-		
+
 		private void MergeCubes(Vector3 hitPos, int cubeNumber)
-		{			
+		{
 			var cubeObject = Instantiate(cubePrefab, hitPos, Quaternion.identity, cubes.transform);
 			var cubeController = cubeObject.GetComponent<CubeController>();
-		
+
 			var cubeData = CubeDataManager.Instance.ReturnTargetNumberCubeData(cubeNumber);
 			cubeController.CubeCreated(cubeData);
 			cubeController.OnMergeCubeCreatedCheckSameCube();
 
-			GameObject mergeParticleObject = Instantiate(mergeParticlePrefab.gameObject, hitPos+Vector3.up, Quaternion.identity, cubes.transform);
-			ParticleSystem mergeParticle = mergeParticleObject.GetComponent<ParticleSystem>();
-			mergeParticle.Play();
+			DOVirtual.DelayedCall(0.15f, () =>
+			{
+				GameObject mergeParticleObject = Instantiate(mergeParticlePrefab.gameObject, cubeObject.transform.position, Quaternion.identity, cubes.transform);
+				ParticleSystem mergeParticle = mergeParticleObject.GetComponent<ParticleSystem>();
+				mergeParticle.Play();
+				StartCoroutine(MergeParticleEffect(mergeParticleObject, GameSettingManager.Instance.gameSettings.delay));
 
-			StartCoroutine(MergeParticleEffect(mergeParticleObject, GameSettingManager.Instance.gameSettings.delay));
+			});
+
 			_activeCubes.Add(cubeController);
+
+			var torque = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
+			float torqueStrength = Random.Range(0f, 2f);
+			cubeController.GetComponent<Rigidbody>().AddTorque(torque * torqueStrength, ForceMode.Impulse);
 		}
 
 		private IEnumerator MergeParticleEffect(GameObject particleObject, float delay)
 		{
-			yield return new WaitForSeconds(delay);			
+			yield return new WaitForSeconds(delay);
 			ParticleSystem mergeParticle = particleObject.GetComponent<ParticleSystem>();
 			mergeParticle.Stop();
 			Destroy(particleObject);
@@ -157,7 +165,7 @@ namespace ChainCube.Managers
 			}
 			return closestCubeController;
 		}
-		
+
 		private void DestroyCube(CubeController cubeController)
 		{
 			if (_activeCubes.Contains(cubeController))
@@ -165,6 +173,6 @@ namespace ChainCube.Managers
 				_activeCubes.Remove(cubeController);
 			}
 			cubeController.DestroyObject();
-		}		
+		}
 	}
 }

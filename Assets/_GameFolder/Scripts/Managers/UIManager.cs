@@ -1,12 +1,15 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace ChainCube.Managers
 {
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance { get; private set; }
+
+        public TweenManagerUI tweenManagerUI;
 
         public GameObject endPanel;
         public TextMeshProUGUI scoreText;
@@ -15,6 +18,7 @@ namespace ChainCube.Managers
         public TextMeshProUGUI endRecordScore;
         public Image colorImage;
         public Image bombImage;
+       
 		
 		private void Awake()
 		{
@@ -76,19 +80,20 @@ namespace ChainCube.Managers
             UpdateRecordText();
         }
 
+   
         private void OnGameStart()
 		{
             Debug.Log("OnGameStart cagirildi");
-            colorImage.gameObject.SetActive(true);
-            bombImage.gameObject.SetActive(true);
+           // colorImage.gameObject.SetActive(true);
+           // bombImage.gameObject.SetActive(true);
             endPanel.SetActive(false);
-            
             UpdateRecordText();
         }
 
         public void OnCubeCollidedWithReset()
         {
             endPanel.SetActive(true);
+
             UpdateEndPanelScore();
         }
 
@@ -97,7 +102,8 @@ namespace ChainCube.Managers
             Debug.Log("OnGameEnd cagirildi");
             OnCubeCollidedWithReset();
             colorImage.gameObject.SetActive(false);
-            bombImage.gameObject.SetActive(false);          
+            bombImage.gameObject.SetActive(false);
+            tweenManagerUI.UiEndTween();
 		}
     }
 }

@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using DG.Tweening;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace ChainCube.Managers
 {
@@ -41,9 +43,9 @@ namespace ChainCube.Managers
 				PlayerPrefs.SetInt(RecordScorePrefsString, value);
 			}
 		}
-		
+
 		#endregion
-		
+
 
 		private void Awake()
 		{
@@ -78,7 +80,7 @@ namespace ChainCube.Managers
 					break;
 				case GameState.GameEnd:
 					break;
-				case GameState.Reset:					
+				case GameState.Reset:
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();
@@ -90,7 +92,8 @@ namespace ChainCube.Managers
 			GameState = GameState.Start;
 			OnGameStarted?.Invoke();
 			GameState = GameState.ThrowAvailable;
-			gameScore = 0; 
+			gameScore = 0;
+			
 		}
 
 		public void EndGame()
@@ -103,9 +106,9 @@ namespace ChainCube.Managers
 		{
 			ChangeState(GameState.Reset);
 			OnGameReset?.Invoke();
-
 			DOVirtual.DelayedCall(0.2f, () =>
 			{
+				
 				OnGameStart();
 			});
 		}
@@ -126,15 +129,19 @@ namespace ChainCube.Managers
 			}
 			OnGameScoreIncreased?.Invoke(gameScore);
 		}
-		
+
 		public void RestartGame()
 		{
-			OnGameResetAction();
+			DOVirtual.DelayedCall(1f, () =>
+			{
+				OnGameResetAction();
+			});
 		}
-		
+
 		public void QuitGame()
 		{
 			Application.Quit();
-		}		
+		}
+
 	}
 }
