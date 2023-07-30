@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CubeSpawnPos: {x: 0, y: 0.35, z: -3}
   throwDirection: {x: 0, y: 0, z: 21}
-  mergeUpwardForce: 8
-  velocityMagnitude: 3
-  upwardVelocity: 7
+  mergeUpwardForce: 10
+  velocityMagnitude: 2
+  upwardVelocity: 9
   horizontalSpeed: 0.7
   horizontalMaxX: 1.2
   horizontalMinX: -1.2
   minRotation: 3
-  maxRotation: 1
-  cubeTorqueStrength: 2
+  maxRotation: 5
+  cubeTorqueStrength: 4
   revealDurationTween: 0.75
