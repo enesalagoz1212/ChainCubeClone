@@ -10,13 +10,13 @@ namespace ChainCube.Managers
     {
         public static UIManager Instance { get; private set; }
 
-        public GameObject endPanel;
-        public TextMeshProUGUI scoreText;
-        public TextMeshProUGUI recordText;
-        public TextMeshProUGUI endScoreText;
-        public TextMeshProUGUI endRecordScore;
-        public Image colorImage;
-        public Image bombImage;
+        public GameObject endPanel; // END CANVAS
+        public TextMeshProUGUI scoreText; // GAME CANVAS
+        public TextMeshProUGUI recordText; // GAME CANVAS
+        public TextMeshProUGUI endScoreText; // END CANVAS
+        public TextMeshProUGUI endRecordScore; // END CANVAS
+        public Image colorImage; // DELETE
+        public Image bombImage; // DELETE
 
         public EndCanvas endCanvas;
 		
@@ -54,28 +54,28 @@ namespace ChainCube.Managers
             
         }
 
-        public void UpdateScoreText()
+        public void UpdateScoreText() // GAME CANVAS
         {
             scoreText.text = " " + GameManager.Instance.gameScore.ToString();
         }
 
-        public void UpdateRecordText()
+        public void UpdateRecordText() // GAME CANVAS
         {
             recordText.text = "Record:  " + GameManager.RecordScore;
         }
 
-        private void UpdateEndPanelScore()
+        private void UpdateEndPanelScore() // END CANVAS
 		{
             endScoreText.text = "Score: " + GameManager.Instance.gameScore.ToString();
             endRecordScore.text = "Record Score: " + GameManager.RecordScore.ToString();
 		}
         
-        private void OnGameScoreIncreased(int score)
+        private void OnGameScoreIncreased(int score) // GAME CANVAS
         {
             UpdateScoreText();
         }
 
-        private void OnRecordScoreIncreased(int score)
+        private void OnRecordScoreIncreased(int score) // GAME CANVAS
         {
             UpdateRecordText();
         }

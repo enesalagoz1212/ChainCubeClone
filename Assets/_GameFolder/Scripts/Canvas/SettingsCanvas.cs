@@ -1,19 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using ChainCube.Managers;
-using ChainCube.ScriptableObjects;
+using System;
 
 namespace ChainCube.Canvases
 {
 	public class SettingsCanvas : MonoBehaviour
 	{
 		public GameObject settingPanel;
-		public RectTransform backGroundSettinsPanel, closeButton;
+		public RectTransform backGroundSettinsPanel;
+		public RectTransform closeButton;
 		public RectTransform vibrationButton, soundButton, musicButton;
 		float revealDurationTween = 0.5f;
-
 
 		public void UiSettingsTween()
 		{
@@ -23,7 +20,5 @@ namespace ChainCube.Canvases
 			musicButton.DOScale(Vector3.zero, revealDurationTween).From();
 			soundButton.DOScale(Vector3.zero, revealDurationTween).From();
 		}
-
 	}
 }
-

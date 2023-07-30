@@ -1,8 +1,8 @@
+using System;
 using ChainCube.ScriptableObjects;
-using DG.Tweening;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine;
+using DG.Tweening;
 
 namespace ChainCube.Managers
 {
@@ -10,23 +10,36 @@ namespace ChainCube.Managers
 	{
 		public static GameSettingManager Instance { get; private set; }
 		public GameSettings gameSettings;
-
-
-		public GameObject settingsPanel;
-		public GameObject trueVibrationImage, falseVibrationImage;
-		public GameObject trueSoundImage, falseSoundImage;
-		public GameObject trueMusicImage, falseMusicImage;
+		
+		public GameObject settingsPanel; // SETTINGS CANVAS
+		public GameObject trueVibrationImage, falseVibrationImage; // SETTINGS CANVAS
+		public GameObject trueSoundImage, falseSoundImage; // SETTINGS CANVAS
+		public GameObject trueMusicImage, falseMusicImage; // SETTINGS CANVAS
 
 		private bool _isVibrationOn;
 		private bool _isSoundOn;
 		private bool _isMusicOn;
+		
+		// private static bool IsMusicOn
+		// {
+		// 	get
+		// 	{
+		// 		if (PlayerPrefs.HasKey(MusicPlayerPrefs))
+		// 		{
+		// 			return bool.Parse(PlayerPrefs.GetString(MusicPlayerPrefs));
+		// 		}
+		// 		return true;
+		// 	}
+		// 	set => PlayerPrefs.SetString(MusicPlayerPrefs, value.ToString());
+		// }
 
 		private const string VibrationKey = "VibrationSetting";
 		private const string SoundKey = "SoundSetting";
 		private const string MusicKey = "MusicSetting";
 
 		private InputManager _inputManager;
-		public Button settingButton;
+		public Button settingButton; // SETTINGS CANVAS
+		
 		private void Awake()
 		{
 			if (Instance != null && Instance != this)
@@ -40,65 +53,58 @@ namespace ChainCube.Managers
 			}
 			_inputManager = FindObjectOfType<InputManager>();
 		}
+		
 		private void Start()
 		{
-			_isMusicOn = GetSetting(MusicKey, true);
-			_isSoundOn = GetSetting(SoundKey, true);
-			_isVibrationOn = GetSetting(VibrationKey, true);
+			_isMusicOn = GetSetting(MusicKey);
+			_isSoundOn = GetSetting(SoundKey);
+			_isVibrationOn = GetSetting(VibrationKey);
+			
+			UpdateVisuals();
 		}
-	
 
-		private bool GetSetting(string key, bool defaultValue)
+		private void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.A))
+			{
+				Debug.Log($"Music on: {GetSetting(MusicKey)}");
+				Debug.Log($"Sound on: {GetSetting(SoundKey)}");
+				Debug.Log($"Vibration on: {GetSetting(VibrationKey)}");
+			}
+		}
+
+		private bool GetSetting(string key)
 		{
 			if (PlayerPrefs.HasKey(key))
 			{
 				return bool.Parse(PlayerPrefs.GetString(key));
 			}
-			return defaultValue;
+			return true;
 		}
-
+		
 		private void SaveSetting(string key, bool value)
 		{
 			PlayerPrefs.SetString(key, value.ToString());
 		}
-
-		public void SetVibration(bool value)
-		{
-			_isVibrationOn = value;
-			SaveSetting(VibrationKey, value);
-			UpdateVisuals();
-		}
-
-		public void SetSound(bool value)
-		{
-			_isSoundOn = value;
-			SaveSetting(SoundKey, value);
-			UpdateVisuals();
-		}
-
-		public void SetMusic(bool value)
-		{
-			_isMusicOn = value;
-			SaveSetting(MusicKey, value);
-			UpdateVisuals();
-		}
-
-
+		
 		public void SettingsButton()
 		{
 			_inputManager.DisableInput();
 			settingsPanel.gameObject.SetActive(true);
 			OnButtonClick();
 		}
-		public void OnButtonClick()
+		
+		public void OnButtonClick() // SETTINGS CANVAS
 		{
 			settingButton.interactable = false;
 		}
-		public void EnableButton()
+		
+		public void EnableButton() // SETTINGS CANVAS
 		{
 			settingButton.interactable = true;
 		}
-		public void CloseSettingsButton()
+		
+		public void CloseSettingsButton() // SETTINGS CANVAS
 		{
 			settingsPanel.gameObject.SetActive(false);
 			DOVirtual.DelayedCall(1f, () =>
@@ -108,26 +114,28 @@ namespace ChainCube.Managers
 			EnableButton();
 		}
 
-		public void VibrationButton()
+		public void VibrationButton() // SETTINGS CANVAS
 		{
 			_isVibrationOn = !_isVibrationOn;
-		
-
+			SaveSetting(VibrationKey, _isVibrationOn);
 			UpdateVisuals();
 		}
-		public void SoundButton()
+		
+		public void SoundButton() // SETTINGS CANVAS
 		{
 			_isSoundOn = !_isSoundOn;
-	
+			SaveSetting(SoundKey, _isSoundOn);
 			UpdateVisuals();
 		}
-		public void MusicButton()
+		
+		public void MusicButton() // SETTINGS CANVAS
 		{
 			_isMusicOn = !_isMusicOn;
-
+			SaveSetting(MusicKey, _isMusicOn);
 			UpdateVisuals();
 		}
-		private void UpdateVisuals()
+		
+		private void UpdateVisuals() // SETTINGS CANVAS
 		{
 			trueVibrationImage.SetActive(_isVibrationOn);
 			falseVibrationImage.SetActive(!_isVibrationOn);
@@ -140,4 +148,3 @@ namespace ChainCube.Managers
 		}
 	}
 }
-
