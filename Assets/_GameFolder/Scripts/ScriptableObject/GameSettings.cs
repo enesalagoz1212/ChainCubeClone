@@ -8,13 +8,13 @@ namespace ChainCube.ScriptableObjects
 		public Vector3 CubeSpawnPos;
 		public Vector3 throwDirection;
 		public float mergeUpwardForce;
-		public float velocityMagnitude;
-		public float upwardVelocity;
+		public float cubeSpeedMagnitude;
+		public float cubeUpwardVelocity;
 		public float horizontalSpeed;
 		public float horizontalMaxX;
 		public float horizontalMinX;
-		public int minRotation;
-		public int maxRotation;
+		public int minRotationOfMergingCube;
+		public int maxRotationOfMergingCube;
 		public float cubeTorqueStrength;
 		public float revealDurationTween;
 

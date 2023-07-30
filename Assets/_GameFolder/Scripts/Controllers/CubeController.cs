@@ -49,8 +49,8 @@ namespace ChainCube.Controllers
 				Vector3 direction = nearestCubeController.transform.position - transform.position;
 				direction.Normalize();
 				
-				var velocity = direction * GameSettingManager.Instance.gameSettings.velocityMagnitude;
-				velocity.y = GameSettingManager.Instance.gameSettings.upwardVelocity;
+				var velocity = direction * GameSettingManager.Instance.gameSettings.cubeSpeedMagnitude;
+				velocity.y = GameSettingManager.Instance.gameSettings.cubeUpwardVelocity;
 
 				SetVelocity(velocity);
 			}
@@ -62,7 +62,7 @@ namespace ChainCube.Controllers
 		}
 		public void RotationOfMergingCube()
 		{			
-			var torque = new Vector3(Random.Range(gameSettings.minRotation, gameSettings.maxRotation), Random.Range(gameSettings.minRotation, gameSettings.maxRotation), Random.Range(gameSettings.minRotation, gameSettings.maxRotation)).normalized;
+			var torque = new Vector3(Random.Range(gameSettings.minRotationOfMergingCube, gameSettings.maxRotationOfMergingCube), Random.Range(gameSettings.minRotationOfMergingCube, gameSettings.maxRotationOfMergingCube), Random.Range(gameSettings.minRotationOfMergingCube, gameSettings.maxRotationOfMergingCube)).normalized;
 			
 			_rigidbody.AddTorque(torque * gameSettings.cubeTorqueStrength, ForceMode.Impulse);
 		}
