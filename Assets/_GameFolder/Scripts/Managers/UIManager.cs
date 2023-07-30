@@ -18,6 +18,7 @@ namespace ChainCube.Managers
         public Image colorImage; // DELETE
         public Image bombImage; // DELETE
 
+        public GameCanvas gameCanvas;
         public EndCanvas endCanvas;
 		
 		private void Awake()
