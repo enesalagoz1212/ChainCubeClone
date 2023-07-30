@@ -128,23 +128,15 @@ namespace ChainCube.Managers
 				GameObject mergeParticleObject = Instantiate(mergeParticlePrefab.gameObject, cubeObject.transform.position, Quaternion.identity, cubeController.transform);
 				ParticleSystem mergeParticle = mergeParticleObject.GetComponent<ParticleSystem>();
 				mergeParticle.Play();
-				StartCoroutine(MergeParticleEffect(mergeParticleObject, GameSettingManager.Instance.gameSettings.delay));
+				
 			});
 
 			_activeCubes.Add(cubeController);
 
-			var torque = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
-			float torqueStrength = Random.Range(0f, 2f);
-			cubeController.GetComponent<Rigidbody>().AddTorque(torque * torqueStrength, ForceMode.Impulse);
+			cubeController.RotationOfMergingCube();
+		
 		}
-
-		private IEnumerator MergeParticleEffect(GameObject particleObject, float delay)
-		{
-			yield return new WaitForSeconds(delay);
-			ParticleSystem mergeParticle = particleObject.GetComponent<ParticleSystem>();
-			mergeParticle.Stop();
-			Destroy(particleObject);
-		}
+		
 
 		public CubeController ReturnClosestCubeControllerWithSameNumber(CubeController cubeController)
 		{

@@ -1,18 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using ChainCube.Managers;
+using ChainCube.ScriptableObjects;
 
-public class SettingsCanvas : MonoBehaviour
+namespace ChainCube.Canvases
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public class SettingsCanvas : MonoBehaviour
+	{
+		public GameObject settingPanel;
+		public RectTransform backGroundSettinsPanel, closeButton;
+		public RectTransform vibrationButton, soundButton, musicButton;
+		float revealDurationTween = 0.5f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+		public void UiSettingsTween()
+		{
+			backGroundSettinsPanel.DOScale(Vector3.zero, revealDurationTween).From();
+			closeButton.DOScale(Vector3.zero,revealDurationTween).SetDelay(revealDurationTween).From();
+			vibrationButton.DOScale(Vector3.zero, revealDurationTween).From();
+			musicButton.DOScale(Vector3.zero, revealDurationTween).From();
+			soundButton.DOScale(Vector3.zero, revealDurationTween).From();
+		}
+
+	}
 }
+

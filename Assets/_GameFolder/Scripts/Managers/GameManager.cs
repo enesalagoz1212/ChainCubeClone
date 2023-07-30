@@ -131,11 +131,8 @@ namespace ChainCube.Managers
 		}
 
 		public void RestartGame()
-		{
-			DOVirtual.DelayedCall(1f, () =>
-			{
-				OnGameResetAction();
-			});
+		{			
+			OnGameResetAction();				
 		}
 
 		public void QuitGame()

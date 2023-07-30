@@ -2,6 +2,7 @@ using ChainCube.ScriptableObjects;
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ChainCube.Managers
 {
@@ -16,16 +17,16 @@ namespace ChainCube.Managers
 		public GameObject trueSoundImage, falseSoundImage;
 		public GameObject trueMusicImage, falseMusicImage;
 
-		private bool _isVibrationOn = true;
-		private bool _isSoundOn = true;
-		private bool _isMusicOn = true;
+		private bool _isVibrationOn;
+		private bool _isSoundOn;
+		private bool _isMusicOn;
 
 		private const string VibrationKey = "VibrationSetting";
 		private const string SoundKey = "SoundSetting";
 		private const string MusicKey = "MusicSetting";
 
 		private InputManager _inputManager;
-
+		public Button settingButton;
 		private void Awake()
 		{
 			if (Instance != null && Instance != this)
@@ -41,25 +42,61 @@ namespace ChainCube.Managers
 		}
 		private void Start()
 		{
-			_isVibrationOn = GetSetting(VibrationKey, true);
-			_isSoundOn = GetSetting(SoundKey, true);
 			_isMusicOn = GetSetting(MusicKey, true);
+			_isSoundOn = GetSetting(SoundKey, true);
+			_isVibrationOn = GetSetting(VibrationKey, true);
 		}
+	
 
 		private bool GetSetting(string key, bool defaultValue)
 		{
-			return PlayerPrefs.GetInt(key, defaultValue ? 1 : 0) == 1;
+			if (PlayerPrefs.HasKey(key))
+			{
+				return bool.Parse(PlayerPrefs.GetString(key));
+			}
+			return defaultValue;
 		}
 
-		private void SetSetting(string key, bool value)
+		private void SaveSetting(string key, bool value)
 		{
-			PlayerPrefs.SetInt(key, value ? 1 : 0);
+			PlayerPrefs.SetString(key, value.ToString());
 		}
+
+		public void SetVibration(bool value)
+		{
+			_isVibrationOn = value;
+			SaveSetting(VibrationKey, value);
+			UpdateVisuals();
+		}
+
+		public void SetSound(bool value)
+		{
+			_isSoundOn = value;
+			SaveSetting(SoundKey, value);
+			UpdateVisuals();
+		}
+
+		public void SetMusic(bool value)
+		{
+			_isMusicOn = value;
+			SaveSetting(MusicKey, value);
+			UpdateVisuals();
+		}
+
 
 		public void SettingsButton()
 		{
 			_inputManager.DisableInput();
 			settingsPanel.gameObject.SetActive(true);
+			OnButtonClick();
+		}
+		public void OnButtonClick()
+		{
+			settingButton.interactable = false;
+		}
+		public void EnableButton()
+		{
+			settingButton.interactable = true;
 		}
 		public void CloseSettingsButton()
 		{
@@ -68,28 +105,25 @@ namespace ChainCube.Managers
 			{
 				_inputManager.EnabledInput();
 			});
-
+			EnableButton();
 		}
 
 		public void VibrationButton()
 		{
 			_isVibrationOn = !_isVibrationOn;
-			SetSetting(VibrationKey, _isVibrationOn);
+		
 
 			UpdateVisuals();
 		}
 		public void SoundButton()
 		{
 			_isSoundOn = !_isSoundOn;
-			SetSetting(SoundKey, _isSoundOn);
-
+	
 			UpdateVisuals();
 		}
 		public void MusicButton()
 		{
 			_isMusicOn = !_isMusicOn;
-			SetSetting(MusicKey, _isMusicOn);
-
 
 			UpdateVisuals();
 		}

@@ -1,18 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
-public class EndCanvas : MonoBehaviour
+namespace ChainCube.Canvases
 {
-    // Start is called before the first frame update
-    void Start()
+    public class EndCanvas : MonoBehaviour
     {
-        
-    }
+		public RectTransform backgroundEndPanel;
+		public RectTransform[] endPanelTexts;
+		public RectTransform restatButton;
+		public GameObject endPanel;
+		public float revealDuration = 1f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+		public Button restartButton;
+		private bool restartButtonClicked = false;
+
+		private void Start()
+		{
+			restartButton.onClick.AddListener(OnRestartButtonClicked);
+		}
+
+
+		public void OnRestartButtonClicked()
+		{
+			if (!restartButtonClicked)
+			{
+				restartButton.interactable = true;
+				restartButtonClicked = true;
+			}
+		}
+		public void UiEndTween()
+		{
+			backgroundEndPanel.DOScale(Vector3.zero, revealDuration).From();		
+			foreach (RectTransform endPanelText in endPanelTexts)
+			{
+				endPanelText.DOScale(Vector3.zero, revealDuration / 2).SetDelay(revealDuration).From();
+			}
+			restatButton.DOScale(Vector3.zero, revealDuration).From();
+		}
+
+	}
 }
+

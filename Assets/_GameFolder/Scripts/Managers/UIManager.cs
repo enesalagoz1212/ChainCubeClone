@@ -2,14 +2,13 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
+using ChainCube.Canvases;
 
 namespace ChainCube.Managers
 {
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance { get; private set; }
-
-        public TweenManagerUI tweenManagerUI;
 
         public GameObject endPanel;
         public TextMeshProUGUI scoreText;
@@ -18,7 +17,8 @@ namespace ChainCube.Managers
         public TextMeshProUGUI endRecordScore;
         public Image colorImage;
         public Image bombImage;
-       
+
+        public EndCanvas endCanvas;
 		
 		private void Awake()
 		{
@@ -103,7 +103,7 @@ namespace ChainCube.Managers
             OnCubeCollidedWithReset();
             colorImage.gameObject.SetActive(false);
             bombImage.gameObject.SetActive(false);
-            tweenManagerUI.UiEndTween();
+            endCanvas.UiEndTween();
 		}
     }
 }

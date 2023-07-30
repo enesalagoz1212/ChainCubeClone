@@ -10,10 +10,13 @@ namespace ChainCube.ScriptableObjects
 		public float mergeUpwardForce;
 		public float velocityMagnitude;
 		public float upwardVelocity;
-		public float speed;
-		public float maxX;
-		public float minX;
-		public float delay;
+		public float horizontalSpeed;
+		public float horizontalMaxX;
+		public float horizontalMinX;
+		public int minRotation;
+		public int maxRotation;
+		public float cubeTorqueStrength;
+		public float revealDurationTween;
 
 	}
 }

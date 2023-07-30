@@ -3,7 +3,7 @@ using ChainCube.Managers;
 using UnityEngine;
 using TMPro;
 using ChainCube.Controllers;
-using System;
+using System.Collections;
 using DG.Tweening;
 
 namespace ChainCube.Controllers
@@ -56,11 +56,16 @@ namespace ChainCube.Controllers
 			}
 			else
 			{
-				_rigidbody.AddForce(Vector3.up * GameSettingManager.Instance.gameSettings.mergeUpwardForce, ForceMode.VelocityChange);
+				_rigidbody.AddForce(Vector3.up *gameSettings.mergeUpwardForce, ForceMode.VelocityChange);
 			}
 			IsEndTriggerAvailable = true;
 		}
-
+		public void RotationOfMergingCube()
+		{			
+			var torque = new Vector3(Random.Range(gameSettings.minRotation, gameSettings.maxRotation), Random.Range(gameSettings.minRotation, gameSettings.maxRotation), Random.Range(gameSettings.minRotation, gameSettings.maxRotation)).normalized;
+			
+			_rigidbody.AddTorque(torque * gameSettings.cubeTorqueStrength, ForceMode.Impulse);
+		}
 		private void UpdateCubeText()
 		{
 			_meshRenderer.material.color = _cubeData.color;

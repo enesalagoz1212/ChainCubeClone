@@ -1,13 +1,14 @@
 using UnityEngine;
 using ChainCube.Managers;
 using ChainCube.Controllers;
+using ChainCube.Canvases;
 
 namespace ChainCube.Platforms
 {
     public class CubeResetZone : MonoBehaviour
     {
-        public BoxCollider boxCollider;      
-        
+        public BoxCollider boxCollider;
+
         private void OnEnable()
         {
             GameManager.OnGameStarted += OnGameStart;

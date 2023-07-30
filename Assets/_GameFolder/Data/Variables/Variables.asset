@@ -17,7 +17,10 @@ MonoBehaviour:
   mergeUpwardForce: 8
   velocityMagnitude: 3
   upwardVelocity: 7
-  speed: 0.8
-  maxX: 1.2
-  minX: -1.2
-  delay: 2
+  horizontalSpeed: 0.7
+  horizontalMaxX: 1.2
+  horizontalMinX: -1.2
+  minRotation: 3
+  maxRotation: 1
+  cubeTorqueStrength: 2
+  revealDurationTween: 0.75
