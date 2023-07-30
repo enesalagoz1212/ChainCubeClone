@@ -103,7 +103,7 @@ namespace ChainCube.Managers
             OnCubeCollidedWithReset();
             colorImage.gameObject.SetActive(false);
             bombImage.gameObject.SetActive(false);
-            endCanvas.UiEndTween();
+            endCanvas.OnGameEnd();
 		}
     }
 }

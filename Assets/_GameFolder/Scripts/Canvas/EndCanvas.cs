@@ -15,22 +15,24 @@ namespace ChainCube.Canvases
 		public float revealDuration = 1f;
 
 		public Button restartButton;
-		private bool restartButtonClicked = false;
 
 		private void Start()
 		{
 			restartButton.onClick.AddListener(OnRestartButtonClicked);
 		}
 
-
-		public void OnRestartButtonClicked()
+		public void OnGameEnd()
 		{
-			if (!restartButtonClicked)
-			{
-				restartButton.interactable = true;
-				restartButtonClicked = true;
-			}
+			restartButton.interactable = true;
+			UiEndTween();
 		}
+		
+		private void OnRestartButtonClicked()
+		{
+			restartButton.interactable = false;
+			// RESTART BUTONUNDA CAGIRILACAK HER SEY BURADA OLSUN!
+		}
+		
 		public void UiEndTween()
 		{
 			backgroundEndPanel.DOScale(Vector3.zero, revealDuration).From();		
@@ -40,7 +42,5 @@ namespace ChainCube.Canvases
 			}
 			restatButton.DOScale(Vector3.zero, revealDuration).From();
 		}
-
-	}
+    }
 }
-
