@@ -2,8 +2,6 @@ using ChainCube.ScriptableObjects;
 using ChainCube.Managers;
 using UnityEngine;
 using TMPro;
-using ChainCube.Controllers;
-using System.Collections;
 using DG.Tweening;
 
 namespace ChainCube.Controllers

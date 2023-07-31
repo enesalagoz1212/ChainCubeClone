@@ -10,7 +10,7 @@ namespace ChainCube.ScriptableObjects
 		public float mergeUpwardForce;
 		public float cubeSpeedMagnitude;
 		public float cubeUpwardVelocity;
-		public float horizontalSpeed;
+		public float depthSpeedZ;
 		public float horizontalMaxX;
 		public float horizontalMinX;
 		public int minRotationOfMergingCube;

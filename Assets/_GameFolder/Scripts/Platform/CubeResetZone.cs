@@ -1,7 +1,6 @@
 using UnityEngine;
 using ChainCube.Managers;
 using ChainCube.Controllers;
-using ChainCube.Canvases;
 
 namespace ChainCube.Platforms
 {
@@ -61,7 +60,6 @@ namespace ChainCube.Platforms
         {
             if (cubeController != null && cubeController.IsEndTriggerAvailable)
             {
-                Debug.Log("trigger1");
                 cubeController.IsEndTriggerAvailable = false;
                 LevelManager.Instance.OnCubeCollidedWithReset(cubeController);
             }

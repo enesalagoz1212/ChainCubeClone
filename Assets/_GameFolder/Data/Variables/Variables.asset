@@ -17,10 +17,10 @@ MonoBehaviour:
   mergeUpwardForce: 10
   cubeSpeedMagnitude: 2
   cubeUpwardVelocity: 8
-  horizontalSpeed: 0.7
+  depthSpeedZ: 0.7
   horizontalMaxX: 1.2
   horizontalMinX: -1.2
-  minRotationOfMergingCube: 3
-  maxRotationOfMergingCube: 1
+  minRotationOfMergingCube: 1
+  maxRotationOfMergingCube: 3
   cubeTorqueStrength: 4
-  revealDurationTween: 0.75
+  revealDurationTween: 0.5

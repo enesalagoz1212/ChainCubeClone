@@ -1,13 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
+using ChainCube.Managers;
 
 namespace ChainCube.Canvases
 {
     public class EndCanvas : MonoBehaviour
-    {
+    {		
+		public TextMeshProUGUI endScoreText; // END CANVAS
+		public TextMeshProUGUI endRecordScore; // END CANVAS
+
 		public RectTransform backgroundEndPanel;
 		public RectTransform[] endPanelTexts;
 		public RectTransform restatButton;
@@ -16,31 +19,66 @@ namespace ChainCube.Canvases
 
 		public Button restartButton;
 
+		private void OnEnable()
+		{
+			GameManager.OnGameStarted += OnGameStart;
+			GameManager.OnGameEnd += OnGameEnd;
+			GameManager.OnGameReset += OnGameReseted;		
+		}
+		private void OnDisable()
+		{
+			GameManager.OnGameStarted -= OnGameStart;
+			GameManager.OnGameEnd -= OnGameEnd;
+			GameManager.OnGameReset -= OnGameReseted;
+		}
+
 		private void Start()
 		{
 			restartButton.onClick.AddListener(OnRestartButtonClicked);
 		}
 
-		public void OnGameEnd()
+		private void OnGameStart()
 		{
-			restartButton.interactable = true;
-			UiEndTween();
+			endPanel.SetActive(false);
+		}
+		public void OnRestartButtonClicked()
+		{
+			GameManager.Instance.OnGameResetAction();
 		}
 		
-		private void OnRestartButtonClicked()
+		private void OnGameReseted()
 		{
+		
+			endPanel.SetActive(false);
 			restartButton.interactable = false;
-			// RESTART BUTONUNDA CAGIRILACAK HER SEY BURADA OLSUN!
-		}
 		
+		}
 		public void UiEndTween()
 		{
 			backgroundEndPanel.DOScale(Vector3.zero, revealDuration).From();		
 			foreach (RectTransform endPanelText in endPanelTexts)
 			{
-				endPanelText.DOScale(Vector3.zero, revealDuration / 2).SetDelay(revealDuration).From();
+				endPanelText.DOScale(Vector3.zero, revealDuration / 4).SetDelay(revealDuration).From();
 			}
 			restatButton.DOScale(Vector3.zero, revealDuration).From();
 		}
-    }
+
+		private void UpdateEndPanelScore() // END CANVAS
+		{
+			endScoreText.text = "Score: " + GameManager.Instance.gameScore.ToString();
+			endRecordScore.text = "Record Score: " + GameManager.RecordScore.ToString();
+		}
+
+		public void OnCubeCollidedWithReset()
+		{
+			endPanel.SetActive(true);
+			UpdateEndPanelScore();
+		}
+		private void OnGameEnd()
+		{
+			restartButton.interactable = true;
+			OnCubeCollidedWithReset();
+			UiEndTween();
+		}
+	}
 }

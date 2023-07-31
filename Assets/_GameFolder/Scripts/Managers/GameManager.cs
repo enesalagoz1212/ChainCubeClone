@@ -93,7 +93,7 @@ namespace ChainCube.Managers
 			OnGameStarted?.Invoke();
 			GameState = GameState.ThrowAvailable;
 			gameScore = 0;
-			
+
 		}
 
 		public void EndGame()
@@ -108,7 +108,7 @@ namespace ChainCube.Managers
 			OnGameReset?.Invoke();
 			DOVirtual.DelayedCall(0.2f, () =>
 			{
-				
+
 				OnGameStart();
 			});
 		}
@@ -122,23 +122,14 @@ namespace ChainCube.Managers
 		{
 			gameScore += score;
 
-			if (gameScore > RecordScore)
+			if (gameScore >= RecordScore)
 			{
 				RecordScore = gameScore;
 				OnRecordScoreTexted?.Invoke(RecordScore);
 			}
 			OnGameScoreIncreased?.Invoke(gameScore);
-		}
 
-		public void RestartGame()
-		{			
-			OnGameResetAction();				
-		}
 
-		public void QuitGame()
-		{
-			Application.Quit();
 		}
-
 	}
 }

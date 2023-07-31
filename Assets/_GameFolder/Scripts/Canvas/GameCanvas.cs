@@ -1,18 +1,59 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using ChainCube.Managers;
+using DG.Tweening;
 
-public class GameCanvas : MonoBehaviour
+
+namespace ChainCube.Canvases
 {
-    
-    void Start()
-    {
-        
-    }
+	public class GameCanvas : MonoBehaviour
+	{
+		public TextMeshProUGUI scoreText; // GAME CANVAS
+		public TextMeshProUGUI recordText; // GAME CANVAS
 
-    
-    void Update()
-    {
-        
-    }
+		private void OnEnable()
+		{
+			GameManager.OnGameScoreIncreased += OnGameScoreIncreased;
+			GameManager.OnRecordScoreTexted += OnRecordScoreIncreased;
+		}
+		private void OnDisable()
+		{
+			GameManager.OnGameScoreIncreased -= OnGameScoreIncreased;
+			GameManager.OnRecordScoreTexted -= OnRecordScoreIncreased;
+		}
+		public void OnSettingButtonClick()
+		{
+			SettingsCanvas settingCanvas = FindObjectOfType<SettingsCanvas>();
+			if (settingCanvas != null)
+			{
+				settingCanvas.ChangeSettingButtonInteractable();
+			}
+		}
+		void Start()
+		{
+			UpdateScoreText();
+			UpdateRecordText();
+		}
+
+		private void OnGameScoreIncreased(int score) // GAME CANVAS
+		{
+			UpdateScoreText();
+		}
+
+		private void OnRecordScoreIncreased(int score) // GAME CANVAS
+		{
+			UpdateRecordText();
+		}
+		public void UpdateScoreText() // GAME CANVAS
+		{
+			scoreText.text = " " + GameManager.Instance.gameScore.ToString();
+		}
+
+		public void UpdateRecordText() // GAME CANVAS
+		{
+			recordText.text = "Record:  " + GameManager.RecordScore;
+		}
+	}
 }

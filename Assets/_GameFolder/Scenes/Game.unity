@@ -311,8 +311,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 2.335205, y: -323.7605}
+  m_SizeDelta: {x: 284.8882, y: 1544.2183}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &114911871
 MonoBehaviour:
@@ -652,7 +652,7 @@ RectTransform:
   - {fileID: 590805090}
   - {fileID: 1525704370}
   m_Father: {fileID: 803478531}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -1044,13 +1044,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2babf1714c8a8943b07809c6e1ddddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endPanel: {fileID: 1604222997}
-  scoreText: {fileID: 1525704371}
-  recordText: {fileID: 590805091}
-  endScoreText: {fileID: 1440405858}
-  endRecordScore: {fileID: 1743827696}
-  colorImage: {fileID: 1713279161}
-  bombImage: {fileID: 252587799}
+  gameCanvas: {fileID: 803478535}
   endCanvas: {fileID: 1290768444}
 --- !u!4 &528901955
 Transform:
@@ -1501,9 +1495,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1258328349}
-        m_TargetAssemblyTypeName: ChainCube.Managers.GameSettingManager, Assembly-CSharp
-        m_MethodName: SoundButton
+      - m_Target: {fileID: 1537908764}
+        m_TargetAssemblyTypeName: ChainCube.Canvases.SettingsCanvas, Assembly-CSharp
+        m_MethodName: OnSoundButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1583,8 +1577,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 412515815}
   - {fileID: 1923373251}
+  - {fileID: 412515815}
   - {fileID: 1713279160}
   - {fileID: 252587798}
   m_Father: {fileID: 528901955}
@@ -1668,6 +1662,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48db67921f6f6374785085078ddb1623, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 1525704371}
+  recordText: {fileID: 590805091}
 --- !u!1 &834317011
 GameObject:
   m_ObjectHideFlags: 0
@@ -1958,9 +1954,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1258328349}
-        m_TargetAssemblyTypeName: ChainCube.Managers.GameSettingManager, Assembly-CSharp
-        m_MethodName: MusicButton
+      - m_Target: {fileID: 1537908764}
+        m_TargetAssemblyTypeName: ChainCube.Canvases.SettingsCanvas, Assembly-CSharp
+        m_MethodName: OnMusicButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2147,19 +2143,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1079872447}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 565835104}
-        m_TargetAssemblyTypeName: ChainCube.Managers.GameManager, Assembly-CSharp
-        m_MethodName: RestartGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1079872447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2608,14 +2592,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameSettings: {fileID: 11400000, guid: 718a44b7d5aceec42825d9183164ce2c, type: 2}
-  settingsPanel: {fileID: 2066118940}
-  trueVibrationImage: {fileID: 1259880910}
-  falseVibrationImage: {fileID: 522223631}
-  trueSoundImage: {fileID: 834317011}
-  falseSoundImage: {fileID: 484166136}
-  trueMusicImage: {fileID: 1440379369}
-  falseMusicImage: {fileID: 1714917601}
-  settingButton: {fileID: 1956392864}
 --- !u!4 &1258328350
 Transform:
   m_ObjectHideFlags: 0
@@ -2821,7 +2797,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41ede2d5e7d30354f86ed4951a91cd53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundEndPanel: {fileID: 1833549169}
+  endScoreText: {fileID: 1440405858}
+  endRecordScore: {fileID: 1743827696}
+  backgroundEndPanel: {fileID: 1604222998}
   endPanelTexts:
   - {fileID: 1743827695}
   - {fileID: 1440405857}
@@ -3573,12 +3551,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad37435cf5e7a84d9b50c8b41f72d2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingPanel: {fileID: 1537908759}
-  backGroundSettinsPanel: {fileID: 2066118941}
-  closeButton: {fileID: 2118267016}
-  vibrationButton: {fileID: 1620950521}
-  soundButton: {fileID: 798001886}
-  musicButton: {fileID: 932039617}
+  settingButton: {fileID: 1956392864}
+  closeButton: {fileID: 2118267017}
+  musicButton: {fileID: 932039618}
+  soundButton: {fileID: 798001887}
+  vibrationButton: {fileID: 1620950522}
+  settingsPanel: {fileID: 2066118940}
+  trueVibrationImage: {fileID: 1259880910}
+  falseVibrationImage: {fileID: 522223631}
+  trueSoundImage: {fileID: 834317011}
+  falseSoundImage: {fileID: 484166136}
+  trueMusicImage: {fileID: 1440379369}
+  falseMusicImage: {fileID: 1714917601}
+  _backGroundSettinsPanel: {fileID: 2066118941}
+  _closeButton: {fileID: 2118267016}
+  _vibrationButton: {fileID: 1620950521}
+  _soundButton: {fileID: 798001886}
+  _musicButton: {fileID: 932039617}
 --- !u!1 &1597772926
 GameObject:
   m_ObjectHideFlags: 0
@@ -3879,9 +3868,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1258328349}
-        m_TargetAssemblyTypeName: ChainCube.Managers.GameSettingManager, Assembly-CSharp
-        m_MethodName: VibrationButton
+      - m_Target: {fileID: 1537908764}
+        m_TargetAssemblyTypeName: ChainCube.Canvases.SettingsCanvas, Assembly-CSharp
+        m_MethodName: OnVibrationButtonClick
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4833,7 +4822,7 @@ RectTransform:
   m_Children:
   - {fileID: 1956392863}
   m_Father: {fileID: 803478531}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -4960,31 +4949,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1956392865}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1258328349}
-        m_TargetAssemblyTypeName: ChainCube.Managers.GameSettingManager, Assembly-CSharp
-        m_MethodName: SettingsButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1537908764}
-        m_TargetAssemblyTypeName: ChainCube.Canvases.SettingsCanvas, Assembly-CSharp
-        m_MethodName: UiSettingsTween
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1956392865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5307,19 +5272,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2118267018}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1258328349}
-        m_TargetAssemblyTypeName: ChainCube.Managers.GameSettingManager, Assembly-CSharp
-        m_MethodName: CloseSettingsButton
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2118267018
 MonoBehaviour:
   m_ObjectHideFlags: 0
