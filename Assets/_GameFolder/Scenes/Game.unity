@@ -2592,6 +2592,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameSettings: {fileID: 11400000, guid: 718a44b7d5aceec42825d9183164ce2c, type: 2}
+  trueVibrationImage: {fileID: 1259880910}
+  falseVibrationImage: {fileID: 522223631}
+  trueSoundImage: {fileID: 834317011}
+  falseSoundImage: {fileID: 484166136}
+  trueMusicImage: {fileID: 1440379369}
+  falseMusicImage: {fileID: 1714917601}
 --- !u!4 &1258328350
 Transform:
   m_ObjectHideFlags: 0
@@ -3557,12 +3563,6 @@ MonoBehaviour:
   soundButton: {fileID: 798001887}
   vibrationButton: {fileID: 1620950522}
   settingsPanel: {fileID: 2066118940}
-  trueVibrationImage: {fileID: 1259880910}
-  falseVibrationImage: {fileID: 522223631}
-  trueSoundImage: {fileID: 834317011}
-  falseSoundImage: {fileID: 484166136}
-  trueMusicImage: {fileID: 1440379369}
-  falseMusicImage: {fileID: 1714917601}
   _backGroundSettinsPanel: {fileID: 2066118941}
   _closeButton: {fileID: 2118267016}
   _vibrationButton: {fileID: 1620950521}

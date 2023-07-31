@@ -17,12 +17,7 @@ namespace ChainCube.Canvases
 		public Button vibrationButton; // SETTINGS CANVAS
 
 		public GameObject settingsPanel; // SETTINGS CANVAS
-		public GameObject trueVibrationImage;// SETTINGS CANVAS
-		public GameObject falseVibrationImage; // SETTINGS CANVAS
-		public GameObject trueSoundImage;// SETTINGS CANVAS
-		public GameObject falseSoundImage; // SETTINGS CANVAS
-		public GameObject trueMusicImage;// SETTINGS CANVAS
-		public GameObject falseMusicImage; // SETTINGS CANVAS
+
 
 		public RectTransform _backGroundSettinsPanel;
 		public RectTransform _closeButton;
@@ -33,9 +28,6 @@ namespace ChainCube.Canvases
 		private InputManager _inputManager;
 		private GameSettings gameSettings;
 
-		private bool _isVibrationOn;
-		private bool _isSoundOn;
-		private bool _isMusicOn;
 
 		private void Awake()
 		{
@@ -79,40 +71,25 @@ namespace ChainCube.Canvases
 			});
 		}
 
-		public void OnVibrationButtonClick() // SETTINGS CANVAS
+		public void OnVibrationButtonClick() 
 		{
-			_isVibrationOn = !_isVibrationOn;
-			GameSettingManager.IsVibrationOn = _isVibrationOn;
-			UpdateVisualsVibration();
+			GameSettingManager.IsVibrationOn = !GameSettingManager.IsVibrationOn;
+			GameSettingManager.Instance.UpdateVisualsVibration();
 		}
 
-		public void OnSoundButtonClick() // SETTINGS CANVAS
+		public void OnSoundButtonClick() 
 		{
-			_isSoundOn = !_isSoundOn;
-			GameSettingManager.IsSoundOn = _isSoundOn;
-			UpdateVisualsSound();
+
+			GameSettingManager.IsSoundOn = !GameSettingManager.IsSoundOn;
+			GameSettingManager.Instance.UpdateVisualsSound();
 		}
-		public void OnMusicButtonClick() // SETTINGS CANVAS
+		public void OnMusicButtonClick() 
 		{
-			_isMusicOn = !_isMusicOn;
-			GameSettingManager.IsMusicOn = _isMusicOn;
-			UpdateVisualsMusic();
+
+			GameSettingManager.IsMusicOn = !GameSettingManager.IsMusicOn;
+			GameSettingManager.Instance.UpdateVisualsMusic();
 		}
-		private void UpdateVisualsMusic() // SETTINGS CANVAS
-		{
-			falseMusicImage.SetActive(!_isMusicOn);
-			trueMusicImage.SetActive(_isMusicOn);
-		}
-		private void UpdateVisualsSound() // SETTINGS CANVAS
-		{
-			falseSoundImage.SetActive(!_isSoundOn);
-			trueSoundImage.SetActive(_isSoundOn);
-		}
-		private void UpdateVisualsVibration() // SETTINGS CANVAS
-		{
-			falseVibrationImage.SetActive(!_isVibrationOn);
-			trueVibrationImage.SetActive(_isVibrationOn);
-		}
+		
 		public void SettingsTween()
 		{
 			_backGroundSettinsPanel.DOScale(Vector3.zero, gameSettings.revealDurationTween).From();

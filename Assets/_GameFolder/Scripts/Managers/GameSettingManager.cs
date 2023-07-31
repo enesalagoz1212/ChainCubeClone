@@ -11,6 +11,13 @@ namespace ChainCube.Managers
 		public static GameSettingManager Instance { get; private set; }
 		public GameSettings gameSettings;
 
+		public GameObject trueVibrationImage;// SETTINGS CANVAS
+		public GameObject falseVibrationImage; // SETTINGS CANVAS
+		public GameObject trueSoundImage;// SETTINGS CANVAS
+		public GameObject falseSoundImage; // SETTINGS CANVAS
+		public GameObject trueMusicImage;// SETTINGS CANVAS
+		public GameObject falseMusicImage; // SETTINGS CANVAS
+
 		private const string VibrationKey = "IsVibrationOn";
 		private const string SoundKey = "IsSoundOn";
 		private const string MusicKey = "IsMusicOn";
@@ -63,6 +70,7 @@ namespace ChainCube.Managers
 				Instance = this;
 				DontDestroyOnLoad(gameObject);
 			}
+
 		}
 
 		private void Update()
@@ -73,6 +81,21 @@ namespace ChainCube.Managers
 				Debug.Log($"Sound on: {GameSettingManager.IsSoundOn}");
 				Debug.Log($"Vibration on: {GameSettingManager.IsVibrationOn}");
 			}
+		}
+		public void UpdateVisualsMusic()
+		{
+			falseMusicImage.SetActive(!IsMusicOn);
+			trueMusicImage.SetActive(IsMusicOn);
+		}
+		public void UpdateVisualsSound()
+		{
+			falseSoundImage.SetActive(!IsSoundOn);
+			trueSoundImage.SetActive(IsSoundOn);
+		}
+		public void UpdateVisualsVibration()
+		{
+			falseVibrationImage.SetActive(!IsVibrationOn);
+			trueVibrationImage.SetActive(IsVibrationOn);
 		}
 	}
 }
