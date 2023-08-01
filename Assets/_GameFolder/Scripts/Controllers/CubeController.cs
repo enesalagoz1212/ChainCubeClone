@@ -23,11 +23,14 @@ namespace ChainCube.Controllers
 
 		private CubeData _cubeData;
 
+
 		private void Awake()
 		{
 			_rigidbody = GetComponent<Rigidbody>();
 			_meshRenderer = GetComponent<MeshRenderer>();
+
 		}
+
 
 		public void CubeCreated(CubeData createdCubeData, bool isForThrow)
 		{
@@ -89,6 +92,7 @@ namespace ChainCube.Controllers
 			{
 				IsEndTriggerAvailable = true;
 			});
+			
 		}
 
 		private void OnCollisionEnter(Collision collision)
@@ -102,6 +106,8 @@ namespace ChainCube.Controllers
 				var otherCubeController = collision.gameObject.GetComponent<CubeController>();
 				if (otherCubeController != null && _cubeData.number == otherCubeController._cubeData.number)
 				{
+					
+			
 					_isCollisionAvailable = false;
 
 					var hitPoint = collision.contacts[0].point;
@@ -109,7 +115,9 @@ namespace ChainCube.Controllers
 
 					int scoreIncrease = _cubeData.number;
 					GameManager.Instance.IncreaseGameScore(scoreIncrease);
-				}
+
+				}  
+				
 			}
 		}
 		

@@ -44,8 +44,7 @@ namespace ChainCube.Managers
 			}
 		}
 
-		#endregion
-
+		#endregion	
 
 		private void Awake()
 		{
@@ -61,6 +60,7 @@ namespace ChainCube.Managers
 
 		private void Start()
 		{
+
 			OnGameStart();
 		}
 

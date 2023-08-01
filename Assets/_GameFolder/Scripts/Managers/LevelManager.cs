@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using ChainCube.Controllers;
 using UnityEngine;
 using DG.Tweening;
-using System.Collections;
 
 namespace ChainCube.Managers
 {
@@ -15,6 +14,7 @@ namespace ChainCube.Managers
 		public GameObject endCube;
 		public ParticleSystem mergeParticlePrefab;
 
+		private SoundManager _soundManager;
 		private CubeController _currentCubeController;
 		private int _collisionCounter;
 		private List<CubeController> _activeCubes = new List<CubeController>();
@@ -31,6 +31,10 @@ namespace ChainCube.Managers
 			}
 		}
 
+		private void Start()
+		{
+			_soundManager = GetComponent<SoundManager>();
+		}
 		private void OnEnable()
 		{
 			GameManager.OnGameStarted += OnGameStarted;
@@ -97,6 +101,7 @@ namespace ChainCube.Managers
 			var cubeData = cubeController.CubeData;
 			var mergeCubeNumber = cubeData.number * 2;
 
+
 			DestroyCube(cubeController);
 			_collisionCounter++;
 
@@ -119,24 +124,26 @@ namespace ChainCube.Managers
 			var cubeObject = Instantiate(cubePrefab, hitPos, Quaternion.identity, cubes.transform);
 			var cubeController = cubeObject.GetComponent<CubeController>();
 
+
+
+
 			var cubeData = CubeDataManager.Instance.ReturnTargetNumberCubeData(cubeNumber);
 			cubeController.CubeCreated(cubeData, false);
 			cubeController.OnMergeCubeCreatedCheckSameCube();
 
-			DOVirtual.DelayedCall(0.15f, () =>
-			{
-				GameObject mergeParticleObject = Instantiate(mergeParticlePrefab.gameObject, cubeObject.transform.position, Quaternion.identity, cubeController.transform);
-				ParticleSystem mergeParticle = mergeParticleObject.GetComponent<ParticleSystem>();
-				mergeParticle.Play();
-				
-			});
+
+			GameObject mergeParticleObject = Instantiate(mergeParticlePrefab.gameObject, cubeObject.transform.position, Quaternion.identity, cubeController.transform);
+			ParticleSystem mergeParticle = mergeParticleObject.GetComponent<ParticleSystem>();
+			mergeParticle.Play();
+
+
 
 			_activeCubes.Add(cubeController);
 
 			cubeController.RotationOfMergingCube();
-		
+
 		}
-		
+
 
 		public CubeController ReturnClosestCubeControllerWithSameNumber(CubeController cubeController)
 		{

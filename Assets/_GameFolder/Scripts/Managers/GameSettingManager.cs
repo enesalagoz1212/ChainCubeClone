@@ -15,12 +15,13 @@ namespace ChainCube.Managers
 		public GameObject falseVibrationImage; // SETTINGS CANVAS
 		public GameObject trueSoundImage;// SETTINGS CANVAS
 		public GameObject falseSoundImage; // SETTINGS CANVAS
-		public GameObject trueMusicImage;// SETTINGS CANVAS
-		public GameObject falseMusicImage; // SETTINGS CANVAS
+		public GameObject trueMusicImage;
+		public GameObject falseMusicImage; 
 
 		private const string VibrationKey = "IsVibrationOn";
 		private const string SoundKey = "IsSoundOn";
 		private const string MusicKey = "IsMusicOn";
+
 
 		public static bool IsVibrationOn
 		{
@@ -86,6 +87,11 @@ namespace ChainCube.Managers
 		{
 			falseMusicImage.SetActive(!IsMusicOn);
 			trueMusicImage.SetActive(IsMusicOn);
+
+			if (SoundManager.Instance!=null)
+			{
+				SoundManager.Instance.BackgroundMusicEnabled(IsMusicOn);
+			}
 		}
 		public void UpdateVisualsSound()
 		{
