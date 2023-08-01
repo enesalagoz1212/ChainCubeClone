@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8500231576461338890}
   - component: {fileID: 1855566088095525741}
   - component: {fileID: 3709366789730484294}
+  - component: {fileID: -2177611122774928346}
   m_Layer: 0
   m_Name: ConfettiBlastRainbow
   m_TagString: Untagged
@@ -4636,7 +4637,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2ffa92e66125f0f4381ae406b4779013, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -4806,6 +4807,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyTime: 2
+--- !u!114 &-2177611122774928346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855566088109052365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42ba9d32aaa8e414b9e64240a1aa47d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1855566088109054437
 GameObject:
   m_ObjectHideFlags: 0

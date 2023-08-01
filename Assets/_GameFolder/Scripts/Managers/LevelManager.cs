@@ -14,7 +14,6 @@ namespace ChainCube.Managers
 		public GameObject endCube;
 		public ParticleSystem mergeParticlePrefab;
 
-		private SoundManager _soundManager;
 		private CubeController _currentCubeController;
 		private int _collisionCounter;
 		private List<CubeController> _activeCubes = new List<CubeController>();
@@ -31,10 +30,6 @@ namespace ChainCube.Managers
 			}
 		}
 
-		private void Start()
-		{
-			_soundManager = GetComponent<SoundManager>();
-		}
 		private void OnEnable()
 		{
 			GameManager.OnGameStarted += OnGameStarted;
@@ -45,6 +40,11 @@ namespace ChainCube.Managers
 		{
 			GameManager.OnGameStarted -= OnGameStarted;
 			GameManager.OnGameReset -= OnGameReseted;
+		}
+
+		public void Initialize()
+		{
+			
 		}
 
 		private void OnGameStarted()

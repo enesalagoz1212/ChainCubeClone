@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using System;
 using ChainCube.Managers;
 using ChainCube.ScriptableObjects;
 
@@ -25,33 +24,31 @@ namespace ChainCube.Canvases
 		public RectTransform _soundButton;
 		public RectTransform _musicButton;
 
-		private InputManager _inputManager;
 		private GameSettings gameSettings;
+
+		private InputManager _inputManager;
+		private GameCanvas _gameCanvas;
 
 
 		private void Awake()
 		{
 			settingButton.onClick.AddListener(OnSettingsButton);
 			closeButton.onClick.AddListener(OnCloseSettingButtonClick);
-			_inputManager = FindObjectOfType<InputManager>();
 		}
+		
+		public void Initialize(InputManager inputManager, GameCanvas gameCanvas)
+		{
+			_inputManager = inputManager;
+			_gameCanvas = gameCanvas;
+		}
+		
 		public void OnSettingsButton()
 		{
 			settingsPanel.SetActive(true);
-			if (_inputManager != null)
-			{
-				_inputManager.DisableInput();
-				GameCanvas gameCanvas = FindObjectOfType<GameCanvas>();
-				if (gameCanvas != null)
-				{
-					gameCanvas.OnSettingButtonClick();
-				}
-			}
-			else
-			{
-				Debug.Log("_inputMaanager == null");
-			}
+			_inputManager.DisableInput();
+			_gameCanvas.OnSettingButtonClick();
 		}
+		
 		public void ChangeSettingButtonInteractable()
 		{
 			settingButton.interactable = !settingButton.interactable;
@@ -60,7 +57,7 @@ namespace ChainCube.Canvases
 
 		public void OnCloseSettingButtonClick() // SETTINGS CANVAS
 		{
-			GameCanvas gameCanvas = FindObjectOfType<GameCanvas>();
+			GameCanvas gameCanvas = FindObjectOfType<GameCanvas>(); // REMOVE
 			if (gameCanvas != null)
 			{
 				gameCanvas.OnSettingButtonClick();
@@ -79,14 +76,13 @@ namespace ChainCube.Canvases
 
 		public void OnSoundButtonClick() 
 		{
-
 			GameSettingManager.IsSoundOn = !GameSettingManager.IsSoundOn;
 			GameSettingManager.Instance.UpdateVisualsSound();
 		}
 		public void OnMusicButtonClick() 
 		{
-
 			GameSettingManager.IsMusicOn = !GameSettingManager.IsMusicOn;
+			SoundManager.Instance.CheckBackgroundMusic();
 			GameSettingManager.Instance.UpdateVisualsMusic();
 		}
 		

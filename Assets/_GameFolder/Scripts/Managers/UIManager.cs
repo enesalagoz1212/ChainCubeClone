@@ -11,6 +11,7 @@ namespace ChainCube.Managers
         public static UIManager Instance { get; private set; }
 
         public GameCanvas gameCanvas;
+        public SettingsCanvas settingsCanvas;
         public EndCanvas endCanvas;
 		
 		private void Awake()
@@ -25,6 +26,12 @@ namespace ChainCube.Managers
             }
         }
  
+        public void Initialize(InputManager inputManager)
+        {
+			gameCanvas.Initialize();
+            settingsCanvas.Initialize(inputManager, gameCanvas);
+            endCanvas.Initialize();
+        }
     }
 }
 

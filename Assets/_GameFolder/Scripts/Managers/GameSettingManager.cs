@@ -83,21 +83,19 @@ namespace ChainCube.Managers
 				Debug.Log($"Vibration on: {GameSettingManager.IsVibrationOn}");
 			}
 		}
+		
 		public void UpdateVisualsMusic()
 		{
 			falseMusicImage.SetActive(!IsMusicOn);
 			trueMusicImage.SetActive(IsMusicOn);
-
-			if (SoundManager.Instance!=null)
-			{
-				SoundManager.Instance.BackgroundMusicEnabled(IsMusicOn);
-			}
 		}
+		
 		public void UpdateVisualsSound()
 		{
 			falseSoundImage.SetActive(!IsSoundOn);
 			trueSoundImage.SetActive(IsSoundOn);
 		}
+		
 		public void UpdateVisualsVibration()
 		{
 			falseVibrationImage.SetActive(!IsVibrationOn);

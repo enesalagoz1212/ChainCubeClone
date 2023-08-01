@@ -36,11 +36,17 @@ namespace ChainCube.Canvases
 		{
 			restartButton.onClick.AddListener(OnRestartButtonClicked);
 		}
+		
+		public void Initialize()
+		{
+			
+		}
 
 		private void OnGameStart()
 		{
 			endPanel.SetActive(false);
 		}
+		
 		public void OnRestartButtonClicked()
 		{
 			GameManager.Instance.OnGameResetAction();

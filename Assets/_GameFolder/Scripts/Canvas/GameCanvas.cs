@@ -18,19 +18,27 @@ namespace ChainCube.Canvases
 			GameManager.OnGameScoreIncreased += OnGameScoreIncreased;
 			GameManager.OnRecordScoreTexted += OnRecordScoreIncreased;
 		}
+		
 		private void OnDisable()
 		{
 			GameManager.OnGameScoreIncreased -= OnGameScoreIncreased;
 			GameManager.OnRecordScoreTexted -= OnRecordScoreIncreased;
 		}
+		
+		public void Initialize()
+		{
+			
+		}
+		
 		public void OnSettingButtonClick()
 		{
-			SettingsCanvas settingCanvas = FindObjectOfType<SettingsCanvas>();
+			SettingsCanvas settingCanvas = FindObjectOfType<SettingsCanvas>(); // REMOVE
 			if (settingCanvas != null)
 			{
 				settingCanvas.ChangeSettingButtonInteractable();
 			}
 		}
+		
 		void Start()
 		{
 			UpdateScoreText();

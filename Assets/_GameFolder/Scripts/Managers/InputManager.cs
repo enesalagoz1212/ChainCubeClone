@@ -24,6 +24,11 @@ namespace ChainCube.Managers
 			GameManager.OnGameReset -= OnGameReset;			
 		}
 		
+		public void Initialize()
+		{
+			
+		}
+		
 		private void Update()
 		{
 			switch (GameManager.Instance.GameState)

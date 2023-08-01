@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd81078f7a9730745b1e8623ad6df84f, type: 3}
   m_Name: Variables
   m_EditorClassIdentifier: 
-  CubeSpawnPos: {x: 0, y: 0.35, z: -3}
+  CubeSpawnPos: {x: 2.63, y: 1.55, z: -5.09}
   throwDirection: {x: 0, y: 0, z: 21}
   mergeUpwardForce: 10
   cubeSpeedMagnitude: 2

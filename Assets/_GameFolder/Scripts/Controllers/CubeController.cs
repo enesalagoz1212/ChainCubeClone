@@ -106,8 +106,6 @@ namespace ChainCube.Controllers
 				var otherCubeController = collision.gameObject.GetComponent<CubeController>();
 				if (otherCubeController != null && _cubeData.number == otherCubeController._cubeData.number)
 				{
-					
-			
 					_isCollisionAvailable = false;
 
 					var hitPoint = collision.contacts[0].point;
@@ -115,9 +113,7 @@ namespace ChainCube.Controllers
 
 					int scoreIncrease = _cubeData.number;
 					GameManager.Instance.IncreaseGameScore(scoreIncrease);
-
-				}  
-				
+				}
 			}
 		}
 		
