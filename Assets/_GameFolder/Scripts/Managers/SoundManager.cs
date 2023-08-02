@@ -18,8 +18,7 @@ namespace ChainCube.Managers
 			else
 			{
 				Destroy(gameObject);
-			}
-			
+			}			
 			_audioSourceBackground = GetComponent<AudioSource>();
 		}
 		

@@ -124,26 +124,18 @@ namespace ChainCube.Managers
 			var cubeObject = Instantiate(cubePrefab, hitPos, Quaternion.identity, cubes.transform);
 			var cubeController = cubeObject.GetComponent<CubeController>();
 
-
-
-
 			var cubeData = CubeDataManager.Instance.ReturnTargetNumberCubeData(cubeNumber);
 			cubeController.CubeCreated(cubeData, false);
 			cubeController.OnMergeCubeCreatedCheckSameCube();
-
 
 			GameObject mergeParticleObject = Instantiate(mergeParticlePrefab.gameObject, cubeObject.transform.position, Quaternion.identity, cubeController.transform);
 			ParticleSystem mergeParticle = mergeParticleObject.GetComponent<ParticleSystem>();
 			mergeParticle.Play();
 
-
-
-			_activeCubes.Add(cubeController);
-
 			cubeController.RotationOfMergingCube();
 
+			_activeCubes.Add(cubeController);
 		}
-
 
 		public CubeController ReturnClosestCubeControllerWithSameNumber(CubeController cubeController)
 		{

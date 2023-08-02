@@ -9,9 +9,7 @@ namespace ChainCube.Controllers
 	public class CubeController : MonoBehaviour
 	{
 		public TextMeshPro[] cubeTexts;
-		public GameObject throwHighlighter;
-
-		
+		public GameObject throwHighlighter;	
 		public GameSettings gameSettings;
 		public bool IsEndTriggerAvailable { get; set; }
 
@@ -23,12 +21,10 @@ namespace ChainCube.Controllers
 
 		private CubeData _cubeData;
 
-
 		private void Awake()
 		{
 			_rigidbody = GetComponent<Rigidbody>();
 			_meshRenderer = GetComponent<MeshRenderer>();
-
 		}
 
 
@@ -61,12 +57,14 @@ namespace ChainCube.Controllers
 			}
 			IsEndTriggerAvailable = true;
 		}
+
 		public void RotationOfMergingCube()
 		{			
 			var torque = new Vector3(Random.Range(gameSettings.minRotationOfMergingCube, gameSettings.maxRotationOfMergingCube), Random.Range(gameSettings.minRotationOfMergingCube, gameSettings.maxRotationOfMergingCube), Random.Range(gameSettings.minRotationOfMergingCube, gameSettings.maxRotationOfMergingCube)).normalized;
 			
 			_rigidbody.AddTorque(torque * gameSettings.cubeTorqueStrength, ForceMode.Impulse);
 		}
+
 		private void UpdateCubeText()
 		{
 			_meshRenderer.material.color = _cubeData.color;
@@ -91,8 +89,7 @@ namespace ChainCube.Controllers
 			DOVirtual.DelayedCall(1f, () =>
 			{
 				IsEndTriggerAvailable = true;
-			});
-			
+			});			
 		}
 
 		private void OnCollisionEnter(Collision collision)

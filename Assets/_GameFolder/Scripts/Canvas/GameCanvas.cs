@@ -1,18 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using ChainCube.Managers;
-using DG.Tweening;
-
+using ChainCube.ScriptableObjects;
 
 namespace ChainCube.Canvases
 {
 	public class GameCanvas : MonoBehaviour
 	{
-		public TextMeshProUGUI scoreText; // GAME CANVAS
-		public TextMeshProUGUI recordText; // GAME CANVAS
+		public TextMeshProUGUI scoreText;
+		public TextMeshProUGUI recordText;
 
+		public GameSettings gameSettings;
+		private SettingsCanvas _settingCanvas;
 		private void OnEnable()
 		{
 			GameManager.OnGameScoreIncreased += OnGameScoreIncreased;
@@ -24,18 +23,17 @@ namespace ChainCube.Canvases
 			GameManager.OnGameScoreIncreased -= OnGameScoreIncreased;
 			GameManager.OnRecordScoreTexted -= OnRecordScoreIncreased;
 		}
-		
-		public void Initialize()
+
+		public void Initialize(SettingsCanvas settingCanvas)
 		{
-			
+			_settingCanvas = settingCanvas;
 		}
 		
 		public void OnSettingButtonClick()
 		{
-			SettingsCanvas settingCanvas = FindObjectOfType<SettingsCanvas>(); // REMOVE
-			if (settingCanvas != null)
+			if (_settingCanvas != null)
 			{
-				settingCanvas.ChangeSettingButtonInteractable();
+				_settingCanvas.ChangeSettingButtonInteractable();
 			}
 		}
 		
@@ -45,21 +43,21 @@ namespace ChainCube.Canvases
 			UpdateRecordText();
 		}
 
-		private void OnGameScoreIncreased(int score) // GAME CANVAS
+		private void OnGameScoreIncreased(int score)
 		{
 			UpdateScoreText();
 		}
 
-		private void OnRecordScoreIncreased(int score) // GAME CANVAS
+		private void OnRecordScoreIncreased(int score)
 		{
 			UpdateRecordText();
 		}
-		public void UpdateScoreText() // GAME CANVAS
+		public void UpdateScoreText()
 		{
 			scoreText.text = " " + GameManager.Instance.gameScore.ToString();
 		}
 
-		public void UpdateRecordText() // GAME CANVAS
+		public void UpdateRecordText()
 		{
 			recordText.text = "Record:  " + GameManager.RecordScore;
 		}

@@ -1,8 +1,6 @@
 using System;
 using UnityEngine;
 using DG.Tweening;
-using System.Collections.Generic;
-using System.Collections;
 
 namespace ChainCube.Managers
 {
@@ -16,7 +14,6 @@ namespace ChainCube.Managers
 	}
 	public class GameManager : MonoBehaviour
 	{
-
 		#region Variables
 
 		public static GameManager Instance { get; private set; }
@@ -105,7 +102,6 @@ namespace ChainCube.Managers
 			OnGameStarted?.Invoke();
 			GameState = GameState.ThrowAvailable;
 			gameScore = 0;
-
 		}
 
 		public void EndGame()
@@ -120,7 +116,6 @@ namespace ChainCube.Managers
 			OnGameReset?.Invoke();
 			DOVirtual.DelayedCall(0.2f, () =>
 			{
-
 				OnGameStart();
 			});
 		}
@@ -140,8 +135,6 @@ namespace ChainCube.Managers
 				OnRecordScoreTexted?.Invoke(RecordScore);
 			}
 			OnGameScoreIncreased?.Invoke(gameScore);
-
-
 		}
 	}
 }

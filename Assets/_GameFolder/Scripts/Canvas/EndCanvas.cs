@@ -3,19 +3,21 @@ using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 using ChainCube.Managers;
+using ChainCube.ScriptableObjects;
 
 namespace ChainCube.Canvases
 {
     public class EndCanvas : MonoBehaviour
-    {		
-		public TextMeshProUGUI endScoreText; // END CANVAS
-		public TextMeshProUGUI endRecordScore; // END CANVAS
+    {
+		GameSettings _gameSettings;
+
+		public TextMeshProUGUI endScoreText;
+		public TextMeshProUGUI endRecordScore;
 
 		public RectTransform backgroundEndPanel;
 		public RectTransform[] endPanelTexts;
 		public RectTransform restatButton;
 		public GameObject endPanel;
-		public float revealDuration = 1f;
 
 		public Button restartButton;
 
@@ -37,9 +39,9 @@ namespace ChainCube.Canvases
 			restartButton.onClick.AddListener(OnRestartButtonClicked);
 		}
 		
-		public void Initialize()
+		public void Initialize(GameCanvas gameCanvas)
 		{
-			
+			_gameSettings = gameCanvas.gameSettings;
 		}
 
 		private void OnGameStart()
@@ -53,23 +55,21 @@ namespace ChainCube.Canvases
 		}
 		
 		private void OnGameReseted()
-		{
-		
+		{		
 			endPanel.SetActive(false);
-			restartButton.interactable = false;
-		
+			restartButton.interactable = false;		
 		}
 		public void UiEndTween()
 		{
-			backgroundEndPanel.DOScale(Vector3.zero, revealDuration).From();		
+			backgroundEndPanel.DOScale(Vector3.zero, _gameSettings.revealDurationTween).From();		
 			foreach (RectTransform endPanelText in endPanelTexts)
 			{
-				endPanelText.DOScale(Vector3.zero, revealDuration / 4).SetDelay(revealDuration).From();
+				endPanelText.DOScale(Vector3.zero, _gameSettings.revealDurationTween / 8).SetDelay(_gameSettings.revealDurationTween).From();
 			}
-			restatButton.DOScale(Vector3.zero, revealDuration).From();
+			restatButton.DOScale(Vector3.zero, _gameSettings.revealDurationTween).From();
 		}
 
-		private void UpdateEndPanelScore() // END CANVAS
+		private void UpdateEndPanelScore() 
 		{
 			endScoreText.text = "Score: " + GameManager.Instance.gameScore.ToString();
 			endRecordScore.text = "Record Score: " + GameManager.RecordScore.ToString();

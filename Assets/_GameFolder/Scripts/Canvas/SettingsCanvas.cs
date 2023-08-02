@@ -8,38 +8,47 @@ namespace ChainCube.Canvases
 {
 	public class SettingsCanvas : MonoBehaviour
 	{
-
-		public Button settingButton; // SETTINGS CANVAS
-		public Button closeButton; // SETTINGS CANVAS
-		public Button musicButton; // SETTINGS CANVAS
-		public Button soundButton; // SETTINGS CANVAS
-		public Button vibrationButton; // SETTINGS CANVAS
-
-		public GameObject settingsPanel; // SETTINGS CANVAS
-
-
-		public RectTransform _backGroundSettinsPanel;
-		public RectTransform _closeButton;
-		public RectTransform _vibrationButton;
-		public RectTransform _soundButton;
-		public RectTransform _musicButton;
-
-		private GameSettings gameSettings;
-
+		private GameSettings _gameSettings;
 		private InputManager _inputManager;
 		private GameCanvas _gameCanvas;
 
+		public Button settingButton;
+		public Button closeButton;
+		public Button musicButton;
+		public Button soundButton;
+		public Button vibrationButton;
+
+		public GameObject settingsPanel;
+		public GameObject trueVibrationImage;
+		public GameObject falseVibrationImage;
+		public GameObject trueSoundImage;
+		public GameObject falseSoundImage;
+		public GameObject trueMusicImage;
+		public GameObject falseMusicImage;
+
+		public RectTransform backGroundSettinsPanelRectTransform;
+		public RectTransform closeButtonRectTransform;
+		public RectTransform vibrationButtonRectTransform;
+		public RectTransform soundButtonRectTransform;
+		public RectTransform musicButtonRectTransform;
 
 		private void Awake()
 		{
 			settingButton.onClick.AddListener(OnSettingsButton);
 			closeButton.onClick.AddListener(OnCloseSettingButtonClick);
 		}
-		
+
+		private void OnEnable()
+		{
+			UpdateVisualsMusic();
+			UpdateVisualsSound();
+			UpdateVisualsVibration();
+		}
 		public void Initialize(InputManager inputManager, GameCanvas gameCanvas)
 		{
 			_inputManager = inputManager;
 			_gameCanvas = gameCanvas;
+			_gameSettings = gameCanvas.gameSettings;
 		}
 		
 		public void OnSettingsButton()
@@ -47,20 +56,21 @@ namespace ChainCube.Canvases
 			settingsPanel.SetActive(true);
 			_inputManager.DisableInput();
 			_gameCanvas.OnSettingButtonClick();
+			SettingsTween();
 		}
 		
 		public void ChangeSettingButtonInteractable()
 		{
 			settingButton.interactable = !settingButton.interactable;
-			settingsPanel.SetActive(!settingButton.interactable);
+			settingsPanel.SetActive(!settingButton.interactable);			
 		}
 
-		public void OnCloseSettingButtonClick() // SETTINGS CANVAS
+		public void OnCloseSettingButtonClick()
 		{
-			GameCanvas gameCanvas = FindObjectOfType<GameCanvas>(); // REMOVE
-			if (gameCanvas != null)
+		
+			if (_gameCanvas != null)
 			{
-				gameCanvas.OnSettingButtonClick();
+				_gameCanvas.OnSettingButtonClick();
 			}
 			DOVirtual.DelayedCall(0.5f, () =>
 			{
@@ -71,28 +81,48 @@ namespace ChainCube.Canvases
 		public void OnVibrationButtonClick() 
 		{
 			GameSettingManager.IsVibrationOn = !GameSettingManager.IsVibrationOn;
-			GameSettingManager.Instance.UpdateVisualsVibration();
+			UpdateVisualsVibration();
 		}
 
 		public void OnSoundButtonClick() 
 		{
 			GameSettingManager.IsSoundOn = !GameSettingManager.IsSoundOn;
-			GameSettingManager.Instance.UpdateVisualsSound();
+			UpdateVisualsSound();
 		}
+
 		public void OnMusicButtonClick() 
 		{
 			GameSettingManager.IsMusicOn = !GameSettingManager.IsMusicOn;
 			SoundManager.Instance.CheckBackgroundMusic();
-			GameSettingManager.Instance.UpdateVisualsMusic();
+			UpdateVisualsMusic();
 		}
-		
+
+		public void UpdateVisualsMusic()
+		{
+			
+			falseMusicImage.SetActive(!GameSettingManager.IsMusicOn);
+			trueMusicImage.SetActive(GameSettingManager.IsMusicOn);
+		}
+
+		public void UpdateVisualsSound()
+		{
+			falseSoundImage.SetActive(!GameSettingManager.IsSoundOn);
+			trueSoundImage.SetActive(GameSettingManager.IsSoundOn);
+		}
+
+		public void UpdateVisualsVibration()
+		{
+			falseVibrationImage.SetActive(!GameSettingManager.IsVibrationOn);
+			trueVibrationImage.SetActive(GameSettingManager.IsVibrationOn);
+		}
+
 		public void SettingsTween()
 		{
-			_backGroundSettinsPanel.DOScale(Vector3.zero, gameSettings.revealDurationTween).From();
-			_closeButton.DOScale(Vector3.zero, gameSettings.revealDurationTween).SetDelay(gameSettings.revealDurationTween / 2).From();
-			_vibrationButton.DOScale(Vector3.zero, gameSettings.revealDurationTween).From();
-			_musicButton.DOScale(Vector3.zero, gameSettings.revealDurationTween).From();
-			_soundButton.DOScale(Vector3.zero, gameSettings.revealDurationTween).From();
+			backGroundSettinsPanelRectTransform.DOScale(Vector3.zero, _gameSettings.revealDurationTween).From();
+			closeButtonRectTransform.DOScale(Vector3.zero, _gameSettings.revealDurationTween).SetDelay(_gameSettings.revealDurationTween / 2).From();
+			vibrationButtonRectTransform.DOScale(Vector3.zero, _gameSettings.revealDurationTween).From();
+			musicButtonRectTransform.DOScale(Vector3.zero, _gameSettings.revealDurationTween).From();
+			soundButtonRectTransform.DOScale(Vector3.zero, _gameSettings.revealDurationTween).From();
 		}
 	}
 }

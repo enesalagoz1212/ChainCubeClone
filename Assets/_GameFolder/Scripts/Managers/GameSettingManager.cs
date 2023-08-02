@@ -1,27 +1,20 @@
 using System;
 using ChainCube.ScriptableObjects;
-using UnityEngine.UI;
 using UnityEngine;
-using DG.Tweening;
+using ChainCube.Canvases;
 
 namespace ChainCube.Managers
 {
 	public class GameSettingManager : MonoBehaviour
 	{
 		public static GameSettingManager Instance { get; private set; }
-		public GameSettings gameSettings;
 
-		public GameObject trueVibrationImage;// SETTINGS CANVAS
-		public GameObject falseVibrationImage; // SETTINGS CANVAS
-		public GameObject trueSoundImage;// SETTINGS CANVAS
-		public GameObject falseSoundImage; // SETTINGS CANVAS
-		public GameObject trueMusicImage;
-		public GameObject falseMusicImage; 
+		public GameSettings gameSettings;
+		public SettingsCanvas settingsCanvas;
 
 		private const string VibrationKey = "IsVibrationOn";
 		private const string SoundKey = "IsSoundOn";
 		private const string MusicKey = "IsMusicOn";
-
 
 		public static bool IsVibrationOn
 		{
@@ -34,6 +27,7 @@ namespace ChainCube.Managers
 				return true;
 			}
 			set => PlayerPrefs.SetString(VibrationKey, value.ToString());
+			
 		}
 
 		public static bool IsSoundOn
@@ -47,7 +41,9 @@ namespace ChainCube.Managers
 				return true;
 			}
 			set => PlayerPrefs.SetString(SoundKey, value.ToString());
+			
 		}
+
 		public static bool IsMusicOn
 		{
 			get
@@ -60,6 +56,7 @@ namespace ChainCube.Managers
 			}
 			set => PlayerPrefs.SetString(MusicKey, value.ToString());
 		}
+
 		private void Awake()
 		{
 			if (Instance != null && Instance != this)
@@ -71,7 +68,6 @@ namespace ChainCube.Managers
 				Instance = this;
 				DontDestroyOnLoad(gameObject);
 			}
-
 		}
 
 		private void Update()
@@ -82,24 +78,6 @@ namespace ChainCube.Managers
 				Debug.Log($"Sound on: {GameSettingManager.IsSoundOn}");
 				Debug.Log($"Vibration on: {GameSettingManager.IsVibrationOn}");
 			}
-		}
-		
-		public void UpdateVisualsMusic()
-		{
-			falseMusicImage.SetActive(!IsMusicOn);
-			trueMusicImage.SetActive(IsMusicOn);
-		}
-		
-		public void UpdateVisualsSound()
-		{
-			falseSoundImage.SetActive(!IsSoundOn);
-			trueSoundImage.SetActive(IsSoundOn);
-		}
-		
-		public void UpdateVisualsVibration()
-		{
-			falseVibrationImage.SetActive(!IsVibrationOn);
-			trueVibrationImage.SetActive(IsVibrationOn);
 		}
 	}
 }

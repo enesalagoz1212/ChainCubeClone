@@ -42,8 +42,7 @@ namespace ChainCube.Platforms
             if (other.gameObject.CompareTag("Cube"))
             {
                 CubeController cubeController = other.GetComponent<CubeController>();
-                OnCubeTriggered(cubeController);
-                
+                OnCubeTriggered(cubeController);             
             }
         }
 
