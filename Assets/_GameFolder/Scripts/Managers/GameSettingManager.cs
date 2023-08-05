@@ -10,7 +10,7 @@ namespace ChainCube.Managers
 		public static GameSettingManager Instance { get; private set; }
 
 		public GameSettings gameSettings;
-		public SettingsCanvas settingsCanvas;
+		//public SettingsCanvas settingsCanvas;
 
 		private const string VibrationKey = "IsVibrationOn";
 		private const string SoundKey = "IsSoundOn";

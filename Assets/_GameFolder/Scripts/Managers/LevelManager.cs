@@ -18,6 +18,7 @@ namespace ChainCube.Managers
 		private int _collisionCounter;
 		private List<CubeController> _activeCubes = new List<CubeController>();
 
+		private bool _canSpawnCube = true;
 		private void Awake()
 		{
 			if (Instance != null && Instance != this)
@@ -42,9 +43,10 @@ namespace ChainCube.Managers
 			GameManager.OnGameReset -= OnGameReseted;
 		}
 
+
 		public void Initialize()
 		{
-			
+
 		}
 
 		private void OnGameStarted()
@@ -71,12 +73,15 @@ namespace ChainCube.Managers
 
 		public void SpawnCube()
 		{
+
 			var cubeObject = Instantiate(cubePrefab, GameSettingManager.Instance.gameSettings.CubeSpawnPos, Quaternion.identity, cubes.transform);
 			CurrentCubeTransform = cubeObject.transform;
 			_currentCubeController = cubeObject.GetComponent<CubeController>();
 
 			var cubeData = CubeDataManager.Instance.ReturnRandomCubeData();
 			_currentCubeController.CubeCreated(cubeData, true);
+
+
 		}
 
 		public void ThrowCube()
@@ -156,6 +161,15 @@ namespace ChainCube.Managers
 			return closestCubeController;
 		}
 
+		public void DestroyCurrentCube()
+		{
+			if (CurrentCubeTransform != null)
+			{
+				Destroy(CurrentCubeTransform.gameObject);
+				CurrentCubeTransform = null;
+
+			}
+		}
 		private void DestroyCube(CubeController cubeController)
 		{
 			if (_activeCubes.Contains(cubeController))

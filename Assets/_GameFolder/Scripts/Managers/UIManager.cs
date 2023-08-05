@@ -13,6 +13,7 @@ namespace ChainCube.Managers
         public GameCanvas gameCanvas;
         public SettingsCanvas settingsCanvas;
         public EndCanvas endCanvas;
+        public BoosterManager boosterManager;
 		
 		private void Awake()
 		{
@@ -28,7 +29,7 @@ namespace ChainCube.Managers
  
         public void Initialize(InputManager inputManager)
         {
-			gameCanvas.Initialize(settingsCanvas);
+			gameCanvas.Initialize(settingsCanvas ,boosterManager);
             settingsCanvas.Initialize(inputManager, gameCanvas);
             endCanvas.Initialize(gameCanvas);
         }

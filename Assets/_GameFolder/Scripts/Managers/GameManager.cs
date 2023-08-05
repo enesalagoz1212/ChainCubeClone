@@ -45,6 +45,7 @@ namespace ChainCube.Managers
 		[SerializeField] private UIManager uiManager;
 		[SerializeField] private InputManager inputManager;
 
+
 		#endregion	
 
 		private void Awake()
@@ -69,6 +70,7 @@ namespace ChainCube.Managers
 			levelManager.Initialize();
 			uiManager.Initialize(inputManager);
 			inputManager.Initialize();
+			
 			
 			OnGameStart();
 		}

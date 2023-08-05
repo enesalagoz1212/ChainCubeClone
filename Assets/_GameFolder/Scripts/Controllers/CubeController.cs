@@ -113,7 +113,7 @@ namespace ChainCube.Controllers
 				}
 			}
 		}
-		
+
 		public void DestroyObject()
 		{
 			Destroy(gameObject);

@@ -6,29 +6,41 @@ namespace ChainCube.Managers
 {
 	public class InputManager : MonoBehaviour
 	{
+		public static InputManager Instance { get; private set; }
 		public bool isInputEnabled { get; private set; } = true;
 
 		private float _firstTouchX;
 
+		private void Awake()
+		{
+			if (Instance != null && Instance != this)
+			{
+				Destroy(this);
+			}
+			else
+			{
+				Instance = this;
+			}
+		}
 		private void OnEnable()
 		{
 			GameManager.OnGameStarted += OnGameStart;
 			GameManager.OnGameEnd += OnGameEnd;
 			GameManager.OnGameReset += OnGameReset;
 		}
-		
+
 		private void OnDisable()
 		{
 			GameManager.OnGameStarted -= OnGameStart;
 			GameManager.OnGameEnd -= OnGameEnd;
-			GameManager.OnGameReset -= OnGameReset;			
+			GameManager.OnGameReset -= OnGameReset;
 		}
-		
+
 		public void Initialize()
 		{
-			
+
 		}
-		
+
 		private void Update()
 		{
 			switch (GameManager.Instance.GameState)
@@ -36,7 +48,7 @@ namespace ChainCube.Managers
 				case GameState.Start:
 					break;
 				case GameState.ThrowAvailable:
-					if (LevelManager.Instance.CurrentCubeTransform != null && isInputEnabled)
+					if (LevelManager.Instance.CurrentCubeTransform != null && isInputEnabled )//|| BoosterManager.Instance.ColoredCubeTransform != null)
 					{
 						HorizontalMovement();
 					}
@@ -44,7 +56,7 @@ namespace ChainCube.Managers
 
 				case GameState.ThrowWaiting:
 					break;
-				
+
 				case GameState.GameEnd:
 					break;
 
@@ -55,7 +67,7 @@ namespace ChainCube.Managers
 					throw new ArgumentOutOfRangeException();
 			}
 		}
-		
+
 		private void OnGameStart()
 		{
 			DOVirtual.DelayedCall(1f, () =>
@@ -63,7 +75,7 @@ namespace ChainCube.Managers
 				EnabledInput();
 			});
 		}
-		
+
 		private void OnGameEnd()
 		{
 			Debug.Log("isInputEnabled=false");
@@ -74,7 +86,8 @@ namespace ChainCube.Managers
 		{
 			DisableInput();
 		}
-		
+
+
 		private void HorizontalMovement()
 		{
 			var cubeTransform = LevelManager.Instance.CurrentCubeTransform;
@@ -89,11 +102,11 @@ namespace ChainCube.Managers
 
 				var targetPosX = cubeTransform.position.x + diff * GameSettingManager.Instance.gameSettings.depthSpeedZ * Time.deltaTime;
 				targetPosX = Mathf.Clamp(targetPosX, GameSettingManager.Instance.gameSettings.horizontalMinX, GameSettingManager.Instance.gameSettings.horizontalMaxX);
-			
+
 				var cubePos = cubeTransform.position;
 				cubePos.x = targetPosX;
 				cubeTransform.position = cubePos;
-			 				
+
 				_firstTouchX = lastTouch;
 			}
 			else if (Input.GetMouseButtonUp(0))
@@ -101,12 +114,12 @@ namespace ChainCube.Managers
 				LevelManager.Instance.ThrowCube();
 			}
 		}
-	
+
 		public void EnabledInput()
 		{
 			isInputEnabled = true;
 		}
-		
+
 		public void DisableInput()
 		{
 			isInputEnabled = false;
