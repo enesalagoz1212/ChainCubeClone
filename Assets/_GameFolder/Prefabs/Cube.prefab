@@ -478,6 +478,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aeb3af448f31944aab142839b4a251d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cubeType: 1
+  throwHighlighter: {fileID: 8160089288887803621}
+  gameSettings: {fileID: 11400000, guid: 718a44b7d5aceec42825d9183164ce2c, type: 2}
   cubeTexts:
   - {fileID: 4403321775285664373}
   - {fileID: 1262004899906793665}
@@ -485,8 +488,6 @@ MonoBehaviour:
   - {fileID: 6929466402629768080}
   - {fileID: 8178762862489810964}
   - {fileID: 5509297313693939033}
-  throwHighlighter: {fileID: 8160089288887803621}
-  gameSettings: {fileID: 11400000, guid: 718a44b7d5aceec42825d9183164ce2c, type: 2}
 --- !u!1 &1967576621032893176
 GameObject:
   m_ObjectHideFlags: 0

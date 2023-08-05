@@ -1,38 +1,35 @@
+using System;
 using ChainCube.ScriptableObjects;
 using ChainCube.Managers;
 using UnityEngine;
-using TMPro;
 using DG.Tweening;
+using TMPro;
+using Random = UnityEngine.Random;
 
 namespace ChainCube.Controllers
 {
-	public class CubeController : MonoBehaviour
+	public class CubeController : MainCubeController
 	{
 		public TextMeshPro[] cubeTexts;
-		public GameObject throwHighlighter;	
-		public GameSettings gameSettings;
 		public bool IsEndTriggerAvailable { get; set; }
 
 		public CubeData CubeData => _cubeData;
-
-		private Rigidbody _rigidbody;
-		private MeshRenderer _meshRenderer;
-		private bool _isCollisionAvailable;
-
 		private CubeData _cubeData;
 
-		private void Awake()
+		private MeshRenderer _meshRenderer;
+
+		protected override void Awake()
 		{
-			_rigidbody = GetComponent<Rigidbody>();
+			base.Awake();
+			
 			_meshRenderer = GetComponent<MeshRenderer>();
 		}
-
 
 		public void CubeCreated(CubeData createdCubeData, bool isForThrow)
 		{
 			_cubeData = createdCubeData;
 			UpdateCubeText();
-			_isCollisionAvailable = true;
+			IsCollisionAvailable = true;
 			IsEndTriggerAvailable = false;
 			
 			throwHighlighter.SetActive(isForThrow);
@@ -53,7 +50,7 @@ namespace ChainCube.Controllers
 			}
 			else
 			{
-				_rigidbody.AddForce(Vector3.up *gameSettings.mergeUpwardForce, ForceMode.VelocityChange);
+				Rigidbody.AddForce(Vector3.up *gameSettings.mergeUpwardForce, ForceMode.VelocityChange);
 			}
 			IsEndTriggerAvailable = true;
 		}
@@ -62,7 +59,7 @@ namespace ChainCube.Controllers
 		{			
 			var torque = new Vector3(Random.Range(gameSettings.minRotationOfMergingCube, gameSettings.maxRotationOfMergingCube), Random.Range(gameSettings.minRotationOfMergingCube, gameSettings.maxRotationOfMergingCube), Random.Range(gameSettings.minRotationOfMergingCube, gameSettings.maxRotationOfMergingCube)).normalized;
 			
-			_rigidbody.AddTorque(torque * gameSettings.cubeTorqueStrength, ForceMode.Impulse);
+			Rigidbody.AddTorque(torque * gameSettings.cubeTorqueStrength, ForceMode.Impulse);
 		}
 
 		private void UpdateCubeText()
@@ -74,49 +71,58 @@ namespace ChainCube.Controllers
 			}
 		}
 
-		private void SetVelocity(Vector3 velocity)
+		public override void ThrowCube()
 		{
-			if (_rigidbody != null)
-			{
-				_rigidbody.velocity = velocity;
-			}
-		}
-
-		public void ThrowCube()
-		{
-			_rigidbody.velocity = GameSettingManager.Instance.gameSettings.throwDirection;
-			throwHighlighter.SetActive(false);
+			base.ThrowCube();
+			
 			DOVirtual.DelayedCall(1f, () =>
 			{
 				IsEndTriggerAvailable = true;
 			});			
 		}
 
-		private void OnCollisionEnter(Collision collision)
+		protected override void OnCollisionEnter(Collision collision)
 		{
-			if (!_isCollisionAvailable)
+			if (!IsCollisionAvailable)
 			{
 				return;
 			}
 			if (collision.gameObject.CompareTag("Cube"))
 			{
-				var otherCubeController = collision.gameObject.GetComponent<CubeController>();
-				if (otherCubeController != null && _cubeData.number == otherCubeController._cubeData.number)
+				var mainCubeController = collision.gameObject.GetComponent<MainCubeController>();
+
+				if (mainCubeController != null)
 				{
-					_isCollisionAvailable = false;
+					switch (mainCubeController.cubeType)
+					{
+						case CubeType.Cube:
+							var otherCubeController = collision.gameObject.GetComponent<CubeController>();
+							if (otherCubeController != null && _cubeData.number == otherCubeController._cubeData.number)
+							{
+								IsCollisionAvailable = false;
 
-					var hitPoint = collision.contacts[0].point;
-					LevelManager.Instance.OnCubesCollided(this, hitPoint);
+								var hitPoint = collision.contacts[0].point;
+								LevelManager.Instance.OnCubesCollided(this, hitPoint);
 
-					int scoreIncrease = _cubeData.number;
-					GameManager.Instance.IncreaseGameScore(scoreIncrease);
+								int scoreIncrease = _cubeData.number;
+								GameManager.Instance.IncreaseGameScore(scoreIncrease);
+							}
+							
+							break;
+						
+						case CubeType.ColoredCube:
+							break;
+						
+						default:
+							throw new ArgumentOutOfRangeException();
+					}
 				}
 			}
 		}
 
-		public void DestroyObject()
+		public override void DestroyObject()
 		{
-			Destroy(gameObject);
+			base.DestroyObject();
 		}
 	}
 }
