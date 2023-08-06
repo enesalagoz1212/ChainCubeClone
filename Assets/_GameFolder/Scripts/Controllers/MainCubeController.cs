@@ -18,6 +18,8 @@ namespace ChainCube.Controllers
         public GameObject throwHighlighter;	
         public GameSettings gameSettings;
 
+
+
         protected Rigidbody Rigidbody;
         
         protected bool IsCollisionAvailable;
@@ -40,6 +42,7 @@ namespace ChainCube.Controllers
                 Rigidbody.velocity = velocity;
             }
         }
+      
 
         protected virtual void OnCollisionEnter(Collision collision)
         {

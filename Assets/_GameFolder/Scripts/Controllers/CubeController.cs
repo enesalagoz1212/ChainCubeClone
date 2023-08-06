@@ -34,15 +34,14 @@ namespace ChainCube.Controllers
 			
 			throwHighlighter.SetActive(isForThrow);
 		}
-
-		public void OnMergeCubeCreatedCheckSameCube()
+		protected virtual void OnMergeCubeCreatedCheckSameCube()
 		{
 			var nearestCubeController = LevelManager.Instance.ReturnClosestCubeControllerWithSameNumber(this);
 			if (nearestCubeController != null)
 			{
 				Vector3 direction = nearestCubeController.transform.position - transform.position;
 				direction.Normalize();
-				
+
 				var velocity = direction * GameSettingManager.Instance.gameSettings.cubeSpeedMagnitude;
 				velocity.y = GameSettingManager.Instance.gameSettings.cubeUpwardVelocity;
 
@@ -50,11 +49,13 @@ namespace ChainCube.Controllers
 			}
 			else
 			{
-				Rigidbody.AddForce(Vector3.up *gameSettings.mergeUpwardForce, ForceMode.VelocityChange);
+				Rigidbody.AddForce(Vector3.up * gameSettings.mergeUpwardForce, ForceMode.VelocityChange);
 			}
 			IsEndTriggerAvailable = true;
 		}
 
+
+		
 		public void RotationOfMergingCube()
 		{			
 			var torque = new Vector3(Random.Range(gameSettings.minRotationOfMergingCube, gameSettings.maxRotationOfMergingCube), Random.Range(gameSettings.minRotationOfMergingCube, gameSettings.maxRotationOfMergingCube), Random.Range(gameSettings.minRotationOfMergingCube, gameSettings.maxRotationOfMergingCube)).normalized;

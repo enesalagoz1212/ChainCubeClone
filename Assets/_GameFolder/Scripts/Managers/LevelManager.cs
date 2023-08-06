@@ -101,6 +101,17 @@ namespace ChainCube.Managers
 			});
 		}
 
+		public void OnColoredCubesCollided(ColoredCubeController coloredCubeController,Vector3 hitPoint)
+		{
+			var cubedata = coloredCubeController.CubeData;
+			var coloredMergeCubeNumber = cubedata.number * 2;
+
+			Destroy(coloredCubeController);
+			_collisionCounter++;
+
+			ColoredMergeCubes(hitPoint, coloredMergeCubeNumber);
+
+		}
 		public void OnCubesCollided(CubeController cubeController, Vector3 hitPoint)
 		{
 			var cubeData = cubeController.CubeData;
@@ -116,12 +127,29 @@ namespace ChainCube.Managers
 			}
 		}
 
-		public void OnCubeCollidedWithReset(CubeController cubeController)
+		public void OnCubesCollidedWithReset(CubeController cubeController)
 		{
 			if (_activeCubes.Contains(cubeController))
 			{
 				GameManager.Instance.EndGame();
 			}
+		}
+		private void ColoredMergeCubes(Vector3 hitPos, int coloredNumber)
+		{
+			var cubeObject = Instantiate(cubePrefab, hitPos, Quaternion.identity, cubes.transform);
+			var cubeController = cubeObject.GetComponent<CubeController>();
+
+			var cubeData = CubeDataManager.Instance.ReturnTargetNumberCubeData(coloredNumber);
+			cubeController.CubeCreated(cubeData, false);
+			cubeController.OnMergeCubeCreatedCheckSameCube();
+
+			GameObject mergeParticleObject = Instantiate(mergeParticlePrefab.gameObject, cubeObject.transform.position, Quaternion.identity, cubeController.transform);
+			ParticleSystem mergeParticle = mergeParticleObject.GetComponent<ParticleSystem>();
+			mergeParticle.Play();
+
+			cubeController.RotationOfMergingCube();
+
+			_activeCubes.Add(cubeController);
 		}
 
 		private void MergeCubes(Vector3 hitPos, int cubeNumber)

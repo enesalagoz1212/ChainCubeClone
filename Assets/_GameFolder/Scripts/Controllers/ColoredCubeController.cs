@@ -1,4 +1,5 @@
 using ChainCube.Managers;
+using ChainCube.ScriptableObjects;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +9,10 @@ namespace ChainCube.Controllers
 {
     public class ColoredCubeController : MainCubeController
     {
-	    public override void ThrowCube()
+		public CubeData CubeData => _cubeData;
+		private CubeData _cubeData;
+
+		public override void ThrowCube()
 	    {
 		    base.ThrowCube();
 	    }
@@ -35,16 +39,23 @@ namespace ChainCube.Controllers
 				    switch (mainCubeController.cubeType)
 				    {
 					    case CubeType.Cube:
-						    var otherCubeController = collision.gameObject.GetComponent<CubeController>();
-						    if (otherCubeController != null)
-						    {
-							    
-						    }
+						 
 							
 						    break;
 						
 					    case CubeType.ColoredCube:
-						    break;
+							var otherColoredCubeController = collision.gameObject.GetComponent<ColoredCubeController>();
+							if (otherColoredCubeController != null)
+							{
+								IsCollisionAvailable = false;
+
+								var hitPoint = collision.contacts[0].point;  
+								LevelManager.Instance.OnColoredCubesCollided(this, hitPoint);
+
+								int scoreIncrease = _cubeData.number;
+								GameManager.Instance.IncreaseGameScore(scoreIncrease);
+							}
+							break;
 						
 					    default:
 						    throw new ArgumentOutOfRangeException();
