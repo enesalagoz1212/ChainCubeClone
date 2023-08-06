@@ -34,7 +34,8 @@ namespace ChainCube.Controllers
 			
 			throwHighlighter.SetActive(isForThrow);
 		}
-		protected virtual void OnMergeCubeCreatedCheckSameCube()
+		
+		public void OnMergeCubeCreatedCheckSameCube()
 		{
 			var nearestCubeController = LevelManager.Instance.ReturnClosestCubeControllerWithSameNumber(this);
 			if (nearestCubeController != null)
@@ -54,8 +55,6 @@ namespace ChainCube.Controllers
 			IsEndTriggerAvailable = true;
 		}
 
-
-		
 		public void RotationOfMergingCube()
 		{			
 			var torque = new Vector3(Random.Range(gameSettings.minRotationOfMergingCube, gameSettings.maxRotationOfMergingCube), Random.Range(gameSettings.minRotationOfMergingCube, gameSettings.maxRotationOfMergingCube), Random.Range(gameSettings.minRotationOfMergingCube, gameSettings.maxRotationOfMergingCube)).normalized;

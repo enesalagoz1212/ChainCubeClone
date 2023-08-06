@@ -14,11 +14,10 @@ namespace ChainCube.Managers
 		public GameObject endCube;
 		public ParticleSystem mergeParticlePrefab;
 
-		private CubeController _currentCubeController;
+		private MainCubeController _currentMainCubeController;
 		private int _collisionCounter;
-		private List<CubeController> _activeCubes = new List<CubeController>();
+		private List<MainCubeController> _activeMainCubes = new List<MainCubeController>();
 
-		private bool _canSpawnCube = true;
 		private void Awake()
 		{
 			if (Instance != null && Instance != this)
@@ -42,8 +41,7 @@ namespace ChainCube.Managers
 			GameManager.OnGameStarted -= OnGameStarted;
 			GameManager.OnGameReset -= OnGameReseted;
 		}
-
-
+		
 		public void Initialize()
 		{
 
@@ -57,12 +55,12 @@ namespace ChainCube.Managers
 
 		private void OnGameReseted()
 		{
-			foreach (var cube in _activeCubes)
+			foreach (var cube in _activeMainCubes)
 			{
 				Destroy(cube.gameObject);
 			}
 
-			_activeCubes.Clear();
+			_activeMainCubes.Clear();
 
 			if (CurrentCubeTransform != null)
 			{
@@ -73,26 +71,28 @@ namespace ChainCube.Managers
 
 		public void SpawnCube()
 		{
-
 			var cubeObject = Instantiate(cubePrefab, GameSettingManager.Instance.gameSettings.CubeSpawnPos, Quaternion.identity, cubes.transform);
 			CurrentCubeTransform = cubeObject.transform;
-			_currentCubeController = cubeObject.GetComponent<CubeController>();
+			_currentMainCubeController = cubeObject.GetComponent<CubeController>();
 
 			var cubeData = CubeDataManager.Instance.ReturnRandomCubeData();
-			_currentCubeController.CubeCreated(cubeData, true);
 
-
+			var cubeController = (CubeController)_currentMainCubeController; // MainCubeController => CubeController
+			if (cubeController != null)
+			{
+				cubeController.CubeCreated(cubeData, true);
+			}
 		}
-
+		
 		public void ThrowCube()
 		{
-			if (_currentCubeController != null)
+			if (_currentMainCubeController != null)
 			{
-				_activeCubes.Add(_currentCubeController);
+				_activeMainCubes.Add(_currentMainCubeController);
 			}
 
 			GameManager.Instance.ChangeState(GameState.ThrowWaiting);
-			_currentCubeController.ThrowCube();
+			_currentMainCubeController.ThrowCube();
 
 			DOVirtual.DelayedCall(0.5f, () =>
 			{
@@ -101,22 +101,10 @@ namespace ChainCube.Managers
 			});
 		}
 
-		public void OnColoredCubesCollided(ColoredCubeController coloredCubeController,Vector3 hitPoint)
-		{
-			var cubedata = coloredCubeController.CubeData;
-			var coloredMergeCubeNumber = cubedata.number * 2;
-
-			Destroy(coloredCubeController);
-			_collisionCounter++;
-
-			ColoredMergeCubes(hitPoint, coloredMergeCubeNumber);
-
-		}
 		public void OnCubesCollided(CubeController cubeController, Vector3 hitPoint)
 		{
 			var cubeData = cubeController.CubeData;
 			var mergeCubeNumber = cubeData.number * 2;
-
 
 			DestroyCube(cubeController);
 			_collisionCounter++;
@@ -126,30 +114,24 @@ namespace ChainCube.Managers
 				MergeCubes(hitPoint, mergeCubeNumber);
 			}
 		}
-
-		public void OnCubesCollidedWithReset(CubeController cubeController)
+		
+		public void OnColoredCubesCollided(ColoredCubeController coloredCubeController, CubeController hitCubeController, Vector3 hitPoint)
 		{
-			if (_activeCubes.Contains(cubeController))
+			var cubeData = hitCubeController.CubeData;
+			var coloredMergeCubeNumber = cubeData.number * 2;
+			
+			DestroyCube(coloredCubeController);
+			DestroyCube(hitCubeController);
+
+			MergeCubes(hitPoint, coloredMergeCubeNumber);
+		}
+
+		public void OnCubeCollidedWithReset(CubeController cubeController)
+		{
+			if (_activeMainCubes.Contains(cubeController))
 			{
 				GameManager.Instance.EndGame();
 			}
-		}
-		private void ColoredMergeCubes(Vector3 hitPos, int coloredNumber)
-		{
-			var cubeObject = Instantiate(cubePrefab, hitPos, Quaternion.identity, cubes.transform);
-			var cubeController = cubeObject.GetComponent<CubeController>();
-
-			var cubeData = CubeDataManager.Instance.ReturnTargetNumberCubeData(coloredNumber);
-			cubeController.CubeCreated(cubeData, false);
-			cubeController.OnMergeCubeCreatedCheckSameCube();
-
-			GameObject mergeParticleObject = Instantiate(mergeParticlePrefab.gameObject, cubeObject.transform.position, Quaternion.identity, cubeController.transform);
-			ParticleSystem mergeParticle = mergeParticleObject.GetComponent<ParticleSystem>();
-			mergeParticle.Play();
-
-			cubeController.RotationOfMergingCube();
-
-			_activeCubes.Add(cubeController);
 		}
 
 		private void MergeCubes(Vector3 hitPos, int cubeNumber)
@@ -167,26 +149,49 @@ namespace ChainCube.Managers
 
 			cubeController.RotationOfMergingCube();
 
-			_activeCubes.Add(cubeController);
+			_activeMainCubes.Add(cubeController);
 		}
 
 		public CubeController ReturnClosestCubeControllerWithSameNumber(CubeController cubeController)
 		{
 			CubeController closestCubeController = null;
 			float closestDistance = float.MaxValue;
-			foreach (var activeCube in _activeCubes)
+			foreach (var activeCube in _activeMainCubes)
 			{
-				if (activeCube != cubeController && activeCube.CubeData.number == cubeController.CubeData.number)
+				var activeCubeController = (CubeController) activeCube;// MainCubeController => CubeController
+				if (activeCubeController == null)
 				{
-					float distance = Vector3.Distance(cubeController.transform.position, activeCube.transform.position);
+					continue;
+				}
+				if (activeCubeController != cubeController && activeCubeController.CubeData.number == cubeController.CubeData.number)
+				{
+					float distance = Vector3.Distance(cubeController.transform.position, activeCubeController.transform.position);
 					if (distance < closestDistance)
 					{
 						closestDistance = distance;
-						closestCubeController = activeCube;
+						closestCubeController = activeCubeController;
 					}
 				}
 			}
 			return closestCubeController;
+		}
+
+		public void OnColoredCubeRequested()
+		{
+			DestroyCurrentCube();
+
+			if (BoosterManager.Instance != null)
+			{
+				var coloredCubeObject = Instantiate(BoosterManager.Instance.coloredCubePrefab, GameSettingManager.Instance.gameSettings.CubeSpawnPos, Quaternion.identity, cubes.transform);
+				CurrentCubeTransform = coloredCubeObject.transform;
+				_currentMainCubeController = coloredCubeObject.GetComponent<ColoredCubeController>();
+				
+				var coloredCubeController = (ColoredCubeController)_currentMainCubeController; // MainCubeController => CubeController
+				if (coloredCubeController != null)
+				{
+					coloredCubeController.OnColorCubeCreated();
+				}
+			}
 		}
 
 		public void DestroyCurrentCube()
@@ -195,16 +200,16 @@ namespace ChainCube.Managers
 			{
 				Destroy(CurrentCubeTransform.gameObject);
 				CurrentCubeTransform = null;
-
 			}
 		}
-		private void DestroyCube(CubeController cubeController)
+		
+		private void DestroyCube(MainCubeController mainCubeController)
 		{
-			if (_activeCubes.Contains(cubeController))
+			if (_activeMainCubes.Contains(mainCubeController))
 			{
-				_activeCubes.Remove(cubeController);
+				_activeMainCubes.Remove(mainCubeController);
 			}
-			cubeController.DestroyObject();
+			mainCubeController.DestroyObject();
 		}
 	}
 }

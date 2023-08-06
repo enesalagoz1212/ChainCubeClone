@@ -42,30 +42,15 @@ namespace ChainCube.Canvases
 			_settingCanvas = settingCanvas;
 			_boosterManager = boosterManager;
 		}
-		public void OnColoredButtonClick()
+		
+		private void OnColoredButtonClick()
 		{
-			if (LevelManager.Instance!=null)
+			if (LevelManager.Instance != null)
 			{
-				LevelManager.Instance.DestroyCurrentCube();
+				LevelManager.Instance.OnColoredCubeRequested();
 			}
-
-			if (_boosterManager!=null)
-			{
-				
-				_boosterManager.CreateColoredCube();
-			}
-			InputManager.Instance.DisableInput();
-			StartCoroutine(EnabledInputAfterDelay());
 		}
-		private IEnumerator EnabledInputAfterDelay()
-		{
-			yield return new WaitForSeconds(1f); // Ýsteðe baðlý bir gecikme süresi
-
-			// Ekrana týklama iþlemini tekrar etkinleþtir:
-			InputManager.Instance.EnabledInput();
-		}
-
-
+		
 		public void OnSettingButtonClick()
 		{
 			if (_settingCanvas != null)
@@ -73,9 +58,7 @@ namespace ChainCube.Canvases
 				_settingCanvas.ChangeSettingButtonInteractable();
 			}
 		}
-
-
-
+		
 		private void OnGameScoreIncreased(int score)
 		{
 			UpdateScoreText();

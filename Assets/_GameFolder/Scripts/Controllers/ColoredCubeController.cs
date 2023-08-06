@@ -9,12 +9,10 @@ namespace ChainCube.Controllers
 {
     public class ColoredCubeController : MainCubeController
     {
-		public CubeData CubeData => _cubeData;
-		private CubeData _cubeData;
-
-		public override void ThrowCube()
+	    public override void ThrowCube()
 	    {
 		    base.ThrowCube();
+		    IsCollisionAvailable = true;
 	    }
 
 	    public void OnColorCubeCreated()
@@ -39,23 +37,17 @@ namespace ChainCube.Controllers
 				    switch (mainCubeController.cubeType)
 				    {
 					    case CubeType.Cube:
-						 
-							
+						    var otherCubeController = collision.gameObject.GetComponent<CubeController>();
+						    if (otherCubeController != null)
+						    {
+						    	IsCollisionAvailable = false;
+						        var hitPoint = collision.contacts[0].point;
+						        LevelManager.Instance.OnColoredCubesCollided(this, otherCubeController, hitPoint);
+						    }
 						    break;
 						
 					    case CubeType.ColoredCube:
-							var otherColoredCubeController = collision.gameObject.GetComponent<ColoredCubeController>();
-							if (otherColoredCubeController != null)
-							{
-								IsCollisionAvailable = false;
-
-								var hitPoint = collision.contacts[0].point;  
-								LevelManager.Instance.OnColoredCubesCollided(this, hitPoint);
-
-								int scoreIncrease = _cubeData.number;
-								GameManager.Instance.IncreaseGameScore(scoreIncrease);
-							}
-							break;
+						    break;
 						
 					    default:
 						    throw new ArgumentOutOfRangeException();
