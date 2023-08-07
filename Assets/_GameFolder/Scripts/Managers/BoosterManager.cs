@@ -13,7 +13,7 @@ namespace ChainCube.Managers
 		public static BoosterManager Instance { get; private set; }
 
 		public GameObject coloredCubePrefab;
-		
+		public GameObject bombCubePrefab;
 		private void Awake()
 		{
 			if (Instance != null && Instance != this)

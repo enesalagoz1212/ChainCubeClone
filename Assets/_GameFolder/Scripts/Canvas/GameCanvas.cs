@@ -4,6 +4,7 @@ using TMPro;
 using ChainCube.Managers;
 using ChainCube.ScriptableObjects;
 using System.Collections;
+using DG.Tweening;
 
 namespace ChainCube.Canvases
 {
@@ -33,16 +34,18 @@ namespace ChainCube.Canvases
 		void Start()
 		{
 			coloredButton.onClick.AddListener(OnColoredButtonClick);
+			bombButton.onClick.AddListener(OnBombButtonClick);
 			UpdateScoreText();
 			UpdateRecordText();
 		}
+
 
 		public void Initialize(SettingsCanvas settingCanvas, BoosterManager boosterManager)
 		{
 			_settingCanvas = settingCanvas;
 			_boosterManager = boosterManager;
 		}
-		
+
 		private void OnColoredButtonClick()
 		{
 			if (LevelManager.Instance != null)
@@ -50,7 +53,15 @@ namespace ChainCube.Canvases
 				LevelManager.Instance.OnColoredCubeRequested();
 			}
 		}
-		
+
+		private void OnBombButtonClick()
+		{
+			if (LevelManager.Instance!=null)
+			{
+				LevelManager.Instance.OnBombCubeRequsted();
+			}
+		}
+
 		public void OnSettingButtonClick()
 		{
 			if (_settingCanvas != null)
@@ -58,7 +69,7 @@ namespace ChainCube.Canvases
 				_settingCanvas.ChangeSettingButtonInteractable();
 			}
 		}
-		
+
 		private void OnGameScoreIncreased(int score)
 		{
 			UpdateScoreText();

@@ -112,13 +112,15 @@ namespace ChainCube.Controllers
 						
 						case CubeType.ColoredCube:
 							break;
-						
+						case CubeType.BombCube:
+							break;
 						default:
 							throw new ArgumentOutOfRangeException();
 					}
 				}
 			}
 		}
+		
 
 		public override void DestroyObject()
 		{

@@ -1,67 +1,54 @@
-using ChainCube.Managers;
-using ChainCube.ScriptableObjects;
-using DG.Tweening;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace ChainCube.Controllers
 {
-	public class ColoredCubeController : MainCubeController
+	public class BombCubeController : MainCubeController
 	{
+
 		public override void ThrowCube()
 		{
-		
-
 			base.ThrowCube();
 			IsCollisionAvailable = true;
-
-
 		}
 
-
-		public void OnColorCubeCreated()
+		public void OnBombCubeCreated()
 		{
-			
+
 			IsCollisionAvailable = false;
 
 			throwHighlighter.SetActive(true);
-			
+
 		}
 
 		protected override void OnCollisionEnter(Collision collision)
 		{
-			if (!IsCollisionAvailable)
-			{
-				return;
-			}
+			base.OnCollisionEnter(collision);
+		
 			if (collision.gameObject.CompareTag("Cube"))
 			{
 				var mainCubeController = collision.gameObject.GetComponent<MainCubeController>();
-
 				if (mainCubeController != null)
 				{
 					switch (mainCubeController.cubeType)
 					{
 						case CubeType.Cube:
-							var otherCubeController = collision.gameObject.GetComponent<CubeController>();
-							if (otherCubeController != null)
-							{
-								IsCollisionAvailable = false;
-								var hitPoint = collision.contacts[0].point;
-								LevelManager.Instance.OnColoredCubesCollided(this, otherCubeController, hitPoint);
-							}
+							Destroy(collision.gameObject);
+							Destroy(gameObject);
 							break;
-
 						case CubeType.ColoredCube:
 							break;
 						case CubeType.BombCube:
-							break;
 
+							break;
 						default:
-							throw new ArgumentOutOfRangeException();
+							break;
 					}
+
+
+
 				}
 			}
 		}

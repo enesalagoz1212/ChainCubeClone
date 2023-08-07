@@ -16,7 +16,7 @@ namespace ChainCube.Managers
 
 		private MainCubeController _currentMainCubeController;
 		private int _collisionCounter;
-		private List<MainCubeController> _activeMainCubes = new List<MainCubeController>();
+		public List<MainCubeController> _activeMainCubes = new List<MainCubeController>();
 
 		private void Awake()
 		{
@@ -194,6 +194,27 @@ namespace ChainCube.Managers
 				}
 			}
 			InputManager.Instance.EnabledInput();
+		}
+
+		public void OnBombCubeRequsted()
+		{
+			InputManager.Instance.DisableInput();
+			DestroyCurrentCube();
+			if (BoosterManager.Instance != null)
+			{
+				var bombCubeObject = Instantiate(BoosterManager.Instance.bombCubePrefab, GameSettingManager.Instance.gameSettings.CubeSpawnPos, Quaternion.identity, cubes.transform);
+				CurrentCubeTransform = bombCubeObject.transform;
+				_currentMainCubeController = bombCubeObject.GetComponent<BombCubeController>();
+
+				var bombCubeController = (BombCubeController)_currentMainCubeController; // MainCubeController => CubeController
+				if (bombCubeController != null)
+				{
+					bombCubeController.OnBombCubeCreated();
+				}
+			}
+			InputManager.Instance.EnabledInput();
+
+
 		}
 
 		public void DestroyCurrentCube()
