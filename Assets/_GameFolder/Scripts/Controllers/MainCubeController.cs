@@ -5,6 +5,7 @@ using DG.Tweening;
 using System;
 using TMPro;
 using System.Collections;
+using ChainCube.Canvases;
 
 namespace ChainCube.Controllers
 {
@@ -20,8 +21,7 @@ namespace ChainCube.Controllers
 		public GameObject throwHighlighter;
 		public GameSettings gameSettings;
 
-
-		private GameManager gameManager;
+		private GameCanvas _gameCanvas;
 
 
 
@@ -32,13 +32,10 @@ namespace ChainCube.Controllers
 		protected virtual void Awake()
 		{
 			Rigidbody = GetComponent<Rigidbody>();
+			_gameCanvas = FindObjectOfType<GameCanvas>();
 		}
 
 
-		public void Initialize(GameManager gameManager)
-		{
-			this.gameManager = gameManager;
-		}
 		public virtual void ThrowCube()
 		{
 
@@ -59,55 +56,7 @@ namespace ChainCube.Controllers
 
 		protected virtual void OnCollisionEnter(Collision collision)
 		{
-			if (!IsCollisionAvailable)
-			{
-				return;
-			}
-			if (collision.gameObject.CompareTag("Cube"))
-			{
-				var mainCubeController = collision.gameObject.GetComponent<MainCubeController>();
 
-				if (mainCubeController != null)
-				{
-					switch (mainCubeController.cubeType)
-					{
-						case CubeType.Cube:
-							var otherCubeController = collision.gameObject.GetComponent<CubeController>();
-							if (otherCubeController != null)
-							{
-								IsCollisionAvailable = false;
-								var hitPoint = collision.contacts[0].point;
-								LevelManager.Instance.OnColoredCubesCollided((ColoredCubeController)this, otherCubeController, hitPoint);
-
-								TextMeshProUGUI scoreText = collision.gameObject.GetComponent<TextMeshProUGUI>();
-								Debug.Log("scoreText: " + scoreText);
-								if (scoreText != null)
-								{
-									int scoreValue = int.Parse(scoreText.text);
-									Debug.Log("scoreValue: " + scoreValue);
-									int scoreColored = scoreValue * 2;
-
-									if (gameManager != null)
-									{
-										Debug.Log("gameManager: " + gameManager);
-										Debug.Log("GameManager.Instance: " + GameManager.Instance);
-										gameManager.IncreaseGameScore(scoreColored);
-									}
-								}
-
-							}
-							break;
-
-						case CubeType.ColoredCube:
-							break;
-						case CubeType.BombCube:
-							break;
-
-						default:
-							throw new ArgumentOutOfRangeException();
-					}
-				}
-			}
 		}
 		public void RemoveFromActiveCubeList()
 		{
@@ -119,6 +68,17 @@ namespace ChainCube.Controllers
 		public virtual void DestroyObject()
 		{
 			Destroy(gameObject);
+		}
+
+		protected void IncreaseScore(int scoreValue)
+		{
+			int scoreToIncrease = scoreValue * 2;
+			GameManager.Instance.gameScore += scoreValue;
+
+
+			_gameCanvas.UpdateScoreText();
+			Debug.Log("Score increased by: " + scoreToIncrease);
+			// Skor artýrma iþlemini burada yapabilirsiniz
 		}
 	}
 }

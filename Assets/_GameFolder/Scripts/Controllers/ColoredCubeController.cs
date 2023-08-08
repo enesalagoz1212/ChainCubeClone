@@ -35,6 +35,50 @@ namespace ChainCube.Controllers
 		protected override void OnCollisionEnter(Collision collision)
 		{
 			base.OnCollisionEnter(collision);
+			if (!IsCollisionAvailable)
+			{
+				return;
+			}
+			if (collision.gameObject.CompareTag("Cube"))
+			{
+				var mainCubeController = collision.gameObject.GetComponent<MainCubeController>();
+				if (collision.gameObject.CompareTag("Cube"))
+				{
+					TextMeshProUGUI scoreText = collision.gameObject.GetComponent<TextMeshProUGUI>();
+
+					if (scoreText != null)
+					{
+						int scoreValue = int.Parse(scoreText.text);
+						IncreaseScore(scoreValue);
+					}
+				}
+				if (mainCubeController != null)
+				{
+					switch (mainCubeController.cubeType)
+					{
+						case CubeType.Cube:
+							var otherCubeController = collision.gameObject.GetComponent<CubeController>();
+							if (otherCubeController != null)
+							{
+								IsCollisionAvailable = false;
+								var hitPoint = collision.contacts[0].point;
+								LevelManager.Instance.OnColoredCubesCollided(this, otherCubeController, hitPoint);
+
+								
+
+							}
+							break;
+
+						case CubeType.ColoredCube:
+							break;
+						case CubeType.BombCube:
+							break;
+
+						default:
+							throw new ArgumentOutOfRangeException();
+					}
+				}
+			}
 		}
 	}
 }
