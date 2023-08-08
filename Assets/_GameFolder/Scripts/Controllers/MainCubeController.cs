@@ -49,36 +49,7 @@ namespace ChainCube.Controllers
 
 		protected virtual void OnCollisionEnter(Collision collision)
 		{
-			if (!IsCollisionAvailable)
-			{
-				return;
-			}
-			if (collision.gameObject.CompareTag("Cube"))
-			{
-				var mainCubeController = collision.gameObject.GetComponent<MainCubeController>();
-				if (mainCubeController != null)
-				{
-					switch (mainCubeController.cubeType)
-					{
-						case CubeType.Cube:
-							Destroy(collision.gameObject);
-							Destroy(gameObject);
-							LevelManager.Instance._activeMainCubes.Remove(this);
-							RemoveFromActiveCubeList();
-							break;
-						case CubeType.ColoredCube:
-							break;
-						case CubeType.BombCube:
-
-							break;
-						default:
-							break;
-					}
-
-
-
-				}
-			}
+			
 		}
 		public void RemoveFromActiveCubeList()
 		{

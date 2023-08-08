@@ -18,7 +18,6 @@ namespace ChainCube.Controllers
 		{
 
 			IsCollisionAvailable = false;
-
 			throwHighlighter.SetActive(true);
 
 		}
@@ -26,7 +25,10 @@ namespace ChainCube.Controllers
 		protected override void OnCollisionEnter(Collision collision)
 		{
 			base.OnCollisionEnter(collision);
-		
+			if (!IsCollisionAvailable)
+			{
+				return;
+			}
 			if (collision.gameObject.CompareTag("Cube"))
 			{
 				var mainCubeController = collision.gameObject.GetComponent<MainCubeController>();
@@ -37,6 +39,7 @@ namespace ChainCube.Controllers
 						case CubeType.Cube:
 							Destroy(collision.gameObject);
 							Destroy(gameObject);
+							RemoveFromActiveCubeList();
 							break;
 						case CubeType.ColoredCube:
 							break;
@@ -46,9 +49,6 @@ namespace ChainCube.Controllers
 						default:
 							break;
 					}
-
-
-
 				}
 			}
 		}
