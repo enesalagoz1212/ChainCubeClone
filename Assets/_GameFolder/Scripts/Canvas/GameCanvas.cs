@@ -79,6 +79,7 @@ namespace ChainCube.Canvases
 		{
 			UpdateRecordText();
 		}
+		
 		public void UpdateScoreText()
 		{
 			scoreText.text = " " + GameManager.Instance.gameScore.ToString();

@@ -7,7 +7,6 @@ namespace ChainCube.Controllers
 {
 	public class BombCubeController : MainCubeController
 	{
-
 		public override void ThrowCube()
 		{
 			base.ThrowCube();
@@ -37,14 +36,13 @@ namespace ChainCube.Controllers
 					switch (mainCubeController.cubeType)
 					{
 						case CubeType.Cube:
-							Destroy(collision.gameObject);
-							Destroy(gameObject);
-							RemoveFromActiveCubeList();
+							// CHANGE THIS !!!!!
 							break;
+						
 						case CubeType.ColoredCube:
 							break;
+						
 						case CubeType.BombCube:
-
 							break;
 						default:
 							break;

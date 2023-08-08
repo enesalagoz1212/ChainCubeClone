@@ -103,9 +103,6 @@ namespace ChainCube.Controllers
 
 								var hitPoint = collision.contacts[0].point;
 								LevelManager.Instance.OnCubesCollided(this, hitPoint);
-
-								int scoreIncrease = _cubeData.number;
-								GameManager.Instance.IncreaseGameScore(scoreIncrease);
 							}
 							
 							break;

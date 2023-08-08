@@ -139,13 +139,5 @@ namespace ChainCube.Managers
 			}
 			OnGameScoreIncreased?.Invoke(gameScore);
 		}
-		public void IncreaseGameScoreMainCubeController(int  score)
-		{
-			gameScore += score;
-			if (gameScore>=RecordScore)
-			{
-				RecordScore = gameScore;
-			}
-		}
 	}
 }

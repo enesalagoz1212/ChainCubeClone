@@ -14,12 +14,8 @@ namespace ChainCube.Controllers
 
 		public override void ThrowCube()
 		{
-		
-
 			base.ThrowCube();
 			IsCollisionAvailable = true;
-
-
 		}
 
 
@@ -42,16 +38,6 @@ namespace ChainCube.Controllers
 			if (collision.gameObject.CompareTag("Cube"))
 			{
 				var mainCubeController = collision.gameObject.GetComponent<MainCubeController>();
-				if (collision.gameObject.CompareTag("Cube"))
-				{
-					TextMeshProUGUI scoreText = collision.gameObject.GetComponent<TextMeshProUGUI>();
-
-					if (scoreText != null)
-					{
-						int scoreValue = int.Parse(scoreText.text);
-						IncreaseScore(scoreValue);
-					}
-				}
 				if (mainCubeController != null)
 				{
 					switch (mainCubeController.cubeType)
@@ -63,9 +49,6 @@ namespace ChainCube.Controllers
 								IsCollisionAvailable = false;
 								var hitPoint = collision.contacts[0].point;
 								LevelManager.Instance.OnColoredCubesCollided(this, otherCubeController, hitPoint);
-
-								
-
 							}
 							break;
 

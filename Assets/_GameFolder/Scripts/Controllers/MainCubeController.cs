@@ -21,10 +21,6 @@ namespace ChainCube.Controllers
 		public GameObject throwHighlighter;
 		public GameSettings gameSettings;
 
-		private GameCanvas _gameCanvas;
-
-
-
 		protected Rigidbody Rigidbody;
 
 		protected bool IsCollisionAvailable;
@@ -32,19 +28,13 @@ namespace ChainCube.Controllers
 		protected virtual void Awake()
 		{
 			Rigidbody = GetComponent<Rigidbody>();
-			_gameCanvas = FindObjectOfType<GameCanvas>();
 		}
-
 
 		public virtual void ThrowCube()
 		{
-
 			SetVelocity(gameSettings.throwDirection);
 			throwHighlighter.SetActive(false);
-
 		}
-
-
 
 		protected virtual void SetVelocity(Vector3 velocity)
 		{
@@ -58,27 +48,10 @@ namespace ChainCube.Controllers
 		{
 
 		}
-		public void RemoveFromActiveCubeList()
-		{
-			if (LevelManager.Instance != null)
-			{
-				LevelManager.Instance._activeMainCubes.Remove(this);
-			}
-		}
+		
 		public virtual void DestroyObject()
 		{
 			Destroy(gameObject);
-		}
-
-		protected void IncreaseScore(int scoreValue)
-		{
-			int scoreToIncrease = scoreValue * 2;
-			GameManager.Instance.gameScore += scoreValue;
-
-
-			_gameCanvas.UpdateScoreText();
-			Debug.Log("Score increased by: " + scoreToIncrease);
-			// Skor artýrma iþlemini burada yapabilirsiniz
 		}
 	}
 }

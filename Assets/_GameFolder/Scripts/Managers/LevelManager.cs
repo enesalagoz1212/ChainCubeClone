@@ -16,7 +16,7 @@ namespace ChainCube.Managers
 
 		private MainCubeController _currentMainCubeController;
 		private int _collisionCounter;
-		public List<MainCubeController> _activeMainCubes = new List<MainCubeController>();
+		private List<MainCubeController> _activeMainCubes = new List<MainCubeController>();
 
 		private void Awake()
 		{
@@ -148,6 +148,10 @@ namespace ChainCube.Managers
 			mergeParticle.Play();
 
 			cubeController.RotationOfMergingCube();
+			
+			// Score Increase
+			int scoreIncrease = cubeNumber;
+			GameManager.Instance.IncreaseGameScore(scoreIncrease);
 
 			_activeMainCubes.Add(cubeController);
 		}
