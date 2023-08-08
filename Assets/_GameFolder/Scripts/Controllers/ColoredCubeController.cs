@@ -5,11 +5,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 namespace ChainCube.Controllers
 {
 	public class ColoredCubeController : MainCubeController
 	{
+
 		public override void ThrowCube()
 		{
 		
@@ -32,38 +34,7 @@ namespace ChainCube.Controllers
 
 		protected override void OnCollisionEnter(Collision collision)
 		{
-			if (!IsCollisionAvailable)
-			{
-				return;
-			}
-			if (collision.gameObject.CompareTag("Cube"))
-			{
-				var mainCubeController = collision.gameObject.GetComponent<MainCubeController>();
-
-				if (mainCubeController != null)
-				{
-					switch (mainCubeController.cubeType)
-					{
-						case CubeType.Cube:
-							var otherCubeController = collision.gameObject.GetComponent<CubeController>();
-							if (otherCubeController != null)
-							{
-								IsCollisionAvailable = false;
-								var hitPoint = collision.contacts[0].point;
-								LevelManager.Instance.OnColoredCubesCollided(this, otherCubeController, hitPoint);
-							}
-							break;
-
-						case CubeType.ColoredCube:
-							break;
-						case CubeType.BombCube:
-							break;
-
-						default:
-							throw new ArgumentOutOfRangeException();
-					}
-				}
-			}
+			base.OnCollisionEnter(collision);
 		}
 	}
 }

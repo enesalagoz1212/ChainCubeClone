@@ -129,6 +129,7 @@ namespace ChainCube.Managers
 
 		public void IncreaseGameScore(int score)
 		{
+			Debug.Log("IncreaseGameScore : " + score);
 			gameScore += score;
 
 			if (gameScore >= RecordScore)

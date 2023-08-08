@@ -20,6 +20,11 @@ namespace ChainCube.Controllers
 		public GameObject throwHighlighter;
 		public GameSettings gameSettings;
 
+
+		private GameManager gameManager;
+
+
+
 		protected Rigidbody Rigidbody;
 
 		protected bool IsCollisionAvailable;
@@ -29,6 +34,11 @@ namespace ChainCube.Controllers
 			Rigidbody = GetComponent<Rigidbody>();
 		}
 
+
+		public void Initialize(GameManager gameManager)
+		{
+			this.gameManager = gameManager;
+		}
 		public virtual void ThrowCube()
 		{
 
@@ -49,7 +59,55 @@ namespace ChainCube.Controllers
 
 		protected virtual void OnCollisionEnter(Collision collision)
 		{
-			
+			if (!IsCollisionAvailable)
+			{
+				return;
+			}
+			if (collision.gameObject.CompareTag("Cube"))
+			{
+				var mainCubeController = collision.gameObject.GetComponent<MainCubeController>();
+
+				if (mainCubeController != null)
+				{
+					switch (mainCubeController.cubeType)
+					{
+						case CubeType.Cube:
+							var otherCubeController = collision.gameObject.GetComponent<CubeController>();
+							if (otherCubeController != null)
+							{
+								IsCollisionAvailable = false;
+								var hitPoint = collision.contacts[0].point;
+								LevelManager.Instance.OnColoredCubesCollided((ColoredCubeController)this, otherCubeController, hitPoint);
+
+								TextMeshProUGUI scoreText = collision.gameObject.GetComponent<TextMeshProUGUI>();
+								Debug.Log("scoreText: " + scoreText);
+								if (scoreText != null)
+								{
+									int scoreValue = int.Parse(scoreText.text);
+									Debug.Log("scoreValue: " + scoreValue);
+									int scoreColored = scoreValue * 2;
+
+									if (gameManager != null)
+									{
+										Debug.Log("gameManager: " + gameManager);
+										Debug.Log("GameManager.Instance: " + GameManager.Instance);
+										gameManager.IncreaseGameScore(scoreColored);
+									}
+								}
+
+							}
+							break;
+
+						case CubeType.ColoredCube:
+							break;
+						case CubeType.BombCube:
+							break;
+
+						default:
+							throw new ArgumentOutOfRangeException();
+					}
+				}
+			}
 		}
 		public void RemoveFromActiveCubeList()
 		{
