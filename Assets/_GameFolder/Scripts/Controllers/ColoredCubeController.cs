@@ -66,7 +66,8 @@ namespace ChainCube.Controllers
 			if (collision.gameObject.CompareTag("Cube"))
 			{
 				Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.5f);
-				foreach (var hitCollider in hitColliders)
+				Debug.Log($"hitColliders length: {hitColliders.Length}");
+				foreach (var hitCollider in hitColliders) // HIT COLLIDER IS NOT USED!
 				{
 					if (!hasCollidedWithCube)
 					{

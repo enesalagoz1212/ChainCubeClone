@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 
 namespace ChainCube.Managers
-{
+{ 
 	public class InputManager : MonoBehaviour, IInputHandler
 	{
 		public static InputManager Instance { get; private set; }
@@ -81,6 +81,7 @@ namespace ChainCube.Managers
 				case GameState.ThrowAvailable:
 					if (LevelManager.Instance.CurrentCubeTransform != null && isInputEnabled)
 					{
+						HandleMouseInput();
 						HandleTouchInput();
 					}
 					break;
@@ -101,6 +102,7 @@ namespace ChainCube.Managers
 
 		public void HandleTouchInput()
 		{
+			return;
 			if (Input.touchCount > 0)
 			{
 				Touch touch = Input.GetTouch(0);
