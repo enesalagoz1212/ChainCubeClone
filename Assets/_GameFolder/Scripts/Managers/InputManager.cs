@@ -74,37 +74,29 @@ namespace ChainCube.Managers
 
 		private void HandleInput()
 		{
-			if (Application.isMobilePlatform)
+			switch (GameManager.Instance.GameState)
 			{
-				switch (GameManager.Instance.GameState)
-				{
-					case GameState.Start:
-						break;
-					case GameState.ThrowAvailable:
-						if (LevelManager.Instance.CurrentCubeTransform != null && isInputEnabled)
-						{
-							HandleTouchInput();
-						}
-						break;
+				case GameState.Start:
+					break;
+				case GameState.ThrowAvailable:
+					if (LevelManager.Instance.CurrentCubeTransform != null && isInputEnabled)
+					{
+						HandleTouchInput();
+					}
+					break;
 
-					case GameState.ThrowWaiting:
-						break;
+				case GameState.ThrowWaiting:
+					break;
 
-					case GameState.GameEnd:
-						break;
+				case GameState.GameEnd:
+					break;
 
-					case GameState.Reset:
-						break;
+				case GameState.Reset:
+					break;
 
-					default:
-						throw new ArgumentOutOfRangeException();
-				}
+				default:
+					throw new ArgumentOutOfRangeException();
 			}
-			else
-			{
-				HandleMouseInput();
-			}
-
 		}
 
 		public void HandleTouchInput()
