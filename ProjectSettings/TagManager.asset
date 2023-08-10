@@ -9,6 +9,8 @@ TagManager:
   - MergeCube
   - Reset
   - Platform
+  - ColoredCube
+  - BombCube
   layers:
   - Default
   - TransparentFX

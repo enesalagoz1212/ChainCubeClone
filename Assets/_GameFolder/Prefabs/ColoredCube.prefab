@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3981686782437321353}
   m_Layer: 0
   m_Name: ColoredCube
-  m_TagString: Cube
+  m_TagString: ColoredCube
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

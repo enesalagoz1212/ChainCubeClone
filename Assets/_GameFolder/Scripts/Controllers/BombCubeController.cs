@@ -1,12 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ChainCube.Managers;
 
 
 namespace ChainCube.Controllers
 {
 	public class BombCubeController : MainCubeController
 	{
+
+		private void Update()
+		{
+			HandleMovement();
+		}
 		public override void ThrowCube()
 		{
 			base.ThrowCube();
@@ -21,34 +27,17 @@ namespace ChainCube.Controllers
 
 		}
 
+		private void HandleMovement()
+		{
+			if (InputManager.Instance.isInputEnabled)
+			{
+			
+			}
+		}
+
 		protected override void OnCollisionEnter(Collision collision)
 		{
-			base.OnCollisionEnter(collision);
-			if (!IsCollisionAvailable)
-			{
-				return;
-			}
-			if (collision.gameObject.CompareTag("Cube"))
-			{
-				var mainCubeController = collision.gameObject.GetComponent<MainCubeController>();
-				if (mainCubeController != null)
-				{
-					switch (mainCubeController.cubeType)
-					{
-						case CubeType.Cube:
-							// CHANGE THIS !!!!!
-							break;
-						
-						case CubeType.ColoredCube:
-							break;
-						
-						case CubeType.BombCube:
-							break;
-						default:
-							break;
-					}
-				}
-			}
+			
 		}
 	}
 }
