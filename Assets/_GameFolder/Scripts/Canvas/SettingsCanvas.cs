@@ -54,7 +54,6 @@ namespace ChainCube.Canvases
 		public void OnSettingsButton()
 		{
 			settingsPanel.SetActive(true);
-			_inputManager.DisableInput();
 			_gameCanvas.OnSettingButtonClick();
 			SettingsTween();
 		}
@@ -72,10 +71,7 @@ namespace ChainCube.Canvases
 			{
 				_gameCanvas.OnSettingButtonClick();
 			}
-			DOVirtual.DelayedCall(0.5f, () =>
-			{
-				_inputManager.EnabledInput();
-			});
+	
 		}
 
 		public void OnVibrationButtonClick() 

@@ -182,7 +182,6 @@ namespace ChainCube.Managers
 
 		public void OnColoredCubeRequested()
 		{
-			InputManager.Instance.DisableInput();
 			DestroyCurrentCube();
 
 			if (BoosterManager.Instance != null)
@@ -197,12 +196,12 @@ namespace ChainCube.Managers
 					coloredCubeController.OnColorCubeCreated();
 				}
 			}
-			InputManager.Instance.EnabledInput();
+			
 		}
 
 		public void OnBombCubeRequsted()
 		{
-			InputManager.Instance.DisableInput();
+			
 			DestroyCurrentCube();
 			if (BoosterManager.Instance != null)
 			{
@@ -216,7 +215,7 @@ namespace ChainCube.Managers
 					bombCubeController.OnBombCubeCreated();
 				}
 			}
-			InputManager.Instance.EnabledInput();
+		
 
 
 		}

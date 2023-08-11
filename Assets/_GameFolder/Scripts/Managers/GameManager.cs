@@ -69,7 +69,7 @@ namespace ChainCube.Managers
 		{
 			levelManager.Initialize();
 			uiManager.Initialize(inputManager);
-			inputManager.Initialize();
+			
 			
 			
 			OnGameStart();

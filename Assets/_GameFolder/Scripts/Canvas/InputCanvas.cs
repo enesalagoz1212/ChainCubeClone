@@ -21,8 +21,6 @@ namespace ChainCube.Canvases
 			}
 		}
 
-
-
 		public void OnDrag(PointerEventData eventData)
 		{
 			if (Input.GetMouseButton(0))
@@ -43,7 +41,6 @@ namespace ChainCube.Canvases
 				_firstTouchX = lastTouch;
 			}
 		}
-
 
 
 		public void OnPointerUp(PointerEventData eventData)

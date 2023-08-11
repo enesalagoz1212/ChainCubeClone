@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ChainCube.Managers;
-
-
 namespace ChainCube.Controllers
 {
 	public class BombCubeController : MainCubeController
