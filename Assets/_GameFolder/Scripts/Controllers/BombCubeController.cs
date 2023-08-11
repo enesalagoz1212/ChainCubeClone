@@ -9,10 +9,6 @@ namespace ChainCube.Controllers
 	public class BombCubeController : MainCubeController
 	{
 
-		private void Update()
-		{
-			HandleMovement();
-		}
 		public override void ThrowCube()
 		{
 			base.ThrowCube();
@@ -27,13 +23,7 @@ namespace ChainCube.Controllers
 
 		}
 
-		private void HandleMovement()
-		{
-			if (InputManager.Instance.isInputEnabled)
-			{
-			
-			}
-		}
+
 
 		protected override void OnCollisionEnter(Collision collision)
 		{
