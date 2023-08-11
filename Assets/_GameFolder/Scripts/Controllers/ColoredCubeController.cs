@@ -36,15 +36,12 @@ namespace ChainCube.Controllers
 
 		protected override void OnCollisionEnter(Collision collision)
 		{
-			base.OnCollisionEnter(collision);
 			if (!IsCollisionAvailable)
 			{
 				return;
 			}
 			if (collision.gameObject.CompareTag("Cube"))
 			{
-
-
 				if (!hasCollidedWithCube)
 				{
 					var mainCubeController = collision.gameObject.GetComponent<MainCubeController>();
@@ -59,7 +56,6 @@ namespace ChainCube.Controllers
 									IsCollisionAvailable = false;
 									var hitPoint = collision.contacts[0].point;
 									LevelManager.Instance.OnColoredCubesCollided(this, otherCubeController, hitPoint);
-
 								}
 								break;
 

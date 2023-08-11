@@ -215,9 +215,30 @@ namespace ChainCube.Managers
 					bombCubeController.OnBombCubeCreated();
 				}
 			}
-		
+		}
 
+		public BombCubeController DestroyBombCubeAndCube(BombCubeController bombCubeController,CubeController cubeController)
+		{
+			if (bombCubeController!=null)
+			{
+				Destroy(bombCubeController.gameObject);
 
+				if (_activeMainCubes.Contains(bombCubeController))
+				{
+					_activeMainCubes.Remove(bombCubeController);
+				}
+			}
+			if (cubeController!=null)
+			{
+				Destroy(cubeController.gameObject);
+
+				if (_activeMainCubes.Contains(cubeController))
+				{
+					_activeMainCubes.Remove(cubeController);
+				}
+			}
+
+			return bombCubeController;
 		}
 
 		public void DestroyCurrentCube()

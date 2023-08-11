@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ChainCube.Managers;
+using System;
+
 namespace ChainCube.Controllers
 {
 	public class BombCubeController : MainCubeController
 	{
+		bool hasCollidedWithCube = false;
 
 		public override void ThrowCube()
 		{
@@ -15,18 +18,47 @@ namespace ChainCube.Controllers
 
 		public void OnBombCubeCreated()
 		{
-
 			IsCollisionAvailable = false;
 			throwHighlighter.SetActive(true);
-
 		}
-
-
 
 		protected override void OnCollisionEnter(Collision collision)
 		{
-			
+
+			if (!IsCollisionAvailable)
+			{
+				return;
+			}
+			if (collision.gameObject.CompareTag("Cube"))
+			{
+				if (!hasCollidedWithCube)
+				{
+					var mainCubeController = collision.gameObject.GetComponent<MainCubeController>();
+					if (mainCubeController != null)
+					{
+						switch (mainCubeController.cubeType)
+						{
+							case CubeType.Cube:
+								var otherCubeController = collision.gameObject.GetComponent<CubeController>();
+								if (otherCubeController != null)
+								{
+									LevelManager.Instance.DestroyBombCubeAndCube(this, otherCubeController);
+								}
+								break;
+
+							case CubeType.ColoredCube:
+								break;
+							case CubeType.BombCube:
+								break;
+
+							default:
+								throw new ArgumentOutOfRangeException();
+						}
+					}
+				}
+			}
 		}
+
 	}
 }
 
