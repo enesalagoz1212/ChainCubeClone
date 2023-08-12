@@ -45,10 +45,11 @@ namespace ChainCube.Managers
 		[SerializeField] private LevelManager levelManager;
 		[SerializeField] private UIManager uiManager;
 		[SerializeField] private InputManager inputManager;
-		
+		[SerializeField] private GameCanvas gameCanvas;
 
 
-		#endregion	
+
+		#endregion
 
 		private void Awake()
 		{
@@ -69,11 +70,11 @@ namespace ChainCube.Managers
 
 		private void GameInitialize()
 		{
-			levelManager.Initialize();
+			levelManager.Initialize(inputManager);
 			uiManager.Initialize(inputManager);
-			
-			
-			
+
+
+
 			OnGameStart();
 		}
 

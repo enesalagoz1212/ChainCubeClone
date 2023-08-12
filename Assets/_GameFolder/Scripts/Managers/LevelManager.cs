@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using ChainCube.Controllers;
 using UnityEngine;
 using DG.Tweening;
+using ChainCube.Canvases;
 
 namespace ChainCube.Managers
 {
@@ -15,6 +16,7 @@ namespace ChainCube.Managers
 		public ParticleSystem mergeParticlePrefab;
 		public ParticleSystem bombParticlePrefab;
 
+		private GameCanvas _gameCanvas;
 		private MainCubeController _currentMainCubeController;
 		private int _collisionCounter;
 		private List<MainCubeController> _activeMainCubes = new List<MainCubeController>();
@@ -43,9 +45,13 @@ namespace ChainCube.Managers
 			GameManager.OnGameReset -= OnGameReseted;
 		}
 
-		public void Initialize()
+		public void Initialize( InputManager inputManager)
 		{
-
+			Transform canvasTransform = UIManager.Instance.transform.Find("GameCanvas");
+			if (canvasTransform != null)
+			{
+				_gameCanvas = canvasTransform.GetComponent<GameCanvas>();
+			}
 		}
 
 		private void OnGameStarted()
@@ -193,39 +199,48 @@ namespace ChainCube.Managers
 
 		public void OnColoredCubeRequested()
 		{
-			DestroyCurrentCube();
-
-			if (BoosterManager.Instance != null)
+			if (_gameCanvas!=null && _gameCanvas._coloredCubeCount>0)
 			{
-				var coloredCubeObject = Instantiate(BoosterManager.Instance.coloredCubePrefab, GameSettingManager.Instance.gameSettings.CubeSpawnPos, Quaternion.identity, cubes.transform);
-				CurrentCubeTransform = coloredCubeObject.transform;
-				_currentMainCubeController = coloredCubeObject.GetComponent<ColoredCubeController>();
+				_gameCanvas.UseColoredCube();
+				DestroyCurrentCube();
 
-				var coloredCubeController = (ColoredCubeController)_currentMainCubeController; // MainCubeController => CubeController
-				if (coloredCubeController != null)
+				if (BoosterManager.Instance != null)
 				{
-					coloredCubeController.OnColorCubeCreated();
+					var coloredCubeObject = Instantiate(BoosterManager.Instance.coloredCubePrefab, GameSettingManager.Instance.gameSettings.CubeSpawnPos, Quaternion.identity, cubes.transform);
+					CurrentCubeTransform = coloredCubeObject.transform;
+					_currentMainCubeController = coloredCubeObject.GetComponent<ColoredCubeController>();
+
+					var coloredCubeController = (ColoredCubeController)_currentMainCubeController; // MainCubeController => CubeController
+					if (coloredCubeController != null)
+					{
+						coloredCubeController.OnColorCubeCreated();
+					}
 				}
 			}
-
 		}
 
 		public void OnBombCubeRequsted()
 		{
-
-			DestroyCurrentCube();
-			if (BoosterManager.Instance != null)
+			if (_gameCanvas!=null && _gameCanvas._bombCubeCount>0)
 			{
-				var bombCubeObject = Instantiate(BoosterManager.Instance.bombCubePrefab, GameSettingManager.Instance.gameSettings.CubeSpawnPos, Quaternion.identity, cubes.transform);
-				CurrentCubeTransform = bombCubeObject.transform;
-				_currentMainCubeController = bombCubeObject.GetComponent<BombCubeController>();
+				_gameCanvas.UseBombCube();
+				DestroyCurrentCube();
 
-				var bombCubeController = (BombCubeController)_currentMainCubeController; // MainCubeController => CubeController
-				if (bombCubeController != null)
+				if (BoosterManager.Instance != null)
 				{
-					bombCubeController.OnBombCubeCreated();
+					var bombCubeObject = Instantiate(BoosterManager.Instance.bombCubePrefab, GameSettingManager.Instance.gameSettings.CubeSpawnPos, Quaternion.identity, cubes.transform);
+					CurrentCubeTransform = bombCubeObject.transform;
+					_currentMainCubeController = bombCubeObject.GetComponent<BombCubeController>();
+
+					var bombCubeController = (BombCubeController)_currentMainCubeController; // MainCubeController => CubeController
+					if (bombCubeController != null)
+					{
+						bombCubeController.OnBombCubeCreated();
+					}
 				}
 			}
+
+			
 		}
 
 		public BombCubeController DestroyBombCubeAndCube(BombCubeController bombCubeController, CubeController cubeController, Vector3 center, float radius)
