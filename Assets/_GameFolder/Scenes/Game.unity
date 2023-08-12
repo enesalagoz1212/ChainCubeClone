@@ -202,37 +202,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 49923646}
   m_CullTransparentMesh: 1
---- !u!1 &99059321
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 99059322}
-  m_Layer: 0
-  m_Name: ColoredCubes
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &99059322
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 99059321}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 319913348}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &102681523
 GameObject:
   m_ObjectHideFlags: 0
@@ -765,7 +734,6 @@ Transform:
   - {fileID: 198281978}
   - {fileID: 438375356}
   - {fileID: 1953094312}
-  - {fileID: 99059322}
   m_Father: {fileID: 860599565}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2164,6 +2132,8 @@ MonoBehaviour:
   cubes: {fileID: 438375355}
   endCube: {fileID: 198281973}
   mergeParticlePrefab: {fileID: 1855566088095327303, guid: 93d1146239e8b13488b37d3ca722b9cd,
+    type: 3}
+  destroyParticlePrefab: {fileID: 6225079616987050944, guid: fc2b0963ea310634e973b8d8b359339f,
     type: 3}
 --- !u!4 &860599565
 Transform:

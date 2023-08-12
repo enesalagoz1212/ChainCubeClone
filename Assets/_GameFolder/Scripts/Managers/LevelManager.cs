@@ -13,6 +13,7 @@ namespace ChainCube.Managers
 		public GameObject cubes;
 		public GameObject endCube;
 		public ParticleSystem mergeParticlePrefab;
+		public ParticleSystem destroyParticlePrefab;
 
 		private MainCubeController _currentMainCubeController;
 		private int _collisionCounter;
@@ -143,9 +144,11 @@ namespace ChainCube.Managers
 			cubeController.CubeCreated(cubeData, false);
 			cubeController.OnMergeCubeCreatedCheckSameCube();
 
+
 			GameObject mergeParticleObject = Instantiate(mergeParticlePrefab.gameObject, cubeObject.transform.position, Quaternion.identity, cubeController.transform);
 			ParticleSystem mergeParticle = mergeParticleObject.GetComponent<ParticleSystem>();
 			mergeParticle.Play();
+
 
 			cubeController.RotationOfMergingCube();
 
@@ -156,6 +159,14 @@ namespace ChainCube.Managers
 			_activeMainCubes.Add(cubeController);
 		}
 
+
+
+		public void DestroyParticleEffects(Vector3 position)
+		{
+			GameObject destroyParticleObject = Instantiate(destroyParticlePrefab.gameObject, position, Quaternion.identity, cubes.transform);
+			ParticleSystem destroyParticle = destroyParticleObject.GetComponent<ParticleSystem>();
+			destroyParticle.Play();
+		}
 		public CubeController ReturnClosestCubeControllerWithSameNumber(CubeController cubeController)
 		{
 			CubeController closestCubeController = null;
@@ -217,7 +228,7 @@ namespace ChainCube.Managers
 			}
 		}
 
-		public BombCubeController DestroyBombCubeAndCube(BombCubeController bombCubeController, CubeController cubeController, Vector3 center,float radius)
+		public BombCubeController DestroyBombCubeAndCube(BombCubeController bombCubeController, CubeController cubeController, Vector3 center, float radius)
 		{
 
 			Collider[] hitColliders = Physics.OverlapSphere(center, radius);
@@ -252,7 +263,7 @@ namespace ChainCube.Managers
 					_activeMainCubes.Remove(bombCubeController);
 				}
 			}
-		
+
 			return bombCubeController;
 		}
 

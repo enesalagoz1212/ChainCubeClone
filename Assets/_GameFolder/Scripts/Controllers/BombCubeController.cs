@@ -9,7 +9,7 @@ namespace ChainCube.Controllers
 	public class BombCubeController : MainCubeController
 	{
 		private bool _hasCollidedWithCube = false;
-		//private float _bombRadius = 5f;
+		public ParticleSystem particleEffectPrefab;
 
 		public override void ThrowCube()
 		{
@@ -23,6 +23,7 @@ namespace ChainCube.Controllers
 			throwHighlighter.SetActive(true);
 		}
 
+	
 		protected override void OnCollisionEnter(Collision collision)
 		{
 
@@ -44,6 +45,7 @@ namespace ChainCube.Controllers
 								if (otherCubeController != null)
 								{
 									Debug.Log("aa");
+									LevelManager.Instance.DestroyParticleEffects(transform.position);
 									LevelManager.Instance.DestroyBombCubeAndCube(this, otherCubeController, transform.position, GameSettingManager.Instance.gameSettings.bombDestroyRadius);
 									Debug.Log("bb");
 								}
