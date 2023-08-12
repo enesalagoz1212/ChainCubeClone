@@ -17,6 +17,7 @@ namespace ChainCube.ScriptableObjects
 		public int maxRotationOfMergingCube;
 		public float cubeTorqueStrength;
 		public float revealDurationTween;
+		public float bombDestroyRadius;
 	}
 }
 

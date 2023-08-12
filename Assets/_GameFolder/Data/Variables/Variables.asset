@@ -24,3 +24,4 @@ MonoBehaviour:
   maxRotationOfMergingCube: 3
   cubeTorqueStrength: 4
   revealDurationTween: 0.5
+  bombDestroyRadius: 0.5

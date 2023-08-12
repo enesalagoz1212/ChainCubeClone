@@ -8,7 +8,8 @@ namespace ChainCube.Controllers
 {
 	public class BombCubeController : MainCubeController
 	{
-		bool hasCollidedWithCube = false;
+		private bool _hasCollidedWithCube = false;
+		//private float _bombRadius = 5f;
 
 		public override void ThrowCube()
 		{
@@ -31,7 +32,7 @@ namespace ChainCube.Controllers
 			}
 			if (collision.gameObject.CompareTag("Cube"))
 			{
-				if (!hasCollidedWithCube)
+				if (!_hasCollidedWithCube)
 				{
 					var mainCubeController = collision.gameObject.GetComponent<MainCubeController>();
 					if (mainCubeController != null)
@@ -42,7 +43,9 @@ namespace ChainCube.Controllers
 								var otherCubeController = collision.gameObject.GetComponent<CubeController>();
 								if (otherCubeController != null)
 								{
-									LevelManager.Instance.DestroyBombCubeAndCube(this, otherCubeController);
+									Debug.Log("aa");
+									LevelManager.Instance.DestroyBombCubeAndCube(this, otherCubeController, transform.position, GameSettingManager.Instance.gameSettings.bombDestroyRadius);
+									Debug.Log("bb");
 								}
 								break;
 

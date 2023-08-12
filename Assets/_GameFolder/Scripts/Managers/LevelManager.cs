@@ -217,9 +217,32 @@ namespace ChainCube.Managers
 			}
 		}
 
-		public BombCubeController DestroyBombCubeAndCube(BombCubeController bombCubeController, CubeController cubeController)
+		public BombCubeController DestroyBombCubeAndCube(BombCubeController bombCubeController, CubeController cubeController, Vector3 center,float radius)
 		{
 
+			Collider[] hitColliders = Physics.OverlapSphere(center, radius);
+
+			bool cubeDestroyed = false;
+
+			foreach (var hitCollider in hitColliders)
+			{
+				CubeController hitCube = hitCollider.GetComponent<CubeController>();
+
+				if (hitCube != null)
+				{
+					if (!cubeDestroyed)
+					{
+						Destroy(hitCube.gameObject);
+
+						if (_activeMainCubes.Contains(hitCube))
+						{
+							_activeMainCubes.Remove(hitCube);
+						}
+
+						cubeDestroyed = true;
+					}
+				}
+			}
 			if (bombCubeController != null)
 			{
 				Destroy(bombCubeController.gameObject);
@@ -229,15 +252,7 @@ namespace ChainCube.Managers
 					_activeMainCubes.Remove(bombCubeController);
 				}
 			}
-			if (cubeController != null)
-			{
-				Destroy(cubeController.gameObject);
-
-				if (_activeMainCubes.Contains(cubeController))
-				{
-					_activeMainCubes.Remove(cubeController);
-				}
-			}
+		
 			return bombCubeController;
 		}
 

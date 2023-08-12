@@ -19,8 +19,6 @@ namespace ChainCube.Canvases
 		{
 			if (Input.GetMouseButtonDown(0) && !_isDragging)
 			{
-				Debug.Log("Parmak dokundu: " + eventData.position);
-
 				_firstTouchX = Input.mousePosition.x;
 				_isDragging = true;
 			}
@@ -30,8 +28,6 @@ namespace ChainCube.Canvases
 		{
 			if (Input.GetMouseButton(0) && _isDragging)
 			{
-				Debug.Log("Parmak hareket ediyor: " + eventData.pointerId + " " + eventData.delta);
-
 				var cubeTransform = LevelManager.Instance.CurrentCubeTransform;
 				float lastTouch = Input.mousePosition.x;
 				float diff = lastTouch - _firstTouchX;
@@ -52,10 +48,7 @@ namespace ChainCube.Canvases
 		{
 			if (Input.GetMouseButtonUp(0))
 			{
-				Debug.Log("Parmak kaldýrýldý: " + eventData.position);
-
-				LevelManager.Instance.ThrowCube();
-				
+				LevelManager.Instance.ThrowCube();				
 			}
 		}
 
