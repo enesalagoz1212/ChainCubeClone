@@ -9686,6 +9686,7 @@ GameObject:
   - component: {fileID: 6225079616987050944}
   - component: {fileID: 6225808284707166858}
   - component: {fileID: 6161033605733415544}
+  - component: {fileID: -5127396149016719557}
   m_Layer: 0
   m_Name: SoulElectricDeathBlue
   m_TagString: Untagged
@@ -14567,6 +14568,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &-5127396149016719557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6099408921678922680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fa9f49443524d74eacd48de0ec85535, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyTime: 1.5
 --- !u!1 &6099766154944398126
 GameObject:
   m_ObjectHideFlags: 0
