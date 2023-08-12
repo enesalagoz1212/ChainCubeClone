@@ -47,6 +47,11 @@ namespace ChainCube.Managers
 
 		public void OnScreenTouch(PointerEventData eventData)
 		{
+			if (!IsInputAvailable())
+			{
+				return;
+			}
+			
 			if (!_isDragging)
 			{
 				_firstTouchX = Input.mousePosition.x;
@@ -56,7 +61,12 @@ namespace ChainCube.Managers
 		
 		public void OnScreenDrag(PointerEventData eventData)
 		{
-			if (_isDragging && isInputEnabled)
+			if (!IsInputAvailable())
+			{
+				return;
+			}
+			
+			if (_isDragging)
 			{
 				var cubeTransform = LevelManager.Instance.CurrentCubeTransform;
 				float lastTouch = Input.mousePosition.x;
@@ -75,12 +85,32 @@ namespace ChainCube.Managers
 
 		public void OnScreenUp(PointerEventData eventData)
 		{
-			if (_isDragging && isInputEnabled)
+			if (!IsInputAvailable())
+			{
+				return;
+			}
+			
+			if (_isDragging)
 			{
 				LevelManager.Instance.ThrowCube();
 			}
 
 			_isDragging = false;
+		}
+
+		private bool IsInputAvailable()
+		{
+			if (GameManager.Instance.GameState != GameState.ThrowAvailable)
+			{
+				return false;
+			}
+
+			if (LevelManager.Instance.CurrentCubeTransform == null)
+			{
+				return false;
+			}
+
+			return isInputEnabled;
 		}
 
 		private void OnGameStart()
@@ -101,12 +131,12 @@ namespace ChainCube.Managers
 			DisableInput();
 		}
 
-		public void EnabledInput()
+		private void EnabledInput()
 		{
 			isInputEnabled = true;
 		}
 
-		public void DisableInput()
+		private void DisableInput()
 		{
 			isInputEnabled = false;
 		}
