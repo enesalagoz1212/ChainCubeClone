@@ -1464,6 +1464,7 @@ MonoBehaviour:
   settingsCanvas: {fileID: 1537908764}
   endCanvas: {fileID: 1290768444}
   boosterManager: {fileID: 362424105}
+  inputCanvas: {fileID: 167418695}
 --- !u!4 &528901955
 Transform:
   m_ObjectHideFlags: 0
