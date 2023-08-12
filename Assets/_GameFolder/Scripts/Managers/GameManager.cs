@@ -15,6 +15,7 @@ namespace ChainCube.Managers
 	}
 	public class GameManager : MonoBehaviour
 	{
+		
 		#region Variables
 
 		public static GameManager Instance { get; private set; }
@@ -45,10 +46,7 @@ namespace ChainCube.Managers
 		[SerializeField] private LevelManager levelManager;
 		[SerializeField] private UIManager uiManager;
 		[SerializeField] private InputManager inputManager;
-		[SerializeField] private GameCanvas gameCanvas;
-
-
-
+		
 		#endregion
 
 		private void Awake()
@@ -72,9 +70,8 @@ namespace ChainCube.Managers
 		{
 			levelManager.Initialize(inputManager);
 			uiManager.Initialize(inputManager);
-
-
-
+			inputManager.Initialize();
+			
 			OnGameStart();
 		}
 

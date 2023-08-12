@@ -11,56 +11,26 @@ namespace ChainCube.Canvases
 {
 	public class InputCanvas : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 	{
-		private float _firstTouchX;
-		private bool _isDragging = false;
+		private InputManager _inputManager;
 
-		Image _inputImage;
+		public void Initialize(InputManager inputManager)
+		{
+			_inputManager = inputManager;
+		}
+		
 		public void OnPointerDown(PointerEventData eventData)
 		{
-			if (Input.GetMouseButtonDown(0) && !_isDragging)
-			{
-				_firstTouchX = Input.mousePosition.x;
-				_isDragging = true;
-			}
+			_inputManager.OnScreenTouch(eventData);
 		}
 
 		public void OnDrag(PointerEventData eventData)
 		{
-			if (Input.GetMouseButton(0) && _isDragging)
-			{
-				var cubeTransform = LevelManager.Instance.CurrentCubeTransform;
-				float lastTouch = Input.mousePosition.x;
-				float diff = lastTouch - _firstTouchX;
-
-				var targetPosX = cubeTransform.position.x + diff * GameSettingManager.Instance.gameSettings.depthSpeedZ * Time.deltaTime;
-				targetPosX = Mathf.Clamp(targetPosX, GameSettingManager.Instance.gameSettings.horizontalMinX, GameSettingManager.Instance.gameSettings.horizontalMaxX);
-
-				var cubePos = cubeTransform.position;
-				cubePos.x = targetPosX;
-				cubeTransform.position = cubePos;
-
-				_firstTouchX = lastTouch;
-			}
+			_inputManager.OnScreenDrag(eventData);
 		}
-
 
 		public void OnPointerUp(PointerEventData eventData)
 		{
-			if (Input.GetMouseButtonUp(0))
-			{
-				LevelManager.Instance.ThrowCube();				
-			}
-		}
-
-		public void EnableInput()
-		{
-			_inputImage.gameObject.SetActive(true);
-		}
-
-		public void DisableInput()
-		{
-			_inputImage.gameObject.SetActive(false);
+			_inputManager.OnScreenUp(eventData);
 		}
 	}
-
 }

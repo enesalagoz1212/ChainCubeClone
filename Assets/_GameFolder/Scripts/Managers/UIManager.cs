@@ -28,10 +28,11 @@ namespace ChainCube.Managers
             }
         }
  
-        public void Initialize(InputManager inputManager )
+        public void Initialize(InputManager inputManager)
         {
+            inputCanvas.Initialize(inputManager);
 			gameCanvas.Initialize(settingsCanvas ,boosterManager);
-            settingsCanvas.Initialize(inputManager, gameCanvas,inputCanvas);
+            settingsCanvas.Initialize(inputManager, gameCanvas, inputCanvas);
             endCanvas.Initialize(gameCanvas);
         }
     }

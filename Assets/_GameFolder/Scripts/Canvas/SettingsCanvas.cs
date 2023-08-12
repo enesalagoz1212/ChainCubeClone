@@ -58,7 +58,6 @@ namespace ChainCube.Canvases
 			settingsPanel.SetActive(true);
 			_gameCanvas.OnSettingButtonClick();
 			SettingsTween();
-			_inputCanvas.DisableInput();
 		}
 		
 		public void ChangeSettingButtonInteractable()
@@ -69,13 +68,10 @@ namespace ChainCube.Canvases
 
 		public void OnCloseSettingButtonClick()
 		{
-		
 			if (_gameCanvas != null)
 			{
 				_gameCanvas.OnSettingButtonClick();
-				
 			}
-	
 		}
 
 		public void OnVibrationButtonClick() 
