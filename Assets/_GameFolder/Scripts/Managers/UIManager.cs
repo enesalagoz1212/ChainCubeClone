@@ -14,6 +14,7 @@ namespace ChainCube.Managers
         public SettingsCanvas settingsCanvas;
         public EndCanvas endCanvas;
         public BoosterManager boosterManager;
+        public InputCanvas inputCanvas;
 		
 		private void Awake()
 		{
@@ -27,10 +28,10 @@ namespace ChainCube.Managers
             }
         }
  
-        public void Initialize(InputManager inputManager)
+        public void Initialize(InputManager inputManager )
         {
 			gameCanvas.Initialize(settingsCanvas ,boosterManager);
-            settingsCanvas.Initialize(inputManager, gameCanvas);
+            settingsCanvas.Initialize(inputManager, gameCanvas,inputCanvas);
             endCanvas.Initialize(gameCanvas);
         }
     }

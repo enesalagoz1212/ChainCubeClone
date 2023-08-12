@@ -10,6 +10,7 @@ namespace ChainCube.Canvases
 	{
 		private GameSettings _gameSettings;
 		private InputManager _inputManager;
+		private InputCanvas _inputCanvas;
 		private GameCanvas _gameCanvas;
 
 		public Button settingButton;
@@ -44,11 +45,12 @@ namespace ChainCube.Canvases
 			UpdateVisualsSound();
 			UpdateVisualsVibration();
 		}
-		public void Initialize(InputManager inputManager, GameCanvas gameCanvas)
+		public void Initialize(InputManager inputManager, GameCanvas gameCanvas,InputCanvas inputCanvas)
 		{
 			_inputManager = inputManager;
 			_gameCanvas = gameCanvas;
 			_gameSettings = gameCanvas.gameSettings;
+			_inputCanvas = inputCanvas;
 		}
 		
 		public void OnSettingsButton()
@@ -56,6 +58,7 @@ namespace ChainCube.Canvases
 			settingsPanel.SetActive(true);
 			_gameCanvas.OnSettingButtonClick();
 			SettingsTween();
+			_inputCanvas.DisableInput();
 		}
 		
 		public void ChangeSettingButtonInteractable()
@@ -70,6 +73,7 @@ namespace ChainCube.Canvases
 			if (_gameCanvas != null)
 			{
 				_gameCanvas.OnSettingButtonClick();
+				
 			}
 	
 		}

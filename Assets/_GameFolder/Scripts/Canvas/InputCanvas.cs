@@ -4,26 +4,31 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using ChainCube.Controllers;
 using ChainCube.Managers;
+using DG.Tweening;
+using UnityEngine.UI;
 
 namespace ChainCube.Canvases
 {
 	public class InputCanvas : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 	{
 		private float _firstTouchX;
+		private bool _isDragging = false;
 
+		Image _inputImage;
 		public void OnPointerDown(PointerEventData eventData)
 		{
-			if (Input.GetMouseButtonDown(0))
+			if (Input.GetMouseButtonDown(0) && !_isDragging)
 			{
 				Debug.Log("Parmak dokundu: " + eventData.position);
 
 				_firstTouchX = Input.mousePosition.x;
+				_isDragging = true;
 			}
 		}
 
 		public void OnDrag(PointerEventData eventData)
 		{
-			if (Input.GetMouseButton(0))
+			if (Input.GetMouseButton(0) && _isDragging)
 			{
 				Debug.Log("Parmak hareket ediyor: " + eventData.pointerId + " " + eventData.delta);
 
@@ -50,7 +55,18 @@ namespace ChainCube.Canvases
 				Debug.Log("Parmak kaldýrýldý: " + eventData.position);
 
 				LevelManager.Instance.ThrowCube();
+				
 			}
+		}
+
+		public void EnableInput()
+		{
+			_inputImage.gameObject.SetActive(true);
+		}
+
+		public void DisableInput()
+		{
+			_inputImage.gameObject.SetActive(false);
 		}
 	}
 

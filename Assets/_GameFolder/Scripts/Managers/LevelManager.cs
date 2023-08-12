@@ -41,7 +41,7 @@ namespace ChainCube.Managers
 			GameManager.OnGameStarted -= OnGameStarted;
 			GameManager.OnGameReset -= OnGameReseted;
 		}
-		
+
 		public void Initialize()
 		{
 
@@ -83,7 +83,7 @@ namespace ChainCube.Managers
 				cubeController.CubeCreated(cubeData, true);
 			}
 		}
-		
+
 		public void ThrowCube()
 		{
 			if (_currentMainCubeController != null)
@@ -114,12 +114,12 @@ namespace ChainCube.Managers
 				MergeCubes(hitPoint, mergeCubeNumber);
 			}
 		}
-		
+
 		public void OnColoredCubesCollided(ColoredCubeController coloredCubeController, CubeController hitCubeController, Vector3 hitPoint)
 		{
 			var cubeData = hitCubeController.CubeData;
 			var coloredMergeCubeNumber = cubeData.number * 2;
-			
+
 			DestroyCube(coloredCubeController);
 			DestroyCube(hitCubeController);
 
@@ -148,7 +148,7 @@ namespace ChainCube.Managers
 			mergeParticle.Play();
 
 			cubeController.RotationOfMergingCube();
-			
+
 			// Score Increase
 			int scoreIncrease = cubeNumber;
 			GameManager.Instance.IncreaseGameScore(scoreIncrease);
@@ -162,7 +162,7 @@ namespace ChainCube.Managers
 			float closestDistance = float.MaxValue;
 			foreach (var activeCube in _activeMainCubes)
 			{
-				var activeCubeController = (CubeController) activeCube;// MainCubeController => CubeController
+				var activeCubeController = (CubeController)activeCube;// MainCubeController => CubeController
 				if (activeCubeController == null)
 				{
 					continue;
@@ -189,19 +189,19 @@ namespace ChainCube.Managers
 				var coloredCubeObject = Instantiate(BoosterManager.Instance.coloredCubePrefab, GameSettingManager.Instance.gameSettings.CubeSpawnPos, Quaternion.identity, cubes.transform);
 				CurrentCubeTransform = coloredCubeObject.transform;
 				_currentMainCubeController = coloredCubeObject.GetComponent<ColoredCubeController>();
-				
+
 				var coloredCubeController = (ColoredCubeController)_currentMainCubeController; // MainCubeController => CubeController
 				if (coloredCubeController != null)
 				{
 					coloredCubeController.OnColorCubeCreated();
 				}
 			}
-			
+
 		}
 
 		public void OnBombCubeRequsted()
 		{
-			
+
 			DestroyCurrentCube();
 			if (BoosterManager.Instance != null)
 			{
@@ -217,9 +217,10 @@ namespace ChainCube.Managers
 			}
 		}
 
-		public BombCubeController DestroyBombCubeAndCube(BombCubeController bombCubeController,CubeController cubeController)
+		public BombCubeController DestroyBombCubeAndCube(BombCubeController bombCubeController, CubeController cubeController)
 		{
-			if (bombCubeController!=null)
+
+			if (bombCubeController != null)
 			{
 				Destroy(bombCubeController.gameObject);
 
@@ -228,7 +229,7 @@ namespace ChainCube.Managers
 					_activeMainCubes.Remove(bombCubeController);
 				}
 			}
-			if (cubeController!=null)
+			if (cubeController != null)
 			{
 				Destroy(cubeController.gameObject);
 
@@ -237,7 +238,6 @@ namespace ChainCube.Managers
 					_activeMainCubes.Remove(cubeController);
 				}
 			}
-
 			return bombCubeController;
 		}
 
@@ -249,7 +249,7 @@ namespace ChainCube.Managers
 				CurrentCubeTransform = null;
 			}
 		}
-		
+
 		private void DestroyCube(MainCubeController mainCubeController)
 		{
 			if (_activeMainCubes.Contains(mainCubeController))

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using DG.Tweening;
+using ChainCube.Canvases;
 
 namespace ChainCube.Managers
 {
@@ -44,6 +45,7 @@ namespace ChainCube.Managers
 		[SerializeField] private LevelManager levelManager;
 		[SerializeField] private UIManager uiManager;
 		[SerializeField] private InputManager inputManager;
+		
 
 
 		#endregion	
