@@ -13,7 +13,7 @@ namespace ChainCube.Managers
 		public GameObject cubes;
 		public GameObject endCube;
 		public ParticleSystem mergeParticlePrefab;
-		public ParticleSystem destroyParticlePrefab;
+		public ParticleSystem bombParticlePrefab;
 
 		private MainCubeController _currentMainCubeController;
 		private int _collisionCounter;
@@ -163,7 +163,7 @@ namespace ChainCube.Managers
 
 		public void BombParticleEffects(Vector3 position)
 		{
-			GameObject bombParticleObject = Instantiate(destroyParticlePrefab.gameObject, position, Quaternion.identity);
+			GameObject bombParticleObject = Instantiate(bombParticlePrefab.gameObject, position, Quaternion.identity);
 			ParticleSystem bombParticle = bombParticleObject.GetComponent<ParticleSystem>();
 			bombParticle.Play();
 		}
