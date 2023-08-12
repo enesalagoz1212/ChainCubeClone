@@ -2133,7 +2133,7 @@ MonoBehaviour:
   endCube: {fileID: 198281973}
   mergeParticlePrefab: {fileID: 1855566088095327303, guid: 93d1146239e8b13488b37d3ca722b9cd,
     type: 3}
-  destroyParticlePrefab: {fileID: 6225079616987050944, guid: fc2b0963ea310634e973b8d8b359339f,
+  bombParticlePrefab: {fileID: 6225079616987050944, guid: fc2b0963ea310634e973b8d8b359339f,
     type: 3}
 --- !u!4 &860599565
 Transform:
