@@ -165,14 +165,7 @@ namespace ChainCube.Managers
 			_activeMainCubes.Add(cubeController);
 		}
 
-
-
-		public void BombParticleEffects(Vector3 position)
-		{
-			GameObject bombParticleObject = Instantiate(bombParticlePrefab.gameObject, position, Quaternion.identity);
-			ParticleSystem bombParticle = bombParticleObject.GetComponent<ParticleSystem>();
-			bombParticle.Play();
-		}
+		
 		public CubeController ReturnClosestCubeControllerWithSameNumber(CubeController cubeController)
 		{
 			CubeController closestCubeController = null;
@@ -239,14 +232,13 @@ namespace ChainCube.Managers
 					}
 				}
 			}
-
-			
 		}
 
-		public BombCubeController DestroyBombCubeAndCube(BombCubeController bombCubeController, CubeController cubeController, Vector3 center, float radius)
+		public void DestroyBombCubeAndCube(BombCubeController bombCubeController, CubeController cubeController, Vector3 center, float radius)
 		{
-
 			Collider[] hitColliders = Physics.OverlapSphere(center, radius);
+			
+			BombParticleEffects(center);
 
 			bool cubeDestroyed = false;
 
@@ -278,9 +270,13 @@ namespace ChainCube.Managers
 					_activeMainCubes.Remove(bombCubeController);
 				}
 			}
-
-			return bombCubeController;
 		}
+		
+		public void BombParticleEffects(Vector3 position)
+		{
+			GameObject bombParticleObject = Instantiate(bombParticlePrefab.gameObject, position, Quaternion.identity);
+		}
+
 
 		public void DestroyCurrentCube()
 		{

@@ -13,10 +13,7 @@ namespace ChainCube.Controllers
 	{
 		bool hasCollidedWithCube = false;
 
-		private void Update()
-		{
-
-		}
+		
 		public override void ThrowCube()
 		{
 			base.ThrowCube();
@@ -31,8 +28,7 @@ namespace ChainCube.Controllers
 			throwHighlighter.SetActive(true);
 
 		}
-
-
+		
 
 		protected override void OnCollisionEnter(Collision collision)
 		{
