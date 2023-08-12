@@ -25,17 +25,7 @@ namespace ChainCube.Canvases
 
 		public int _coloredCubeCount = 5;
 		public int _bombCubeCount = 5;
-		private void OnEnable()
-		{
-			GameManager.OnGameScoreIncreased += OnGameScoreIncreased;
-			GameManager.OnRecordScoreTexted += OnRecordScoreIncreased;
-		}
-
-		private void OnDisable()
-		{
-			GameManager.OnGameScoreIncreased -= OnGameScoreIncreased;
-			GameManager.OnRecordScoreTexted -= OnRecordScoreIncreased;
-		}
+		
 		void Start()
 		{
 			coloredButton.onClick.AddListener(OnColoredButtonClick);
@@ -43,12 +33,15 @@ namespace ChainCube.Canvases
 			UpdateScoreText();
 			UpdateRecordText();
 		}
-
-
-		public void Initialize(SettingsCanvas settingCanvas, BoosterManager boosterManager)
+		
+		public void Initialize(LevelManager levelManager, BoosterManager boosterManager, SettingsCanvas settingCanvas)
 		{
-			_settingCanvas = settingCanvas;
+			_levelManager = levelManager;
 			_boosterManager = boosterManager;
+			_settingCanvas = settingCanvas;
+			
+			GameManager.OnGameScoreIncreased += OnGameScoreIncreased;
+			GameManager.OnRecordScoreTexted += OnRecordScoreIncreased;
 		}
 
 		private void OnColoredButtonClick()

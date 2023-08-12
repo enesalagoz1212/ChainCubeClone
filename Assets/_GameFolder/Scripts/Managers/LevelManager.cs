@@ -45,13 +45,9 @@ namespace ChainCube.Managers
 			GameManager.OnGameReset -= OnGameReseted;
 		}
 
-		public void Initialize( InputManager inputManager)
+		public void Initialize(InputManager inputManager)
 		{
-			Transform canvasTransform = UIManager.Instance.transform.Find("GameCanvas");
-			if (canvasTransform != null)
-			{
-				_gameCanvas = canvasTransform.GetComponent<GameCanvas>();
-			}
+			
 		}
 
 		private void OnGameStarted()
