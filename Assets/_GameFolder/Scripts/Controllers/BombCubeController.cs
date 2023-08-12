@@ -45,7 +45,7 @@ namespace ChainCube.Controllers
 								if (otherCubeController != null)
 								{
 									Debug.Log("aa");
-									LevelManager.Instance.DestroyParticleEffects(transform.position);
+									LevelManager.Instance.BombParticleEffects(transform.position);
 									LevelManager.Instance.DestroyBombCubeAndCube(this, otherCubeController, transform.position, GameSettingManager.Instance.gameSettings.bombDestroyRadius);
 									Debug.Log("bb");
 								}

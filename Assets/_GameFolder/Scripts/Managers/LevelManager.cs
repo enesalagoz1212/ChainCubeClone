@@ -161,11 +161,11 @@ namespace ChainCube.Managers
 
 
 
-		public void DestroyParticleEffects(Vector3 position)
+		public void BombParticleEffects(Vector3 position)
 		{
-			GameObject destroyParticleObject = Instantiate(destroyParticlePrefab.gameObject, position, Quaternion.identity, cubes.transform);
-			ParticleSystem destroyParticle = destroyParticleObject.GetComponent<ParticleSystem>();
-			destroyParticle.Play();
+			GameObject bombParticleObject = Instantiate(destroyParticlePrefab.gameObject, position, Quaternion.identity);
+			ParticleSystem bombParticle = bombParticleObject.GetComponent<ParticleSystem>();
+			bombParticle.Play();
 		}
 		public CubeController ReturnClosestCubeControllerWithSameNumber(CubeController cubeController)
 		{
