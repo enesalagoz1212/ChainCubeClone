@@ -253,13 +253,6 @@ namespace ChainCube.Managers
 			}
 		}
 
-
-		public void BombParticleEffects(Vector3 position)
-		{
-			GameObject bombParticleObject = Instantiate(bombParticlePrefab.gameObject, position, Quaternion.identity);
-		}
-
-
 		public void DestroyCurrentCube()
 		{
 			if (CurrentCubeTransform != null)
