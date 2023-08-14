@@ -11,6 +11,7 @@ namespace ChainCube.Controllers
 	public class CubeController : MainCubeController
 	{
 		public TextMeshPro[] cubeTexts;
+
 		public bool IsEndTriggerAvailable { get; set; }
 
 		public CubeData CubeData => _cubeData;

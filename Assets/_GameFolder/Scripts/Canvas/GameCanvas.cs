@@ -134,7 +134,16 @@ namespace ChainCube.Canvases
 			bombCubeText.text = " " + GameSettingManager.BombCount;
 		}
 
-		
+		public void DisableCubeButtons() 
+		{
+			coloredButton.interactable = false;
+			bombButton.interactable = false;
+		}
 
+		public void EnableCubeButtons()
+		{
+			coloredButton.interactable = true;
+			bombButton.interactable = true;
+		}
 	}
 }

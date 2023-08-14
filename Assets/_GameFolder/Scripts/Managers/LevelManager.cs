@@ -3,6 +3,7 @@ using ChainCube.Controllers;
 using UnityEngine;
 using DG.Tweening;
 using ChainCube.Canvases;
+using TMPro;
 
 namespace ChainCube.Managers
 {
@@ -229,13 +230,15 @@ namespace ChainCube.Managers
 		{
 			Collider[] hitColliders = Physics.OverlapSphere(center, radius);
 
-			bool cubeDestroyed = false; 
+			bool cubeDestroyed = false;
+			int totalScore = 0;
 
 			foreach (var hitCollider in hitColliders)
 			{
 				CubeController cubeController = hitCollider.GetComponent<CubeController>();
 				if (cubeController != null)
 				{
+					totalScore += cubeController.CubeData.number;
 					DestroyCube(cubeController);
 
 					cubeDestroyed = true;
@@ -250,6 +253,10 @@ namespace ChainCube.Managers
 			if (bombCubeController != null)
 			{
 				Destroy(bombCubeController.gameObject);
+			}
+			if (totalScore > 0)
+			{
+				GameManager.Instance.IncreaseGameScore(totalScore);
 			}
 		}
 

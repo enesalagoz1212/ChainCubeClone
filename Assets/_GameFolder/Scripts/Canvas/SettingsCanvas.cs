@@ -57,6 +57,8 @@ namespace ChainCube.Canvases
 		{
 			settingsPanel.SetActive(true);
 			_gameCanvas.OnSettingButtonClick();
+			_inputCanvas.DisableInput();
+			_gameCanvas.DisableCubeButtons();
 			SettingsTween();
 
 		}
@@ -73,6 +75,8 @@ namespace ChainCube.Canvases
 			{
 				_gameCanvas.OnSettingButtonClick();
 			}
+			_inputCanvas.EnableInput();
+			_gameCanvas.EnableCubeButtons();
 		}
 
 		public void OnVibrationButtonClick() 

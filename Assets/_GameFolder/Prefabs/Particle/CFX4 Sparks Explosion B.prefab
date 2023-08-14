@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2650575047690854231}
   - component: {fileID: 2740148377620193037}
   - component: {fileID: 2738824299011414611}
-  - component: {fileID: 5201009636381116016}
   m_Layer: 0
   m_Name: CFX4 Sparks Explosion B
   m_TagString: Untagged
@@ -4659,19 +4658,6 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &5201009636381116016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2648497329657265583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fa9f49443524d74eacd48de0ec85535, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyTime: 0.5
 --- !u!1 &2648763527074600143
 GameObject:
   m_ObjectHideFlags: 0
