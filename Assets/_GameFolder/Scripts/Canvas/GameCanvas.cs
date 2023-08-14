@@ -32,7 +32,7 @@ namespace ChainCube.Canvases
 		{
 			GameManager.OnGameScoreIncreased += OnGameScoreIncreased;
 			GameManager.OnRecordScoreTexted += OnRecordScoreIncreased;
-			GameManager.OnBombCubeCountChanged += ColoredCubeCountChanged;
+			GameManager.OnColoredCubeCountChanged += ColoredCubeCountChanged;
 			GameManager.OnBombCubeCountChanged += BombCubeCountedChanged;
 		}
 		private void OnDisable()
@@ -59,10 +59,13 @@ namespace ChainCube.Canvases
 
 		private void OnColoredButtonClick()
 		{
-			if (LevelManager.Instance != null && GameManager.Instance != null)
+			if (GameSettingManager.ColoredCount > 0)
 			{
-				GameManager.Instance.DecreaseColoredCount(1);
-				LevelManager.Instance.OnColoredCubeRequested();
+				if (GameManager.Instance != null)
+				{
+					GameManager.Instance.DecreaseColoredCount(1);
+					_levelManager.OnColoredCubeRequested();
+				}
 			}
 		}
 
@@ -71,7 +74,7 @@ namespace ChainCube.Canvases
 			if (LevelManager.Instance != null && GameManager.Instance != null)
 			{
 				GameManager.Instance.DecreaseBombCount(1);
-				LevelManager.Instance.OnBombCubeRequsted();
+				LevelManager.Instance.OnBombCubeRequested();
 			}
 		}
 

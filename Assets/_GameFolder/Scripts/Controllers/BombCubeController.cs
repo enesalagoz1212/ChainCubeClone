@@ -29,10 +29,10 @@ namespace ChainCube.Controllers
 
 			if (collision.gameObject.CompareTag("BodyGround"))
 			{
-				
 				return;
 			}		
-			 LevelManager.Instance.DestroyBombCubeAndCube(this,transform.position, GameSettingManager.Instance.gameSettings.bombDestroyRadius);
+			
+			LevelManager.Instance.DestroyBombCubeAndCube(this,transform.position, GameSettingManager.Instance.gameSettings.bombDestroyRadius);
 		}
 	}
 }

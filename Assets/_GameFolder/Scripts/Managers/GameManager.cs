@@ -32,9 +32,6 @@ namespace ChainCube.Managers
 		public static Action<int> OnColoredCubeCountChanged;
 
 		public int gameScore;
-		public int coloredCount;
-		public int bombCount;
-
 
 		public static int RecordScore
 		{
@@ -51,10 +48,9 @@ namespace ChainCube.Managers
 		[SerializeField] private LevelManager levelManager;
 		[SerializeField] private UIManager uiManager;
 		[SerializeField] private InputManager inputManager;
-		[SerializeField] private GameCanvas gameCanvas;
 
-		
 		#endregion
+		
 
 		private void Awake()
 		{
@@ -75,7 +71,7 @@ namespace ChainCube.Managers
 
 		private void GameInitialize()
 		{
-			levelManager.Initialize(inputManager,gameCanvas);
+			levelManager.Initialize(uiManager, inputManager);
 			uiManager.Initialize(levelManager, inputManager);
 			inputManager.Initialize();
 			
@@ -146,18 +142,17 @@ namespace ChainCube.Managers
 			}
 			OnGameScoreIncreased?.Invoke(gameScore);
 		}
+		
 		public void DecreaseColoredCount(int count)
 		{
-			coloredCount--;
-			GameSettingManager.ColoredCount = coloredCount;
-			OnColoredCubeCountChanged?.Invoke(coloredCount);
-			
+			GameSettingManager.ColoredCount--;
+			OnColoredCubeCountChanged?.Invoke(GameSettingManager.ColoredCount);
 		}
+		
 		public void DecreaseBombCount(int count)
 		{
-			bombCount--;
-			GameSettingManager.BombCount = bombCount;
-		    OnBombCubeCountChanged?.Invoke(bombCount);
+			GameSettingManager.BombCount--;
+		    OnBombCubeCountChanged?.Invoke(GameSettingManager.BombCount);
 		}
 	}
 }

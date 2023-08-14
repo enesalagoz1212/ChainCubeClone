@@ -1,7 +1,4 @@
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
-using DG.Tweening;
 using ChainCube.Canvases;
 
 namespace ChainCube.Managers
@@ -10,11 +7,13 @@ namespace ChainCube.Managers
     {
         public static UIManager Instance { get; private set; }
 
-        public GameCanvas gameCanvas;
-        public SettingsCanvas settingsCanvas;
-        public EndCanvas endCanvas;
-        public BoosterManager boosterManager;
-        public InputCanvas inputCanvas;
+        public GameCanvas GameCanvas => gameCanvas;
+
+        [SerializeField] private GameCanvas gameCanvas;
+        [SerializeField] private SettingsCanvas settingsCanvas;
+        [SerializeField] private EndCanvas endCanvas;
+        [SerializeField] private BoosterManager boosterManager;
+        [SerializeField] private InputCanvas inputCanvas;
 		
 		private void Awake()
 		{

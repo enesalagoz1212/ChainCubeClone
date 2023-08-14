@@ -23,7 +23,7 @@ namespace ChainCube.Managers
 		{
 			get
 			{
-				return PlayerPrefs.GetInt(ColoredCubePrefsString);
+				return PlayerPrefs.GetInt(ColoredCubePrefsString, 5);
 			}
 			set
 			{
@@ -34,7 +34,7 @@ namespace ChainCube.Managers
 		{
 			get
 			{
-				return PlayerPrefs.GetInt(BombCubePrefsString);
+				return PlayerPrefs.GetInt(BombCubePrefsString, 5);
 			}
 			set
 			{
