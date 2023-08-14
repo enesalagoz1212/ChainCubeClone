@@ -26,7 +26,7 @@ namespace ChainCube.Canvases
 
 		private void Awake()
 		{
-	
+
 		}
 		private void OnEnable()
 		{
@@ -48,6 +48,9 @@ namespace ChainCube.Canvases
 			bombButton.onClick.AddListener(OnBombButtonClick);
 			UpdateScoreText();
 			UpdateRecordText();
+
+			UpdateColoredCubeButtonText();
+			UpdateBombCubeButtonText();
 		}
 
 		public void Initialize(LevelManager levelManager, BoosterManager boosterManager, SettingsCanvas settingCanvas)
@@ -71,10 +74,14 @@ namespace ChainCube.Canvases
 
 		private void OnBombButtonClick()
 		{
-			if (LevelManager.Instance != null && GameManager.Instance != null)
+			if (GameSettingManager.BombCount > 0)
 			{
-				GameManager.Instance.DecreaseBombCount(1);
-				LevelManager.Instance.OnBombCubeRequested();
+				if (GameManager.Instance != null)
+				{
+
+					GameManager.Instance.DecreaseBombCount(1);
+					_levelManager.OnBombCubeRequested();
+				}
 			}
 		}
 
@@ -126,5 +133,8 @@ namespace ChainCube.Canvases
 		{
 			bombCubeText.text = " " + GameSettingManager.BombCount;
 		}
+
+		
+
 	}
 }

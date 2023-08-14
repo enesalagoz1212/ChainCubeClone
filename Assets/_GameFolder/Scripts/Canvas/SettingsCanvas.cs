@@ -58,6 +58,7 @@ namespace ChainCube.Canvases
 			settingsPanel.SetActive(true);
 			_gameCanvas.OnSettingButtonClick();
 			SettingsTween();
+
 		}
 		
 		public void ChangeSettingButtonInteractable()
@@ -120,5 +121,6 @@ namespace ChainCube.Canvases
 			musicButtonRectTransform.DOScale(Vector3.zero, _gameSettings.revealDurationTween).From();
 			soundButtonRectTransform.DOScale(Vector3.zero, _gameSettings.revealDurationTween).From();
 		}
+		
 	}
 }

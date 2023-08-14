@@ -11,7 +11,9 @@ namespace ChainCube.Canvases
 {
 	public class InputCanvas : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 	{
+		
 		private InputManager _inputManager;
+
 
 		public void Initialize(InputManager inputManager)
 		{
