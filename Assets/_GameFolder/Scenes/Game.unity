@@ -1029,7 +1029,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1482,9 +1482,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameScore: 0
+  coloredCount: 5
+  bombCount: 5
   levelManager: {fileID: 860599564}
   uiManager: {fileID: 528901954}
   inputManager: {fileID: 649028889}
+  gameCanvas: {fileID: 803478535}
 --- !u!4 &565835105
 Transform:
   m_ObjectHideFlags: 0
@@ -2019,13 +2022,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1525704371}
   recordText: {fileID: 590805091}
-  coloredCubeText: {fileID: 0}
-  bombCubeText: {fileID: 0}
+  coloredCubeText: {fileID: 1597772928}
+  bombCubeText: {fileID: 444273437}
   coloredButton: {fileID: 219099212}
   bombButton: {fileID: 2073379483}
   gameSettings: {fileID: 11400000, guid: 718a44b7d5aceec42825d9183164ce2c, type: 2}
-  _coloredCubeCount: 5
-  _bombCubeCount: 5
 --- !u!1 &834317011
 GameObject:
   m_ObjectHideFlags: 0
@@ -4067,7 +4068,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

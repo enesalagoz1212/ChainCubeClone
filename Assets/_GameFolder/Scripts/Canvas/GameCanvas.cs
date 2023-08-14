@@ -5,6 +5,7 @@ using ChainCube.Managers;
 using ChainCube.ScriptableObjects;
 using System.Collections;
 using DG.Tweening;
+using TMPro;
 
 namespace ChainCube.Canvases
 {
@@ -23,9 +24,24 @@ namespace ChainCube.Canvases
 		private BoosterManager _boosterManager;
 		private LevelManager _levelManager;
 
-		public int _coloredCubeCount = 5;
-		public int _bombCubeCount = 5;
-		
+		private void Awake()
+		{
+	
+		}
+		private void OnEnable()
+		{
+			GameManager.OnGameScoreIncreased += OnGameScoreIncreased;
+			GameManager.OnRecordScoreTexted += OnRecordScoreIncreased;
+			GameManager.OnBombCubeCountChanged += ColoredCubeCountChanged;
+			GameManager.OnBombCubeCountChanged += BombCubeCountedChanged;
+		}
+		private void OnDisable()
+		{
+			GameManager.OnGameScoreIncreased -= OnGameScoreIncreased;
+			GameManager.OnRecordScoreTexted -= OnRecordScoreIncreased;
+			GameManager.OnColoredCubeCountChanged -= ColoredCubeCountChanged;
+			GameManager.OnBombCubeCountChanged -= BombCubeCountedChanged;
+		}
 		void Start()
 		{
 			coloredButton.onClick.AddListener(OnColoredButtonClick);
@@ -33,29 +49,28 @@ namespace ChainCube.Canvases
 			UpdateScoreText();
 			UpdateRecordText();
 		}
-		
+
 		public void Initialize(LevelManager levelManager, BoosterManager boosterManager, SettingsCanvas settingCanvas)
 		{
 			_levelManager = levelManager;
 			_boosterManager = boosterManager;
 			_settingCanvas = settingCanvas;
-			
-			GameManager.OnGameScoreIncreased += OnGameScoreIncreased;
-			GameManager.OnRecordScoreTexted += OnRecordScoreIncreased;
 		}
 
 		private void OnColoredButtonClick()
 		{
-			if (LevelManager.Instance != null)
+			if (LevelManager.Instance != null && GameManager.Instance != null)
 			{
+				GameManager.Instance.DecreaseColoredCount(1);
 				LevelManager.Instance.OnColoredCubeRequested();
 			}
 		}
 
 		private void OnBombButtonClick()
 		{
-			if (LevelManager.Instance != null)
+			if (LevelManager.Instance != null && GameManager.Instance != null)
 			{
+				GameManager.Instance.DecreaseBombCount(1);
 				LevelManager.Instance.OnBombCubeRequsted();
 			}
 		}
@@ -88,31 +103,25 @@ namespace ChainCube.Canvases
 			recordText.text = "Record:  " + GameManager.RecordScore;
 		}
 
-		public void UseColoredCube()
+		private void ColoredCubeCountChanged(int count)
 		{
-			if (_coloredCubeCount > 0)
-			{
-				_coloredCubeCount--;
-				UpdateColoredCubeButtonText();
-			}
+			UpdateColoredCubeButtonText();
 		}
-		public void UseBombCube()
+
+		private void BombCubeCountedChanged(int count)
 		{
-			if (_bombCubeCount>0)
-			{
-				_bombCubeCount--;
-				UpdateBombCubeButtonText();
-			}
+			UpdateBombCubeButtonText();
 		}
+
 
 		private void UpdateColoredCubeButtonText()
 		{
-			coloredButton.GetComponentInChildren<TextMeshProUGUI>().text = $"{_coloredCubeCount}";
+			coloredCubeText.text = " " + GameSettingManager.ColoredCount;
 		}
 
 		private void UpdateBombCubeButtonText()
 		{
-			bombButton.GetComponentInChildren<TextMeshProUGUI>().text = $"{_bombCubeCount}";
+			bombCubeText.text = " " + GameSettingManager.BombCount;
 		}
 	}
 }

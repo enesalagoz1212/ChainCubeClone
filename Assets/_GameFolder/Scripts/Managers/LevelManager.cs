@@ -45,9 +45,11 @@ namespace ChainCube.Managers
 			GameManager.OnGameReset -= OnGameReseted;
 		}
 
-		public void Initialize(InputManager inputManager)
+		public void Initialize(InputManager inputManager, GameCanvas gameCanvas)
 		{
-			
+			_gameCanvas = gameCanvas;
+
+
 		}
 
 		private void OnGameStarted()
@@ -161,19 +163,14 @@ namespace ChainCube.Managers
 			_activeMainCubes.Add(cubeController);
 		}
 
-		
+
 		public CubeController ReturnClosestCubeControllerWithSameNumber(CubeController cubeController)
 		{
 			CubeController closestCubeController = null;
 			float closestDistance = float.MaxValue;
 			foreach (var activeCube in _activeMainCubes)
 			{
-				var activeCubeController = (CubeController)activeCube;// MainCubeController => CubeController
-				if (activeCubeController == null)
-				{
-					continue;
-				}
-				if (activeCubeController != cubeController && activeCubeController.CubeData.number == cubeController.CubeData.number)
+				if (activeCube is CubeController activeCubeController && activeCubeController.CubeData.number == cubeController.CubeData.number)
 				{
 					float distance = Vector3.Distance(cubeController.transform.position, activeCubeController.transform.position);
 					if (distance < closestDistance)
@@ -188,31 +185,39 @@ namespace ChainCube.Managers
 
 		public void OnColoredCubeRequested()
 		{
-			if (_gameCanvas!=null && _gameCanvas._coloredCubeCount>0)
+			Debug.Log("a");
+			if (_gameCanvas != null && GameManager.Instance.bombCount > 0)
 			{
-				_gameCanvas.UseColoredCube();
+				Debug.Log("b");
+		
+				Debug.Log("c");
 				DestroyCurrentCube();
-
+				Debug.Log("d");
 				if (BoosterManager.Instance != null)
 				{
+					Debug.Log("e");
 					var coloredCubeObject = Instantiate(BoosterManager.Instance.coloredCubePrefab, GameSettingManager.Instance.gameSettings.CubeSpawnPos, Quaternion.identity, cubes.transform);
 					CurrentCubeTransform = coloredCubeObject.transform;
 					_currentMainCubeController = coloredCubeObject.GetComponent<ColoredCubeController>();
 
 					var coloredCubeController = (ColoredCubeController)_currentMainCubeController; // MainCubeController => CubeController
+					Debug.Log("f");
 					if (coloredCubeController != null)
 					{
+						Debug.Log("g");
 						coloredCubeController.OnColorCubeCreated();
+						Debug.Log("h");
 					}
 				}
 			}
+			Debug.Log("k");
 		}
 
 		public void OnBombCubeRequsted()
 		{
-			if (_gameCanvas!=null && _gameCanvas._bombCubeCount>0)
+			if (_gameCanvas != null && GameManager.Instance.coloredCount > 0)
 			{
-				_gameCanvas.UseBombCube();
+				
 				DestroyCurrentCube();
 
 				if (BoosterManager.Instance != null)
@@ -230,44 +235,41 @@ namespace ChainCube.Managers
 			}
 		}
 
-		public void DestroyBombCubeAndCube(BombCubeController bombCubeController, CubeController cubeController, Vector3 center, float radius)
+
+		public void DestroyBombCubeAndCube(BombCubeController bombCubeController, Vector3 center, float radius)
 		{
 			Collider[] hitColliders = Physics.OverlapSphere(center, radius);
-			
-			BombParticleEffects(center);
 
-			bool cubeDestroyed = false;
+			bool cubeDestroyed = false; 
 
 			foreach (var hitCollider in hitColliders)
 			{
-				CubeController hitCube = hitCollider.GetComponent<CubeController>();
-
-				if (hitCube != null)
+				CubeController cubeController = hitCollider.GetComponent<CubeController>();
+				if (cubeController != null)
 				{
-					if (!cubeDestroyed)
+					Destroy(cubeController.gameObject);
+
+					if (_activeMainCubes.Contains(cubeController))
 					{
-						Destroy(hitCube.gameObject);
-
-						if (_activeMainCubes.Contains(hitCube))
-						{
-							_activeMainCubes.Remove(hitCube);
-						}
-
-						cubeDestroyed = true;
+						_activeMainCubes.Remove(cubeController);
 					}
+
+					cubeDestroyed = true;
 				}
 			}
+
+			if (cubeDestroyed && bombParticlePrefab != null)
+			{
+				Instantiate(bombParticlePrefab, center, Quaternion.identity);
+			}
+
 			if (bombCubeController != null)
 			{
 				Destroy(bombCubeController.gameObject);
-
-				if (_activeMainCubes.Contains(bombCubeController))
-				{
-					_activeMainCubes.Remove(bombCubeController);
-				}
 			}
 		}
-		
+
+
 		public void BombParticleEffects(Vector3 position)
 		{
 			GameObject bombParticleObject = Instantiate(bombParticlePrefab.gameObject, position, Quaternion.identity);

@@ -6,6 +6,7 @@ namespace ChainCube.Controllers
 {
 	public class BombCubeController : MainCubeController
 	{
+		CubeController cubeController;
 		public override void ThrowCube()
 		{
 			base.ThrowCube();
@@ -28,13 +29,10 @@ namespace ChainCube.Controllers
 
 			if (collision.gameObject.CompareTag("BodyGround"))
 			{
-				Debug.Log($"Hit body ground");
+				
 				return;
-			}
-			
-			Debug.Log($"Collision game name: {collision.gameObject.name}");
-			
-			// LevelManager.Instance.DestroyBombCubeAndCube(this, transform.position, GameSettingManager.Instance.gameSettings.bombDestroyRadius);
+			}		
+			 LevelManager.Instance.DestroyBombCubeAndCube(this,transform.position, GameSettingManager.Instance.gameSettings.bombDestroyRadius);
 		}
 	}
 }

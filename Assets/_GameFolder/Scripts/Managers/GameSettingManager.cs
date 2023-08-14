@@ -15,6 +15,33 @@ namespace ChainCube.Managers
 		private const string VibrationKey = "IsVibrationOn";
 		private const string SoundKey = "IsSoundOn";
 		private const string MusicKey = "IsMusicOn";
+		public const string ColoredCubePrefsString = "ColoredCount";
+		public const string BombCubePrefsString = "BombCount";
+
+		
+		public static int ColoredCount
+		{
+			get
+			{
+				return PlayerPrefs.GetInt(ColoredCubePrefsString);
+			}
+			set
+			{
+				PlayerPrefs.SetInt(ColoredCubePrefsString, value);
+			}
+		}
+		public static int BombCount
+		{
+			get
+			{
+				return PlayerPrefs.GetInt(BombCubePrefsString);
+			}
+			set
+			{
+				PlayerPrefs.SetInt(BombCubePrefsString, value);
+			}
+		}
+
 
 		public static bool IsVibrationOn
 		{
