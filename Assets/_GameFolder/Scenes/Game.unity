@@ -1485,6 +1485,7 @@ MonoBehaviour:
   levelManager: {fileID: 860599564}
   uiManager: {fileID: 528901954}
   inputManager: {fileID: 649028889}
+  particlePool: {fileID: 1368932490}
 --- !u!4 &565835105
 Transform:
   m_ObjectHideFlags: 0
@@ -1504,6 +1505,7 @@ Transform:
   - {fileID: 1258328350}
   - {fileID: 455072011}
   - {fileID: 1146567915}
+  - {fileID: 1368932489}
   - {fileID: 1728039376}
   - {fileID: 1660193006}
   m_Father: {fileID: 0}
@@ -2133,8 +2135,6 @@ MonoBehaviour:
     type: 3}
   cubes: {fileID: 438375355}
   endCube: {fileID: 198281973}
-  mergeParticlePrefab: {fileID: 1855566088095327303, guid: 93d1146239e8b13488b37d3ca722b9cd,
-    type: 3}
   bombParticlePrefab: {fileID: 6225079616987050944, guid: fc2b0963ea310634e973b8d8b359339f,
     type: 3}
 --- !u!4 &860599565
@@ -3392,6 +3392,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1368932488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1368932489}
+  - component: {fileID: 1368932490}
+  m_Layer: 0
+  m_Name: ParticlePoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1368932489
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368932488}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 565835105}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1368932490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368932488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e579c9f121ee63748a0ec6af227eb088, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mergeParticlePrefab: {fileID: 1855566088109052365, guid: 93d1146239e8b13488b37d3ca722b9cd,
+    type: 3}
+  initializePoolSize: 10
 --- !u!1 &1433011001
 GameObject:
   m_ObjectHideFlags: 0
@@ -4440,7 +4487,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 565835105}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 49.32, y: 0, z: 0}
 --- !u!114 &1660193007
 MonoBehaviour:
@@ -4664,7 +4711,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 565835105}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 61.713, y: -71.005, z: 29.313}
 --- !u!1 &1743827694
 GameObject:

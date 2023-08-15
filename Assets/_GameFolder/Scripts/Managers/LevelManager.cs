@@ -4,6 +4,8 @@ using UnityEngine;
 using DG.Tweening;
 using ChainCube.Canvases;
 using TMPro;
+using ChainCube.Pooling;
+using System.Collections;
 
 namespace ChainCube.Managers
 {
@@ -14,10 +16,10 @@ namespace ChainCube.Managers
 		public GameObject cubePrefab;
 		public GameObject cubes;
 		public GameObject endCube;
-		public ParticleSystem mergeParticlePrefab;
 		public ParticleSystem bombParticlePrefab;
 
 		private UIManager _uiManager;
+		private ParticlePool _particlePool;
 
 		private MainCubeController _currentMainCubeController;
 		private int _collisionCounter;
@@ -33,6 +35,8 @@ namespace ChainCube.Managers
 			{
 				Instance = this;
 			}
+
+			
 		}
 
 		private void OnEnable()
@@ -47,9 +51,10 @@ namespace ChainCube.Managers
 			GameManager.OnGameReset -= OnGameReseted;
 		}
 
-		public void Initialize(UIManager uiManager, InputManager inputManager)
+		public void Initialize(UIManager uiManager, InputManager inputManager,ParticlePool particlePool)
 		{
 			_uiManager = uiManager;
+			_particlePool = particlePool;
 		}
 
 		private void OnGameStarted()
@@ -147,12 +152,10 @@ namespace ChainCube.Managers
 			var cubeData = CubeDataManager.Instance.ReturnTargetNumberCubeData(cubeNumber);
 			cubeController.CubeCreated(cubeData, false);
 			cubeController.OnMergeCubeCreatedCheckSameCube();
+			
+			GameObject mergeParticleEffect=_particlePool.GetParticle(cubeController.transform.position+Vector3.up);
 
-
-			GameObject mergeParticleObject = Instantiate(mergeParticlePrefab.gameObject, cubeObject.transform.position, Quaternion.identity, cubeController.transform);
-			ParticleSystem mergeParticle = mergeParticleObject.GetComponent<ParticleSystem>();
-			mergeParticle.Play();
-
+			StartCoroutine(ReturnParticleEffect(mergeParticleEffect));
 
 			cubeController.RotationOfMergingCube();
 
@@ -184,26 +187,20 @@ namespace ChainCube.Managers
 		}
 
 		public void OnColoredCubeRequested()
-		{
-			Debug.Log("b");
-		
-			Debug.Log("c");
-			DestroyCurrentCube();
-			Debug.Log("d");
+		{		
+			DestroyCurrentCube();	
+			
 			if (BoosterManager.Instance != null)
 			{
-				Debug.Log("e");
 				var coloredCubeObject = Instantiate(BoosterManager.Instance.coloredCubePrefab, GameSettingManager.Instance.gameSettings.CubeSpawnPos, Quaternion.identity, cubes.transform);
 				CurrentCubeTransform = coloredCubeObject.transform;
 				_currentMainCubeController = coloredCubeObject.GetComponent<ColoredCubeController>();
 
 				var coloredCubeController = (ColoredCubeController)_currentMainCubeController; // MainCubeController => CubeController
-				Debug.Log("f");
+
 				if (coloredCubeController != null)
 				{
-					Debug.Log("g");
 					coloredCubeController.OnColorCubeCreated();
-					Debug.Log("h");
 				}
 			}
 		}
@@ -276,6 +273,11 @@ namespace ChainCube.Managers
 				_activeMainCubes.Remove(mainCubeController);
 			}
 			mainCubeController.DestroyObject();
+		}
+		private IEnumerator ReturnParticleEffect(GameObject particle)
+		{
+			yield return new WaitForSeconds(1f);
+			_particlePool.ReturnParticle(particle);
 		}
 	}
 }

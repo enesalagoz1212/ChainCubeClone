@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using DG.Tweening;
 using ChainCube.Canvases;
+using ChainCube.Pooling;
 
 namespace ChainCube.Managers
 {
@@ -48,6 +49,7 @@ namespace ChainCube.Managers
 		[SerializeField] private LevelManager levelManager;
 		[SerializeField] private UIManager uiManager;
 		[SerializeField] private InputManager inputManager;
+		[SerializeField] private ParticlePool particlePool;
 
 		#endregion
 		
@@ -71,7 +73,7 @@ namespace ChainCube.Managers
 
 		private void GameInitialize()
 		{
-			levelManager.Initialize(uiManager, inputManager);
+			levelManager.Initialize(uiManager, inputManager,particlePool);
 			uiManager.Initialize(levelManager, inputManager);
 			inputManager.Initialize();
 			

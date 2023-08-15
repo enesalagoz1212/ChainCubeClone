@@ -5,6 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 using TMPro;
 using Random = UnityEngine.Random;
+using ChainCube.Pooling;
 
 namespace ChainCube.Controllers
 {
@@ -48,6 +49,7 @@ namespace ChainCube.Controllers
 				velocity.y = GameSettingManager.Instance.gameSettings.cubeUpwardVelocity;
 
 				SetVelocity(velocity);
+				
 			}
 			else
 			{
@@ -103,7 +105,7 @@ namespace ChainCube.Controllers
 								IsCollisionAvailable = false;
 
 								var hitPoint = collision.contacts[0].point;
-								LevelManager.Instance.OnCubesCollided(this, hitPoint);
+								LevelManager.Instance.OnCubesCollided(this, hitPoint);						
 							}
 							
 							break;
