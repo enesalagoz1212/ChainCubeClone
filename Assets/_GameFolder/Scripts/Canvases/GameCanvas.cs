@@ -3,31 +3,28 @@ using UnityEngine.UI;
 using TMPro;
 using ChainCube.Managers;
 using ChainCube.ScriptableObjects;
-using System.Collections;
-using DG.Tweening;
-using TMPro;
+
 
 namespace ChainCube.Canvases
 {
 	public class GameCanvas : MonoBehaviour
 	{
+		[Header("TextMeshProUGUI ")]
 		public TextMeshProUGUI scoreText;
 		public TextMeshProUGUI recordText;
 		public TextMeshProUGUI coloredCubeText;
 		public TextMeshProUGUI bombCubeText;
 
+		[Header("Buttons")]
 		public Button coloredButton;
 		public Button bombButton;
 
 		public GameSettings gameSettings;
+
 		private SettingsCanvas _settingCanvas;
 		private BoosterManager _boosterManager;
 		private LevelManager _levelManager;
 
-		private void Awake()
-		{
-
-		}
 		private void OnEnable()
 		{
 			GameManager.OnGameScoreIncreased += OnGameScoreIncreased;
@@ -35,6 +32,7 @@ namespace ChainCube.Canvases
 			GameManager.OnColoredCubeCountChanged += ColoredCubeCountChanged;
 			GameManager.OnBombCubeCountChanged += BombCubeCountedChanged;
 		}
+
 		private void OnDisable()
 		{
 			GameManager.OnGameScoreIncreased -= OnGameScoreIncreased;
@@ -42,6 +40,7 @@ namespace ChainCube.Canvases
 			GameManager.OnColoredCubeCountChanged -= ColoredCubeCountChanged;
 			GameManager.OnBombCubeCountChanged -= BombCubeCountedChanged;
 		}
+
 		void Start()
 		{
 			coloredButton.onClick.AddListener(OnColoredButtonClick);
@@ -78,7 +77,6 @@ namespace ChainCube.Canvases
 			{
 				if (GameManager.Instance != null)
 				{
-
 					GameManager.Instance.DecreaseBombCount(1);
 					_levelManager.OnBombCubeRequested();
 				}

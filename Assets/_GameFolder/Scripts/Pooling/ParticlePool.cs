@@ -8,6 +8,7 @@ namespace ChainCube.Pooling
 	{
 		public GameObject mergeParticlePrefab;
 		public int initializePoolSize;
+		public GameObject particlePool;
 
 		private Stack<GameObject> pooledParticles = new Stack<GameObject>();
 
@@ -16,16 +17,14 @@ namespace ChainCube.Pooling
 			InitializePool();
 		}
 
-
 		private void InitializePool()
 		{
 			for (int i = 0; i < initializePoolSize; i++)
 			{
-				GameObject mergeParticle = Instantiate(mergeParticlePrefab);
+				GameObject mergeParticle = Instantiate(mergeParticlePrefab, particlePool.transform);
 				mergeParticle.SetActive(false);
 				pooledParticles.Push(mergeParticle);
 			}
-
 		}
 
 		public GameObject GetParticle(Vector3 position)
@@ -41,8 +40,7 @@ namespace ChainCube.Pooling
 			{
 				GameObject newParticle = Instantiate(mergeParticlePrefab, position, Quaternion.identity);
 				return newParticle;
-			}
-		
+			}	
 		}
 
 		public void ReturnParticle(GameObject particle)

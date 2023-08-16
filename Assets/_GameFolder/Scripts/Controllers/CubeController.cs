@@ -5,25 +5,21 @@ using UnityEngine;
 using DG.Tweening;
 using TMPro;
 using Random = UnityEngine.Random;
-using ChainCube.Pooling;
 
 namespace ChainCube.Controllers
 {
 	public class CubeController : MainCubeController
 	{
 		public TextMeshPro[] cubeTexts;
-
 		public bool IsEndTriggerAvailable { get; set; }
-
 		public CubeData CubeData => _cubeData;
-		private CubeData _cubeData;
 
+		private CubeData _cubeData;
 		private MeshRenderer _meshRenderer;
 
 		protected override void Awake()
 		{
-			base.Awake();
-			
+			base.Awake();		
 			_meshRenderer = GetComponent<MeshRenderer>();
 		}
 
@@ -48,8 +44,7 @@ namespace ChainCube.Controllers
 				var velocity = direction * GameSettingManager.Instance.gameSettings.cubeSpeedMagnitude;
 				velocity.y = GameSettingManager.Instance.gameSettings.cubeUpwardVelocity;
 
-				SetVelocity(velocity);
-				
+				SetVelocity(velocity);				
 			}
 			else
 			{
@@ -76,8 +71,7 @@ namespace ChainCube.Controllers
 
 		public override void ThrowCube()
 		{
-			base.ThrowCube();
-			
+			base.ThrowCube();		
 			DOVirtual.DelayedCall(1f, () =>
 			{
 				IsEndTriggerAvailable = true;
@@ -121,7 +115,6 @@ namespace ChainCube.Controllers
 			}
 		}
 		
-
 		public override void DestroyObject()
 		{
 			base.DestroyObject();

@@ -1,7 +1,6 @@
-using System;
 using ChainCube.ScriptableObjects;
 using UnityEngine;
-using ChainCube.Canvases;
+
 
 namespace ChainCube.Managers
 {
@@ -11,14 +10,12 @@ namespace ChainCube.Managers
 
 		public GameSettings gameSettings;
 		
-
 		private const string VibrationKey = "IsVibrationOn";
 		private const string SoundKey = "IsSoundOn";
 		private const string MusicKey = "IsMusicOn";
 		public const string ColoredCubePrefsString = "ColoredCount";
 		public const string BombCubePrefsString = "BombCount";
-
-		
+	
 		public static int ColoredCount
 		{
 			get
@@ -30,6 +27,7 @@ namespace ChainCube.Managers
 				PlayerPrefs.SetInt(ColoredCubePrefsString, value);
 			}
 		}
+
 		public static int BombCount
 		{
 			get
@@ -42,7 +40,6 @@ namespace ChainCube.Managers
 			}
 		}
 
-
 		public static bool IsVibrationOn
 		{
 			get
@@ -53,8 +50,7 @@ namespace ChainCube.Managers
 				}
 				return true;
 			}
-			set => PlayerPrefs.SetString(VibrationKey, value.ToString());
-			
+			set => PlayerPrefs.SetString(VibrationKey, value.ToString());			
 		}
 
 		public static bool IsSoundOn
@@ -67,8 +63,7 @@ namespace ChainCube.Managers
 				}
 				return true;
 			}
-			set => PlayerPrefs.SetString(SoundKey, value.ToString());
-			
+			set => PlayerPrefs.SetString(SoundKey, value.ToString());			
 		}
 
 		public static bool IsMusicOn
@@ -94,16 +89,6 @@ namespace ChainCube.Managers
 			{
 				Instance = this;
 				DontDestroyOnLoad(gameObject);
-			}
-		}
-
-		private void Update()
-		{
-			if (Input.GetKeyDown(KeyCode.A))
-			{
-				Debug.Log($"Music on: {GameSettingManager.IsMusicOn}");
-				Debug.Log($"Sound on: {GameSettingManager.IsSoundOn}");
-				Debug.Log($"Vibration on: {GameSettingManager.IsVibrationOn}");
 			}
 		}
 	}

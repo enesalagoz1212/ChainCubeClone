@@ -737,6 +737,37 @@ Transform:
   m_Father: {fileID: 860599565}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &333855631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 333855632}
+  m_Layer: 0
+  m_Name: ParticlePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &333855632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333855631}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1368932489}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &362424103
 GameObject:
   m_ObjectHideFlags: 0
@@ -1481,11 +1512,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34198fbddeebea24ba658e5aead3783b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameScore: 0
   levelManager: {fileID: 860599564}
   uiManager: {fileID: 528901954}
   inputManager: {fileID: 649028889}
   particlePool: {fileID: 1368932490}
+  gameScore: 0
 --- !u!4 &565835105
 Transform:
   m_ObjectHideFlags: 0
@@ -3240,10 +3271,10 @@ MonoBehaviour:
   endScoreText: {fileID: 1440405858}
   endRecordScore: {fileID: 1743827696}
   backgroundEndPanel: {fileID: 1833549169}
+  restartButtonRectTransform: {fileID: 1079872449}
   endPanelTexts:
   - {fileID: 1440405857}
   - {fileID: 1743827695}
-  restatButton: {fileID: 1079872449}
   endPanel: {fileID: 1604222997}
   restartButton: {fileID: 1079872446}
 --- !u!1 &1336691740
@@ -3420,7 +3451,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 333855632}
   m_Father: {fileID: 565835105}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3439,6 +3471,7 @@ MonoBehaviour:
   mergeParticlePrefab: {fileID: 1855566088109052365, guid: 93d1146239e8b13488b37d3ca722b9cd,
     type: 3}
   initializePoolSize: 10
+  particlePool: {fileID: 333855631}
 --- !u!1 &1433011001
 GameObject:
   m_ObjectHideFlags: 0

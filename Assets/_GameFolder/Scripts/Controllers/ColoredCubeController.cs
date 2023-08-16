@@ -1,18 +1,12 @@
 using ChainCube.Managers;
-using ChainCube.ScriptableObjects;
-using DG.Tweening;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 namespace ChainCube.Controllers
 {
 	public class ColoredCubeController : MainCubeController
 	{
 		bool hasCollidedWithCube = false;
-
 		
 		public override void ThrowCube()
 		{
@@ -20,15 +14,11 @@ namespace ChainCube.Controllers
 			IsCollisionAvailable = true;
 		}
 
-
 		public void OnColorCubeCreated()
 		{
-
 			IsCollisionAvailable = false;
 			throwHighlighter.SetActive(true);
-
-		}
-		
+		}	
 
 		protected override void OnCollisionEnter(Collision collision)
 		{

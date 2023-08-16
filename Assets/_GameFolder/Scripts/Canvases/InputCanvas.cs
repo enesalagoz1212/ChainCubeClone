@@ -1,25 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using ChainCube.Controllers;
 using ChainCube.Managers;
-using DG.Tweening;
-using UnityEngine.UI;
 
 namespace ChainCube.Canvases
 {
 	public class InputCanvas : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 	{
-
 		private InputManager _inputManager;
 		private bool _inputEnabled = true;
-
 
 		public void Initialize(InputManager inputManager)
 		{
 			_inputManager = inputManager;
-
 		}
 
 		public void OnPointerDown(PointerEventData eventData)
@@ -42,10 +34,12 @@ namespace ChainCube.Canvases
 		{
 			_inputManager.OnScreenUp(eventData);
 		}
+
 		public void DisableInput()
 		{
 			_inputEnabled = false;
 		}
+
 		public void EnableInput()
 		{
 			_inputEnabled = true;

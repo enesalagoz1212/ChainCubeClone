@@ -6,7 +6,6 @@ namespace ChainCube.Managers
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance { get; private set; }
-
         public GameCanvas GameCanvas => gameCanvas;
 
         [SerializeField] private GameCanvas gameCanvas;
@@ -31,7 +30,7 @@ namespace ChainCube.Managers
         {
             inputCanvas.Initialize(inputManager);
 			gameCanvas.Initialize(levelManager, boosterManager, settingsCanvas);
-            settingsCanvas.Initialize(inputManager, gameCanvas, inputCanvas);
+            settingsCanvas.Initialize(gameCanvas, inputCanvas);
             endCanvas.Initialize(gameCanvas);
         }
     }

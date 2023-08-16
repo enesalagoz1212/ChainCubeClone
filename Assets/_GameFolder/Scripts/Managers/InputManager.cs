@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -64,8 +63,7 @@ namespace ChainCube.Managers
 			if (!IsInputAvailable())
 			{
 				return;
-			}
-			
+			}		
 			if (_isDragging)
 			{
 				var cubeTransform = LevelManager.Instance.CurrentCubeTransform;
@@ -88,13 +86,11 @@ namespace ChainCube.Managers
 			if (!IsInputAvailable())
 			{
 				return;
-			}
-			
+			}			
 			if (_isDragging)
 			{
 				LevelManager.Instance.ThrowCube();
 			}
-
 			_isDragging = false;
 		}
 
@@ -109,7 +105,6 @@ namespace ChainCube.Managers
 			{
 				return false;
 			}
-
 			return isInputEnabled;
 		}
 

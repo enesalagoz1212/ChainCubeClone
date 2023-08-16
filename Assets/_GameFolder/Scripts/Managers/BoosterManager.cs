@@ -1,10 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using ChainCube.ScriptableObjects;
-using ChainCube.Canvases;
-using ChainCube.Controllers;
-
 
 namespace ChainCube.Managers
 {
@@ -14,6 +8,7 @@ namespace ChainCube.Managers
 
 		public GameObject coloredCubePrefab;
 		public GameObject bombCubePrefab;
+
 		private void Awake()
 		{
 			if (Instance != null && Instance != this)

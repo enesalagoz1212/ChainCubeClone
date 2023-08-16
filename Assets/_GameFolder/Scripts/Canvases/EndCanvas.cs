@@ -11,14 +11,16 @@ namespace ChainCube.Canvases
     {
 		GameSettings _gameSettings;
 
+		[Header("TextMeshProUGUI")]
 		public TextMeshProUGUI endScoreText;
 		public TextMeshProUGUI endRecordScore;
 
+		[Header("RectTransforms")]
 		public RectTransform backgroundEndPanel;
+		public RectTransform restartButtonRectTransform;
 		public RectTransform[] endPanelTexts;
-		public RectTransform restatButton;
-		public GameObject endPanel;
 
+		public GameObject endPanel;
 		public Button restartButton;
 
 		private void OnEnable()
@@ -59,6 +61,7 @@ namespace ChainCube.Canvases
 			endPanel.SetActive(false);
 			restartButton.interactable = false;		
 		}
+
 		public void UiEndTween()
 		{
 			backgroundEndPanel.DOScale(Vector3.zero, _gameSettings.revealDurationTween).From();		
@@ -66,7 +69,7 @@ namespace ChainCube.Canvases
 			{
 				endPanelText.DOScale(Vector3.zero, _gameSettings.revealDurationTween / 8).SetDelay(_gameSettings.revealDurationTween).From();
 			}
-			restatButton.DOScale(Vector3.zero, _gameSettings.revealDurationTween).From();
+			restartButtonRectTransform.DOScale(Vector3.zero, _gameSettings.revealDurationTween).From();
 		}
 
 		private void UpdateEndPanelScore() 
@@ -80,6 +83,7 @@ namespace ChainCube.Canvases
 			endPanel.SetActive(true);
 			UpdateEndPanelScore();
 		}
+
 		private void OnGameEnd()
 		{
 			restartButton.interactable = true;

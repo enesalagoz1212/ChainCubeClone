@@ -1,11 +1,5 @@
 using ChainCube.ScriptableObjects;
-using ChainCube.Managers;
 using UnityEngine;
-using DG.Tweening;
-using System;
-using TMPro;
-using System.Collections;
-using ChainCube.Canvases;
 
 namespace ChainCube.Controllers
 {
@@ -48,7 +42,7 @@ namespace ChainCube.Controllers
 		{
 
 		}
-		
+
 		public virtual void DestroyObject()
 		{
 			Destroy(gameObject);

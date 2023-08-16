@@ -9,16 +9,17 @@ namespace ChainCube.Canvases
 	public class SettingsCanvas : MonoBehaviour
 	{
 		private GameSettings _gameSettings;
-		private InputManager _inputManager;
 		private InputCanvas _inputCanvas;
 		private GameCanvas _gameCanvas;
 
+		[Header("Button Settings")]
 		public Button settingButton;
 		public Button closeButton;
 		public Button musicButton;
 		public Button soundButton;
 		public Button vibrationButton;
 
+		[Header("GameObjects")]
 		public GameObject settingsPanel;
 		public GameObject trueVibrationImage;
 		public GameObject falseVibrationImage;
@@ -27,6 +28,7 @@ namespace ChainCube.Canvases
 		public GameObject trueMusicImage;
 		public GameObject falseMusicImage;
 
+		[Header("RectTransform Settings")]
 		public RectTransform backGroundSettinsPanelRectTransform;
 		public RectTransform closeButtonRectTransform;
 		public RectTransform vibrationButtonRectTransform;
@@ -45,14 +47,14 @@ namespace ChainCube.Canvases
 			UpdateVisualsSound();
 			UpdateVisualsVibration();
 		}
-		public void Initialize(InputManager inputManager, GameCanvas gameCanvas,InputCanvas inputCanvas)
+
+		public void Initialize(GameCanvas gameCanvas, InputCanvas inputCanvas)
 		{
-			_inputManager = inputManager;
 			_gameCanvas = gameCanvas;
 			_gameSettings = gameCanvas.gameSettings;
 			_inputCanvas = inputCanvas;
 		}
-		
+
 		public void OnSettingsButton()
 		{
 			settingsPanel.SetActive(true);
@@ -60,13 +62,12 @@ namespace ChainCube.Canvases
 			_inputCanvas.DisableInput();
 			_gameCanvas.DisableCubeButtons();
 			SettingsTween();
-
 		}
-		
+
 		public void ChangeSettingButtonInteractable()
 		{
 			settingButton.interactable = !settingButton.interactable;
-			settingsPanel.SetActive(!settingButton.interactable);			
+			settingsPanel.SetActive(!settingButton.interactable);
 		}
 
 		public void OnCloseSettingButtonClick()
@@ -79,19 +80,19 @@ namespace ChainCube.Canvases
 			_gameCanvas.EnableCubeButtons();
 		}
 
-		public void OnVibrationButtonClick() 
+		public void OnVibrationButtonClick()
 		{
 			GameSettingManager.IsVibrationOn = !GameSettingManager.IsVibrationOn;
 			UpdateVisualsVibration();
 		}
 
-		public void OnSoundButtonClick() 
+		public void OnSoundButtonClick()
 		{
 			GameSettingManager.IsSoundOn = !GameSettingManager.IsSoundOn;
 			UpdateVisualsSound();
 		}
 
-		public void OnMusicButtonClick() 
+		public void OnMusicButtonClick()
 		{
 			GameSettingManager.IsMusicOn = !GameSettingManager.IsMusicOn;
 			SoundManager.Instance.CheckBackgroundMusic();
@@ -100,7 +101,6 @@ namespace ChainCube.Canvases
 
 		public void UpdateVisualsMusic()
 		{
-			
 			falseMusicImage.SetActive(!GameSettingManager.IsMusicOn);
 			trueMusicImage.SetActive(GameSettingManager.IsMusicOn);
 		}
@@ -125,6 +125,5 @@ namespace ChainCube.Canvases
 			musicButtonRectTransform.DOScale(Vector3.zero, _gameSettings.revealDurationTween).From();
 			soundButtonRectTransform.DOScale(Vector3.zero, _gameSettings.revealDurationTween).From();
 		}
-		
 	}
 }

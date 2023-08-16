@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using ChainCube.Controllers;
 using UnityEngine;
 using DG.Tweening;
-using ChainCube.Canvases;
-using TMPro;
 using ChainCube.Pooling;
 using System.Collections;
+using ChainCube.Canvases;
+using TMPro;
 
 namespace ChainCube.Managers
 {
@@ -34,9 +34,7 @@ namespace ChainCube.Managers
 			else
 			{
 				Instance = this;
-			}
-
-			
+			}		
 		}
 
 		private void OnEnable()
@@ -154,15 +152,13 @@ namespace ChainCube.Managers
 			cubeController.OnMergeCubeCreatedCheckSameCube();
 			
 			GameObject mergeParticleEffect=_particlePool.GetParticle(cubeController.transform.position+Vector3.up);
-
+		
 			StartCoroutine(ReturnParticleEffect(mergeParticleEffect));
 
 			cubeController.RotationOfMergingCube();
 
-			// Score Increase
 			int scoreIncrease = cubeNumber;
 			GameManager.Instance.IncreaseGameScore(scoreIncrease);
-
 			_activeMainCubes.Add(cubeController);
 		}
 
@@ -274,6 +270,7 @@ namespace ChainCube.Managers
 			}
 			mainCubeController.DestroyObject();
 		}
+
 		private IEnumerator ReturnParticleEffect(GameObject particle)
 		{
 			yield return new WaitForSeconds(1f);

@@ -5,8 +5,8 @@ namespace ChainCube.Managers
 	public class SoundManager : MonoBehaviour
 	{
 		public static SoundManager Instance { get; private set; }
-		private AudioSource _audioSourceBackground;
 
+		private AudioSource _audioSourceBackground;
 		private bool _isMusicOn;
 
 		private void Awake()

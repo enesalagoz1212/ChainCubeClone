@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using DG.Tweening;
-using ChainCube.Canvases;
 using ChainCube.Pooling;
 
 namespace ChainCube.Managers
@@ -32,6 +31,11 @@ namespace ChainCube.Managers
 		public static Action<int> OnBombCubeCountChanged;
 		public static Action<int> OnColoredCubeCountChanged;
 
+		[SerializeField] private LevelManager levelManager;
+		[SerializeField] private UIManager uiManager;
+		[SerializeField] private InputManager inputManager;
+		[SerializeField] private ParticlePool particlePool;
+
 		public int gameScore;
 
 		public static int RecordScore
@@ -46,14 +50,8 @@ namespace ChainCube.Managers
 			}
 		}
 
-		[SerializeField] private LevelManager levelManager;
-		[SerializeField] private UIManager uiManager;
-		[SerializeField] private InputManager inputManager;
-		[SerializeField] private ParticlePool particlePool;
-
 		#endregion
 		
-
 		private void Awake()
 		{
 			if (Instance != null && Instance != this)
@@ -78,29 +76,6 @@ namespace ChainCube.Managers
 			inputManager.Initialize();
 			
 			OnGameStart();
-		}
-
-		private void Update()
-		{
-			switch (GameState)
-			{
-				case GameState.Start:
-					break;
-				case GameState.ThrowAvailable:
-					if (Input.GetKeyDown(KeyCode.F))
-					{
-						EndGame();
-					}
-					break;
-				case GameState.ThrowWaiting:
-					break;
-				case GameState.GameEnd:
-					break;
-				case GameState.Reset:
-					break;
-				default:
-					throw new ArgumentOutOfRangeException();
-			}
 		}
 
 		private void OnGameStart()
@@ -134,7 +109,6 @@ namespace ChainCube.Managers
 
 		public void IncreaseGameScore(int score)
 		{
-			Debug.Log("IncreaseGameScore : " + score);
 			gameScore += score;
 
 			if (gameScore >= RecordScore)
